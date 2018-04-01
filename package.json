@@ -1,0 +1,15 @@
+{
+  "name": "javascript-katas",
+  "version": "1.0.0",
+  "description": "Collection of Javascript katas.",
+  "scripts": {
+    "test": "mocha -w */test*"
+  },
+  "author": "John Desrosiers",
+  "license": "MIT",
+  "dependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.0.5"
+  },
+  "devDependencies": {}
+}
