@@ -26,4 +26,16 @@ describe('wordWrap', function () {
   it('splits one word multiple times', function () {
     assert.equal(wordWrap('hodor', 2), 'ho\ndo\nr');
   });
+
+  it('splits on first space', function () {
+    assert.equal(wordWrap('hodor hodor', 7), 'hodor\nhodor');
+  });
+
+  it('splits on second space', function () {
+    assert.equal(wordWrap('hodor hodor hodor', 11), 'hodor hodor\nhodor');
+  });
+
+  it('splits on multiple spaces', function () {
+    assert.equal(wordWrap('hodor hodor hodor', 8), 'hodor\nhodor\nhodor');
+  });
 });

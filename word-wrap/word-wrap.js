@@ -5,8 +5,11 @@ function wordWrap(text, columns) {
   const textLengthIsOk = (text.length <= columns);
   if (textLengthIsOk) return text;
 
-  const firstLine = text.substr(0, columns);
-  const remainingLines = wordWrap(text.substr(columns), columns);
+  const lastSpace = text.lastIndexOf(' ', columns);
+  const wrapAt = (lastSpace === -1 ? columns : lastSpace);
+
+  const firstLine = text.substr(0, wrapAt);
+  const remainingLines = wordWrap(text.substr(wrapAt).trim(), columns);
   return `${firstLine}\n${remainingLines}`;
 }
 
