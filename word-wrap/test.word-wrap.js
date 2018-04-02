@@ -1,41 +1,53 @@
-/* eslint func-names: 0, prefer-arrow-callback: 0 */
+/* eslint prefer-arrow-callback: 0, func-names: 0 */
 const { assert } = require('chai');
-const wordWrap = require('./word-wrap');
+const wordWrap = require('./word-wrap.js');
 
 describe('wordWrap', function () {
   it('is a function', function () {
     assert.isFunction(wordWrap);
   });
 
-  it('returns "" when text is ""', function () {
-    assert.equal(wordWrap(''), '', 'returns an empty string');
+  describe('degenerate cases', function () {
+    it('returns an empty string when passed text is falsey', function () {
+      assert.equal(wordWrap(), '', 'when text undefined');
+      assert.equal(wordWrap(null, 5), '', 'when text is null');
+    });
+
+    it('returns the text when the text is shorter than columns', function () {
+      assert.equal(wordWrap('dune', 7), 'dune');
+    });
+
+    it('returns an empty string when columns is falsey', function () {
+      assert.equal(wordWrap('spice'), '');
+    });
+
+    it('returns an empty string when columns is less than 0', function () {
+      assert.equal(wordWrap('spice', -1), '');
+    });
   });
 
-  it('returns "hodor" when passed "hodor", 5', function () {
-    assert.equal(wordWrap('hodor', 5), 'hodor', 'returns hodor');
+  describe('when passed a single word', function () {
+    it('wraps the word when column is less than the length of the word', function () {
+      assert.equal(wordWrap('fremen', 5), 'freme\nn');
+    });
+
+    it('wraps the word multiple times', function () {
+      assert.equal(wordWrap('arrakis', 3), 'arr\naki\ns');
+    });
   });
 
-  it('returns "" when passed "hodor" and columns is falsey', function () {
-    assert.equal(wordWrap('hodor', 0), '', 'returns empty string');
-  });
+  describe('when passed two or more words', function () {
+    it('wraps at the word boundry', function () {
+      assert.equal(wordWrap('paul dune', 5), 'paul\ndune');
+    });
 
-  it('splits one word', function () {
-    assert.equal(wordWrap('hodor', 4), 'hodo\nr');
-  });
+    it('wraps at first word when it fits on a line', function () {
+      assert.equal(wordWrap('paul atreides', 10), 'paul\natreides');
+    });
 
-  it('splits one word multiple times', function () {
-    assert.equal(wordWrap('hodor', 2), 'ho\ndo\nr');
-  });
-
-  it('splits on first space', function () {
-    assert.equal(wordWrap('hodor hodor', 7), 'hodor\nhodor');
-  });
-
-  it('splits on second space', function () {
-    assert.equal(wordWrap('hodor hodor hodor', 11), 'hodor hodor\nhodor');
-  });
-
-  it('splits on multiple spaces', function () {
-    assert.equal(wordWrap('hodor hodor hodor', 8), 'hodor\nhodor\nhodor');
+    it('wraps after multiple words when they fit on a line', function () {
+      assert.equal(wordWrap('i must not fear', 8), 'i must\nnot fear');
+    });
   });
 });
+
