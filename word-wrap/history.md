@@ -1,4 +1,75 @@
 # Word Wrap Kata
+[First Attempt](#first-attempt)
+
+## Second Attempt
+[Commit 4f04521be4ab67a8367a5f1a3c8a42c10d141502](https://github.com/median-man/javascript-katas/commit/4f04521be4ab67a8367a5f1a3c8a42c10d141502)
+
+My second attempt at solving the Word Wrap Kata went far, far faster than the first. After the first, I read a blog post on the word wrap algorithm and then immediately began working on the kata from scratch. I still got a little stuck transitioning to line breaks one subsequent spaces. But I worked through it relatively quickly. I'm surprised at how different the code I wrote looks even after refactoring. Although, the algorithm still has the same basic recursion.
+
+### Code
+```javascript
+function wordWrap(text, columns) {
+  const noColumns = !columns;
+  if (noColumns) return '';
+
+  const textLengthIsOk = (text.length <= columns);
+  if (textLengthIsOk) return text;
+
+  const lastSpace = text.lastIndexOf(' ', columns);
+  const wrapAt = (lastSpace === -1 ? columns : lastSpace);
+
+  const firstLine = text.substr(0, wrapAt);
+  const remainingLines = wordWrap(text.substr(wrapAt).trim(), columns);
+  return `${firstLine}\n${remainingLines}`;
+}
+
+module.exports = wordWrap;
+```
+
+### Tests
+```javascript
+/* eslint func-names: 0, prefer-arrow-callback: 0 */
+const { assert } = require('chai');
+const wordWrap = require('./word-wrap');
+
+describe('wordWrap', function () {
+  it('is a function', function () {
+    assert.isFunction(wordWrap);
+  });
+
+  it('returns "" when text is ""', function () {
+    assert.equal(wordWrap(''), '', 'returns an empty string');
+  });
+
+  it('returns "hodor" when passed "hodor", 5', function () {
+    assert.equal(wordWrap('hodor', 5), 'hodor', 'returns hodor');
+  });
+
+  it('returns "" when passed "hodor" and columns is falsey', function () {
+    assert.equal(wordWrap('hodor', 0), '', 'returns empty string');
+  });
+
+  it('splits one word', function () {
+    assert.equal(wordWrap('hodor', 4), 'hodo\nr');
+  });
+
+  it('splits one word multiple times', function () {
+    assert.equal(wordWrap('hodor', 2), 'ho\ndo\nr');
+  });
+
+  it('splits on first space', function () {
+    assert.equal(wordWrap('hodor hodor', 7), 'hodor\nhodor');
+  });
+
+  it('splits on second space', function () {
+    assert.equal(wordWrap('hodor hodor hodor', 11), 'hodor hodor\nhodor');
+  });
+
+  it('splits on multiple spaces', function () {
+    assert.equal(wordWrap('hodor hodor hodor', 8), 'hodor\nhodor\nhodor');
+  });
+});
+```
 
 ## First Attempt
 [Commit 9900688af7b336efc1c6f7cab20a171d59325ef1](https://github.com/median-man/javascript-katas/commit/9900688af7b336efc1c6f7cab20a171d59325ef1)
@@ -36,3 +107,4 @@ function isNextWordShortEnough(line, nextWord = '', columns) {
 
 module.exports = wordWrap;
 ```
+[Back to Top](#word-wrap-kata)
