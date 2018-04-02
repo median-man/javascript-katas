@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "Collection of Javascript katas.",
   "scripts": {
-    "test": "mocha -w */test*"
+    "test": "mocha -w */test*",
+    "is-prime": "mocha -w is-prime/test*"
   },
   "author": "John Desrosiers",
   "license": "MIT",
