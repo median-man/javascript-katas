@@ -1,16 +1,13 @@
-function wordWrap(text, columns) {
-  const noColumns = !columns;
-  if (noColumns) return '';
+function wordWrap(text, columns = 0) {
+  if (!text || columns <= 0) return '';
+  if (text.length <= columns) return text;
 
-  const textLengthIsOk = (text.length <= columns);
-  if (textLengthIsOk) return text;
-
-  const lastSpace = text.lastIndexOf(' ', columns);
-  const wrapAt = (lastSpace === -1 ? columns : lastSpace);
+  let wrapAt = text.lastIndexOf(' ', columns);
+  if (wrapAt === -1) wrapAt = columns;
 
   const firstLine = text.substr(0, wrapAt);
-  const remainingLines = wordWrap(text.substr(wrapAt).trim(), columns);
-  return `${firstLine}\n${remainingLines}`;
+  const remaining = wordWrap(text.substr(wrapAt).trim(), columns);
+  return `${firstLine}\n${remaining}`;
 }
 
 module.exports = wordWrap;
