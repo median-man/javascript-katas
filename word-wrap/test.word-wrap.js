@@ -26,4 +26,8 @@ describe('wordWrap', function describeWordWrap() {
   it('splits a word on two lines', function testWordOnTwoLines() {
     assert.equal(wordWrap('tetris', 3), 'tet\nris');
   });
+
+  it('splits two words at the boundary', function testTwoWordsAtBoundry() {
+    assert.equal(wordWrap('donkey kong', 6), 'donkey\nkong', "wordWrap('donkey kong', 6)");
+  });
 });
