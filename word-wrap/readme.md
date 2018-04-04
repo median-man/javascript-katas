@@ -1,4 +1,13 @@
 # Word Wrap Kata
+My first Javascript kata. Inspired by [this blog post][clean-coder-blog].
+
+### Primary Form
+Write a function that takes two arguments--a string and a column number. The function returns a string with line breaks inserted so that no line is longer than the column number. Lines should break at word boundaries.
+
+### 2nd Form
+Meet the requirements for first form using a few if statements (includes switches) as possible.
+
+## Contents
 [First Attempt](#first-attempt)
 
 ## Second Attempt
