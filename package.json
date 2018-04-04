@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Collection of Javascript katas.",
   "scripts": {
-    "test": "mocha -w */test*"
+    "test": "mocha -w"
   },
   "author": "John Desrosiers",
   "license": "MIT",
