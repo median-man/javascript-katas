@@ -22,4 +22,8 @@ describe('wordWrap', function describeWordWrap() {
   it('returns a string when text is a number', function textIsNumber() {
     assert.strictEqual(wordWrap(7, 5), '7', 'wordWrap(7, 5)');
   });
+
+  it('splits a word on two lines', function testWordOnTwoLines() {
+    assert.equal(wordWrap('tetris', 3), 'tet\nris');
+  });
 });
