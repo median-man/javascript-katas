@@ -3,7 +3,7 @@ function wordWrap(text = '', columns = 0) {
   const firstLine = stringified.substr(0, columns);
   const remaining = stringified.substr(columns);
   if (firstLine && remaining) {
-    return `${firstLine}\n${wordWrap(remaining, columns)}`;
+    return `${firstLine}\n${wordWrap(remaining.trim(), columns)}`;
   }
   return firstLine;
 }

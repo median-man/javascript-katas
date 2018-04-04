@@ -27,7 +27,14 @@ describe('wordWrap', function describeWordWrap() {
     assert.equal(wordWrap('tetris', 3), 'tet\nris');
   });
 
-  it('splits two words at the boundary', function testTwoWordsAtBoundry() {
+  it('splits two words at the word boundary', function testTwoWordsAtBoundry() {
     assert.equal(wordWrap('donkey kong', 6), 'donkey\nkong', "wordWrap('donkey kong', 6)");
+  });
+
+  it('splits two words when columns is after the boundary', function testTwoWordsAfter() {
+    const actual = wordWrap('donkey kong', 7);
+    const expected = 'donkey\nkong';
+    const msg = "wordWrap('donkey kong', 7)";
+    assert.equal(actual, expected, msg);
   });
 });
