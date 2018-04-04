@@ -37,4 +37,11 @@ describe('wordWrap', function describeWordWrap() {
     const msg = "wordWrap('donkey kong', 7)";
     assert.equal(actual, expected, msg);
   });
+
+  it('splits multiple words', function testMultipleWords() {
+    const actual = wordWrap('legend of zelda', 6);
+    const expected = 'legend\nof\nzelda';
+    const msg = "wordWrap('legend of zelda', 6)";
+    assert.equal(actual, expected, msg);
+  });
 });
