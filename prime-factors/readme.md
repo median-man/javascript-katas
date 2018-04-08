@@ -11,7 +11,7 @@ primeFactors(9) ==> [3, 3]
 This time I came up with a slightly different solution. Not sure which is better in terms of performance. This solutions reduces the number of outer loops in some cases at the expense of a square root calculation for each factor. I believe the first solution to be slightly more readable.
 
 Solution:
-```
+```javascript
 function primeFactors(n) {
   const factors = [];
   let remainder = n;
@@ -28,7 +28,7 @@ function primeFactors(n) {
 }
 ```
 Tests:
-```
+```javascript
 describe('primeFactors', function () {
   it('is a function', function () {
     assert.isFunction(primeFactors);
@@ -60,7 +60,7 @@ describe('primeFactors', function () {
 
 ## First Solution
 Tests:
-```
+```javascript
 /* eslint func-names: off, prefer-arrow-callback: off */
 const { assert } = require('chai');
 const primeFactors = require('./prime-factors.js');
@@ -86,7 +86,7 @@ describe('primeFactors', function () {
 });
 ```
 Solution:
-```
+```javascript
 function primeFactors(num) {
   const factors = [];
   let remainder = num;
