@@ -1,14 +1,15 @@
-function primeFactors(num) {
+function primeFactors(n) {
   const factors = [];
-  let remainder = num;
-  let divisor = 2;
-  while (remainder > 1) {
+  let remainder = n;
+  let max = Math.sqrt(remainder);
+  for (let divisor = 2; divisor <= max; divisor += 1) {
     while (remainder % divisor === 0) {
       factors.push(divisor);
       remainder /= divisor;
+      max = Math.sqrt(remainder);
     }
-    divisor += 1;
   }
+  if (remainder > 1) factors.push(remainder);
   return factors;
 }
 
