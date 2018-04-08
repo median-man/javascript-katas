@@ -11,5 +11,12 @@ Write a function that takes two arguments--a string and a column number. The fun
 ## Prime Factors
 Write a function that takes a whole number greater than 0 and returns an array of its prime factors.
 
+# Fizz Buzz
+Develop a function that accepts a number as input:
+* Returns 'fizz' if 3 is a factor of the number.
+* Returns 'buzz' if 5 is a factor of the number.
+* Returns 'fizzbuzz' if 15 is a factor of the number.
+* Returns the number if none of the other statements apply.
+
 <!-- References -->
 [clean-coder-blog]: http://thecleancoder.blogspot.com/2010/10/craftsman-62-dark-path.html
