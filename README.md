@@ -18,5 +18,8 @@ Develop a function that accepts a number as input:
 * Returns 'fizzbuzz' if 15 is a factor of the number.
 * Returns the number if none of the other statements apply.
 
+# String Calculator
+Create a function that takes a string containing 0 or more numbers and returns their sum.
+
 <!-- References -->
 [clean-coder-blog]: http://thecleancoder.blogspot.com/2010/10/craftsman-62-dark-path.html
