@@ -11,14 +11,14 @@ Write a function that takes two arguments--a string and a column number. The fun
 ## Prime Factors
 Write a function that takes a whole number greater than 0 and returns an array of its prime factors.
 
-# Fizz Buzz
+## Fizz Buzz
 Develop a function that accepts a number as input:
 * Returns 'fizz' if 3 is a factor of the number.
 * Returns 'buzz' if 5 is a factor of the number.
 * Returns 'fizzbuzz' if 15 is a factor of the number.
 * Returns the number if none of the other statements apply.
 
-# String Calculator
+## String Calculator
 Create a function that takes a string containing 0 or more numbers and returns their sum.
 
 ## Game of Life
@@ -32,6 +32,12 @@ You start with a two dimensional grid of cells, where each cell is either alive 
 
 Write a program that can accept an arbitrary grid of cells as a string, and will output a similar grid showing the next generation. Use "." for dead cells and "*" for live cells.
 
+## Mine Sweeper
+Create a mine sweeper game. The game shows a number in a square which indicates how many mines are adjacent to that square. Mines are represented by "*". This kata is based on [MinesweeperKata][minesweeper] from *Coding Dojo*.
+
+Write a function which takes in a string containing an arbitrary number of mine fields. Output should be a string with the hint numbers solved for each mine field.
+
 <!-- References -->
 [clean-coder-blog]: http://thecleancoder.blogspot.com/2010/10/craftsman-62-dark-path.html
 [game-of-life]: http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life 
+[minesweeper]: [http://codingdojo.org/kata/Minesweeper/]
