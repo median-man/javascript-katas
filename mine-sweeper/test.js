@@ -1,36 +1,45 @@
 /* eslint func-names: off, prefer-arrow-callback: off */
 const { expect } = require('chai');
-const makeField = require('./mine-sweeper.js');
+const makeFields = require('./mine-sweeper.js');
 
-describe('makeField', () => {
+describe('makeFields', () => {
   it('is a function', () => {
-    expect(makeField).to.be.a('function');
+    expect(makeFields).to.be.a('function');
   });
 
-  function formatInput(str) {
+  it('returns a string', () => {
+    const input = formatFieldStr(`
+      1 1
+      .
+      0 0`);
+    const actual = makeFields(input);
+    expect(actual).to.be.a('string');
+  });
+
+  function formatFieldStr(str) {
     const firstLine = /\n */;
     const leftPaddingOfAllLines = /^ +/gm;
     return str.replace(firstLine, '').replace(leftPaddingOfAllLines, '');
   }
 
-  describe('valid input', () => {
+  describe('invalid input', () => {
     it('throws when first row does not contain two integers', () => {
-      const input = formatInput(`
+      const input = formatFieldStr(`
         *..
         ...
         0 0`);
-      const shouldThrow = () => makeField(input);
-      const expectedMsg = 'Fields must be preceded by integers for lines and columns.';
+      const shouldThrow = () => makeFields(input);
+      const expectedMsg = 'Missing field dimensions.';
       expect(shouldThrow).throws(expectedMsg);
     });
 
-    it('throws when lines for field is less than 1', () => {
-      const input = formatInput(`
+    it('throws when lines dimension is < 1', () => {
+      const input = formatFieldStr(`
         0 3
         *..
         ...
         0 0`);
-      throwsForInvalidLinesColumns(() => makeField(input));
+      throwsForInvalidLinesColumns(() => makeFields(input));
     });
 
     function throwsForInvalidLinesColumns(shouldThrow) {
@@ -38,14 +47,109 @@ describe('makeField', () => {
       expect(shouldThrow).throws(expectedMsg);
     }
 
-    it('throws when missing end of input line "0 0"', () => {
-      const input = formatInput(`
+    it('throws when lines dimension is > 100', () => {
+      const input = formatFieldStr(`
+        101 3
         *..
         ...
         0 0`);
-      const shouldThrow = () => makeField(input);
+      throwsForInvalidLinesColumns(() => makeFields(input));
+    });
+
+    it('throws when columns dimension is < 1', () => {
+      const input = formatFieldStr(`
+        2 0
+        *..
+        ...
+        0 0`);
+      throwsForInvalidLinesColumns(() => makeFields(input));
+    });
+
+    it('throws when columns dimension is > 100', () => {
+      const input = formatFieldStr(`
+        2 101
+        *..
+        ...
+        0 0`);
+      throwsForInvalidLinesColumns(() => makeFields(input));
+    });
+
+    it('throws when missing end of input line "0 0"', () => {
+      const input = formatFieldStr(`
+      1 3
+      *..
+      ...`);
+      const shouldThrow = () => makeFields(input);
       const expectedMsg = 'Missing end of input. ("0 0")';
       expect(shouldThrow).throws(expectedMsg);
+    });
+  });
+
+  describe('when input string contains a single field', () => {
+    const padTestMsgOutput = (msg) => {
+      const leftPad = ' '.repeat(12);
+      let [firstLine, ...otherLines] = msg.split('\n'); // eslint-disable-line prefer-const
+      otherLines = otherLines.map(line => leftPad + line);
+      return [firstLine, ...otherLines].join('\n');
+    };
+
+    it('returns: Field #1:\\n0', () => {
+      const input = formatFieldStr(`
+      1 1
+      .
+      0 0`);
+      const actual = makeFields(input);
+      expect(actual).to.equal('Field #1:\n0');
+    });
+
+    it('returns: Field #1:\\n*', () => {
+      const input = formatFieldStr(`
+      1 1
+      *
+      0 0`);
+      const actual = makeFields(input);
+      expect(actual).to.equal('Field #1:\n*');
+    });
+
+    it('returns: Field #1:\\n0\\n0', () => {
+      const input = formatFieldStr(`
+      2 1
+      .
+      .
+      0 0`);
+      const actual = makeFields(input);
+      expect(actual).to.equal('Field #1:\n0\n0');
+    });
+
+    it('returns: Field #1:\\n*\\n1', () => {
+      const input = formatFieldStr(`
+      2 1
+      *
+      .
+      0 0`);
+      const actual = makeFields(input);
+      expect(actual).to.equal('Field #1:\n*\n1');
+    });
+
+    it('returns: Field #1:\\n1\\n*', () => {
+      const input = formatFieldStr(`
+      2 1
+      .
+      *
+      0 0`);
+      const actual = makeFields(input);
+      expect(actual).to.equal('Field #1:\n1\n*');
+    });
+
+    it('returns: Field #1:\\n1\\n*', () => {
+      const input = formatFieldStr(`
+      3 1
+      .
+      .
+      *
+      0 0`);
+      const actual = makeFields(input);
+      expect(actual).to.equal('Field #1:\n0\n1\n*');
     });
   });
 });
