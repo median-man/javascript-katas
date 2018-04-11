@@ -141,7 +141,7 @@ describe('makeFields', () => {
       expect(actual).to.equal('Field #1:\n1\n*');
     });
 
-    it('returns: Field #1:\\n1\\n*', () => {
+    it('returns: Field #1:\\n0\\n1\\n*', () => {
       const input = formatFieldStr(`
       3 1
       .
@@ -150,6 +150,15 @@ describe('makeFields', () => {
       0 0`);
       const actual = makeFields(input);
       expect(actual).to.equal('Field #1:\n0\n1\n*');
+    });
+
+    it('returns: Field #1:\\n00', () => {
+      const input = formatFieldStr(`
+      1 2
+      ..
+      0 0`);
+      const actual = makeFields(input);
+      expect(actual).to.equal('Field #1:\n00');
     });
   });
 });

@@ -28,19 +28,61 @@ function throwIfNoEndOfInput(lines) {
 }
 
 function createField(lines) {
-  const getMineCount = (lineNum) => {
-    const isFirstLine = lineNum === 0;
-    const neighborCell = isFirstLine ? lines[lineNum + 1] : lines[lineNum - 1];
-    return isMine(neighborCell) ? '1' : '0';
-  };
-
-  return lines
-    .map((cell, lineNum) => (cell === '*' ? '*' : getMineCount(lineNum)))
-    .join('\n');
+  const cells = lines.map((value, lineNum) => new Cell(value, lineNum));
+  cells
+    .filter(cell => !cell.isMine)
+    .forEach(cell => cell.setAdjacentMines(countAdjacentMines(cell, cells)));
+  return cells.map(cell => cell.toString()).join('\n');
 }
 
-function isMine(cell) {
-  return cell === '*';
+
+class Cell {
+  constructor(value, line, column) {
+    this.isMine = value === Cell.mine;
+    this.line = line;
+    this.column = column;
+    this.adjacentMines = 0;
+  }
+  static get mine() {
+    return '*';
+  }
+  setAdjacentMines(count) {
+    this.adjacentMines = count;
+  }
+  toString() {
+    if (this.isMine) return Cell.mine;
+    return this.adjacentMines.toString();
+  }
+}
+
+function countAdjacentMines(cell, cells) {
+  return getMineCount(adjacentCells(cell, cells));
+}
+
+function adjacentCells(cell, allCells) {
+  const cells = [];
+  const lineNum = cell.line;
+
+  const isFirstLine = lineNum === 0;
+  if (!isFirstLine) {
+    const lineAbove = lineNum - 1;
+    const cellAbove = allCells[lineAbove];
+    cells.push(cellAbove);
+  }
+
+  const isLastLine = lineNum === allCells.length - 1;
+  if (!isLastLine) {
+    const lineBelow = lineNum + 1;
+    const cellBelow = allCells[lineBelow];
+    cells.push(cellBelow);
+  }
+  return cells;
+}
+
+function getMineCount(cells) {
+  const mineCount = cells
+    .reduce((count, cell) => (cell.isMine ? count + 1 : count), 0);
+  return mineCount;
 }
 
 module.exports = makeFields;
