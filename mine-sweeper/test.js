@@ -161,13 +161,31 @@ describe('makeFields', () => {
       expect(actual).to.equal('Field #1:\n00');
     });
 
-    it.skip('returns: Field #1:\\n00', () => {
+    it('returns: Field #1:\\n*1', () => {
       const input = formatFieldStr(`
       1 2
       *.
       0 0`);
       const actual = makeFields(input);
       expect(actual).to.equal('Field #1:\n*1');
+    });
+
+    it('returns: Field #1:\\n1*', () => {
+      const input = formatFieldStr(`
+      1 2
+      .*
+      0 0`);
+      const actual = makeFields(input);
+      expect(actual).to.equal('Field #1:\n1*');
+    });
+    it('returns: Field #1:\\n11\\n1*', () => {
+      const input = formatFieldStr(`
+      2 2
+      ..
+      .*
+      0 0`);
+      const actual = makeFields(input);
+      expect(actual).to.equal('Field #1:\n11\n1*');
     });
   });
 });

@@ -76,19 +76,51 @@ function countAdjacentMines(cell, cellLines) {
 function adjacentCells(cell, cellLines) {
   const cells = [];
   const lineNum = cell.line;
+  const rightColumn = cell.column + 1;
+  const leftColumn = cell.column - 1;
+  const lineAbove = lineNum - 1;
+  const lineBelow = lineNum + 1;
 
-  const isFirstLine = lineNum === 0;
-  if (!isFirstLine) {
-    const lineAbove = lineNum - 1;
-    const cellAbove = cellLines[lineAbove][0];
-    cells.push(cellAbove);
+  // TODO:
+  // Finish refactoring function so that cells array is replaced with cellsObj below.
+  // Refactor if statements to use the cellsObj as seen on the 2 lines subsequent to the cellsObj
+  // constant declaration.
+  const cellsObj = {
+    top: {
+      center: cell.line === 0 ? false : cellLines[lineAbove][cell.column],
+    },
+    bottom: {
+      center: cell.line === cellLines.length - 1 ? null : cellLines[lineBelow][cell.column],
+    },
+  };
+
+  if (cellsObj.top.center) cells.push(cellsObj.top.center);
+  if (cellsObj.bottom.center) cells.push(cellsObj.bottom.center);
+
+  const cellNotInFirstLine = lineNum > 0;
+
+  const cellNotInLastLine = lineNum < cellLines.length - 1;
+
+  const cellNotInFirstColumn = cell.column > 0;
+  if (cellNotInFirstColumn) {
+    const cellLeft = cellLines[lineNum][leftColumn];
+    cells.push(cellLeft);
   }
 
-  const isLastLine = lineNum === cellLines.length - 1;
-  if (!isLastLine) {
-    const lineBelow = lineNum + 1;
-    const cellBelow = cellLines[lineBelow][0];
-    cells.push(cellBelow);
+  const cellNotInLastColumn = cell.column < cellLines[lineNum].length - 1;
+  if (cellNotInLastColumn) {
+    const cellRight = cellLines[lineNum][rightColumn];
+    cells.push(cellRight);
+  }
+
+  if (cellNotInLastColumn && cellNotInLastLine) {
+    const cellBottomRight = cellLines[lineBelow][rightColumn];
+    cells.push(cellBottomRight);
+  }
+
+  if (cellNotInLastColumn && cellNotInFirstLine) {
+    const cellTopRight = cellLines[lineAbove][rightColumn];
+    cells.push(cellTopRight);
   }
   return cells;
 }
