@@ -160,5 +160,14 @@ describe('makeFields', () => {
       const actual = makeFields(input);
       expect(actual).to.equal('Field #1:\n00');
     });
+
+    it.skip('returns: Field #1:\\n00', () => {
+      const input = formatFieldStr(`
+      1 2
+      *.
+      0 0`);
+      const actual = makeFields(input);
+      expect(actual).to.equal('Field #1:\n*1');
+    });
   });
 });

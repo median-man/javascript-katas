@@ -1,8 +1,12 @@
 function makeFields(fields) {
   const lines = fields.split(/\n/g);
+
   throwIfInvalidFieldDimensions(lines[0]);
   throwIfNoEndOfInput(lines);
-  const fieldLines = lines.filter(line => /^[.|*]+/.test(line));
+
+  const fieldLines = lines
+    .filter(line => /^[.|*]+/.test(line))
+    .map(line => line.split(''));
   const field = createField(fieldLines);
   return `Field #1:\n${field}`;
 }
@@ -28,13 +32,16 @@ function throwIfNoEndOfInput(lines) {
 }
 
 function createField(lines) {
-  const cells = lines.map((value, lineNum) => new Cell(value, lineNum));
-  cells
-    .filter(cell => !cell.isMine)
-    .forEach(cell => cell.setAdjacentMines(countAdjacentMines(cell, cells)));
-  return cells.map(cell => cell.toString()).join('\n');
+  const cellLines = lines.map(createLineOfCells);
+  setAdjacentMines(cellLines);
+  const createLineString = cellLine => cellLine.map(cell => cell.toString()).join('');
+  const mineFieldString = cellLines.map(cellLine => createLineString(cellLine)).join('\n');
+  return mineFieldString;
 }
 
+function createLineOfCells(line, lineNum) {
+  return line.map((value, column) => new Cell(value, lineNum, column));
+}
 
 class Cell {
   constructor(value, line, column) {
@@ -55,25 +62,32 @@ class Cell {
   }
 }
 
-function countAdjacentMines(cell, cells) {
-  return getMineCount(adjacentCells(cell, cells));
+function setAdjacentMines(cellLines) {
+  cellLines.forEach((cellLine) => {
+    const nonMineCells = cellLine.filter(cell => !cell.isMine);
+    nonMineCells.forEach(cell => cell.setAdjacentMines(countAdjacentMines(cell, cellLines)));
+  });
 }
 
-function adjacentCells(cell, allCells) {
+function countAdjacentMines(cell, cellLines) {
+  return getMineCount(adjacentCells(cell, cellLines));
+}
+
+function adjacentCells(cell, cellLines) {
   const cells = [];
   const lineNum = cell.line;
 
   const isFirstLine = lineNum === 0;
   if (!isFirstLine) {
     const lineAbove = lineNum - 1;
-    const cellAbove = allCells[lineAbove];
+    const cellAbove = cellLines[lineAbove][0];
     cells.push(cellAbove);
   }
 
-  const isLastLine = lineNum === allCells.length - 1;
+  const isLastLine = lineNum === cellLines.length - 1;
   if (!isLastLine) {
     const lineBelow = lineNum + 1;
-    const cellBelow = allCells[lineBelow];
+    const cellBelow = cellLines[lineBelow][0];
     cells.push(cellBelow);
   }
   return cells;
