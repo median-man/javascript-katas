@@ -197,7 +197,7 @@ describe('makeFields', () => {
         expect(actual).to.equal('Field #1:\n11\n*1');
       });
 
-      it('returns: Field #1:\\n1*\n11', () => {
+      it('returns: Field #1:\\n1*\\n11', () => {
         const input = formatFieldStr(`
         2 2
         .*
@@ -207,7 +207,7 @@ describe('makeFields', () => {
         expect(actual).to.equal('Field #1:\n1*\n11');
       });
 
-      it('returns: Field #1:\\n*1\n11', () => {
+      it('returns: Field #1:\\n*1\\n11', () => {
         const input = formatFieldStr(`
         2 2
         *.

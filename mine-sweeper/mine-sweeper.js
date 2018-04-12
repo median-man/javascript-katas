@@ -32,15 +32,10 @@ function throwIfNoEndOfInput(lines) {
 }
 
 function createField(lines) {
-  const cellLines = lines.map(createLineOfCells);
-  setAdjacentMines(cellLines);
-  const createLineString = cellLine => cellLine.map(cell => cell.toString()).join('');
-  const mineFieldString = cellLines.map(cellLine => createLineString(cellLine)).join('\n');
-  return mineFieldString;
-}
-
-function createLineOfCells(line, lineNum) {
-  return line.map((value, column) => new Cell(value, lineNum, column));
+  const parseLine = (line, lineNum) =>
+    line.map((value, column) => new Cell(value, lineNum, column));
+  const cellLines = lines.map((line, lineNum) => parseLine(line, lineNum));
+  return new CellGrid(cellLines).toString();
 }
 
 class Cell {
@@ -62,46 +57,57 @@ class Cell {
   }
 }
 
-function setAdjacentMines(cellLines) {
-  cellLines.forEach((cellLine) => {
-    const nonMineCells = cellLine.filter(cell => !cell.isMine);
-    nonMineCells.forEach(cell => cell.setAdjacentMines(countAdjacentMines(cell, cellLines)));
-  });
-}
+class CellGrid {
+  constructor(cellLines) {
+    this.lines = cellLines;
+    this.setAdjacentMinesForAllCells();
+  }
 
-function countAdjacentMines(cell, cellLines) {
-  return getMineCount(adjacentCells(cell, cellLines));
-}
+  setAdjacentMinesForAllCells() {
+    this.lines.forEach((cellLine) => {
+      const nonMineCells = cellLine.filter(cell => !cell.isMine);
+      nonMineCells.forEach(cell => cell.setAdjacentMines(this.getMineCount(cell)));
+    });
+  }
 
-function adjacentCells(cell, cellLines) {
-  const lineNum = cell.line;
-  const rightColumn = cell.column + 1;
-  const leftColumn = cell.column - 1;
-  const lineAbove = lineNum - 1;
-  const lineBelow = lineNum + 1;
-  const isTopLine = cell.line === 0;
-  const isBottomLine = cell.line === cellLines.length - 1;
+  getMineCount(cell) {
+    const adjacentCells = this.getAdjacentCells(cell);
+    const mineCount = adjacentCells
+      .reduce((count, adjacentCell) => (adjacentCell.isMine ? count + 1 : count), 0);
+    return mineCount;
+  }
 
-  const cells = {
-    left: cellLines[lineNum][leftColumn],
-    right: cellLines[lineNum][rightColumn],
-    topLeft: isTopLine ? null : cellLines[lineAbove][leftColumn],
-    topCenter: isTopLine ? null : cellLines[lineAbove][cell.column],
-    topRight: isTopLine ? null : cellLines[lineAbove][rightColumn],
-    bottomLeft: isBottomLine ? null : cellLines[lineBelow][leftColumn],
-    bottomCenter: isBottomLine ? null : cellLines[lineBelow][cell.column],
-    bottomRight: isBottomLine ? null : cellLines[lineBelow][rightColumn],
-  };
+  getAdjacentCells(cell) {
+    const rightColumn = cell.column + 1;
+    const leftColumn = cell.column - 1;
+    const lineAbove = cell.line - 1;
+    const lineBelow = cell.line + 1;
 
-  const nonNullAdjacentCells = Object.values(cells).filter(cellExists => cellExists);
+    let cells = {
+      left: this.cell(cell.line, leftColumn),
+      right: this.cell(cell.line, rightColumn),
+      topLeft: this.cell(lineAbove, leftColumn),
+      topCenter: this.cell(lineAbove, cell.column),
+      topRight: this.cell(lineAbove, rightColumn),
+      bottomLeft: this.cell(lineBelow, leftColumn),
+      bottomCenter: this.cell(lineBelow, cell.column),
+      bottomRight: this.cell(lineBelow, rightColumn),
+    };
+    cells = Object.values(cells).filter(cellExists => cellExists);
 
-  return nonNullAdjacentCells;
-}
+    return cells;
+  }
 
-function getMineCount(cells) {
-  const mineCount = cells
-    .reduce((count, cell) => (cell.isMine ? count + 1 : count), 0);
-  return mineCount;
+  cell(line, column) {
+    const lineDoesNotExist = line < 0 || line >= this.lines.length;
+    if (lineDoesNotExist) return null;
+    return this.lines[line][column] || null;
+  }
+
+  toString() {
+    const stringifyLine = cellLine => cellLine.map(cell => cell.toString()).join('');
+    return this.lines.map(cellLine => stringifyLine(cellLine)).join('\n');
+  }
 }
 
 module.exports = makeFields;
