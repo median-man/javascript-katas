@@ -219,7 +219,7 @@ describe('makeFields', () => {
     });
 
     describe('when the field dimenstions are 4 x 4', () => {
-      it('returns: Field #1:\\n11\\n1*', () => {
+      it('returns: Field #1:\\n*100\\n2210\\n1*10\\n1110', () => {
         const input = formatFieldStr(`
         4 4
         *...
@@ -230,6 +230,26 @@ describe('makeFields', () => {
         const actual = makeFields(input);
         expect(actual).to.equal('Field #1:\n*100\n2210\n1*10\n1110');
       });
+    });
+  });
+
+  describe('when input string contains more than one field', () => {
+    it('returns: Field #1:... and Field #2:...', () => {
+      const input = formatFieldStr(`
+      4 4
+      *...
+      ....
+      .*..
+      ....
+      3 5
+      **...
+      .....
+      .*...
+      0 0`);
+      const actual = makeFields(input);
+      const expected = 'Field #1:\n*100\n2210\n1*10\n1110\n\n'
+        + 'Field #2:\n**100\n33200\n1*100';
+      expect(actual).to.equal(expected);
     });
   });
 });

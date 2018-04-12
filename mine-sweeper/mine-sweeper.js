@@ -32,9 +32,9 @@ function throwIfNoEndOfInput(lines) {
 }
 
 function createField(lines) {
-  const parseLine = (line, lineNum) =>
+  const createCells = (line, lineNum) =>
     line.map((value, column) => new Cell(value, lineNum, column));
-  const cellLines = lines.map((line, lineNum) => parseLine(line, lineNum));
+  const cellLines = lines.map((line, lineNum) => createCells(line, lineNum));
   return new CellGrid(cellLines).toString();
 }
 
