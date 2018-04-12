@@ -74,55 +74,28 @@ function countAdjacentMines(cell, cellLines) {
 }
 
 function adjacentCells(cell, cellLines) {
-  const cells = [];
   const lineNum = cell.line;
   const rightColumn = cell.column + 1;
   const leftColumn = cell.column - 1;
   const lineAbove = lineNum - 1;
   const lineBelow = lineNum + 1;
+  const isTopLine = cell.line === 0;
+  const isBottomLine = cell.line === cellLines.length - 1;
 
-  // TODO:
-  // Finish refactoring function so that cells array is replaced with cellsObj below.
-  // Refactor if statements to use the cellsObj as seen on the 2 lines subsequent to the cellsObj
-  // constant declaration.
-  const cellsObj = {
-    top: {
-      center: cell.line === 0 ? false : cellLines[lineAbove][cell.column],
-    },
-    bottom: {
-      center: cell.line === cellLines.length - 1 ? null : cellLines[lineBelow][cell.column],
-    },
+  const cells = {
+    left: cellLines[lineNum][leftColumn],
+    right: cellLines[lineNum][rightColumn],
+    topLeft: isTopLine ? null : cellLines[lineAbove][leftColumn],
+    topCenter: isTopLine ? null : cellLines[lineAbove][cell.column],
+    topRight: isTopLine ? null : cellLines[lineAbove][rightColumn],
+    bottomLeft: isBottomLine ? null : cellLines[lineBelow][leftColumn],
+    bottomCenter: isBottomLine ? null : cellLines[lineBelow][cell.column],
+    bottomRight: isBottomLine ? null : cellLines[lineBelow][rightColumn],
   };
 
-  if (cellsObj.top.center) cells.push(cellsObj.top.center);
-  if (cellsObj.bottom.center) cells.push(cellsObj.bottom.center);
+  const nonNullAdjacentCells = Object.values(cells).filter(cellExists => cellExists);
 
-  const cellNotInFirstLine = lineNum > 0;
-
-  const cellNotInLastLine = lineNum < cellLines.length - 1;
-
-  const cellNotInFirstColumn = cell.column > 0;
-  if (cellNotInFirstColumn) {
-    const cellLeft = cellLines[lineNum][leftColumn];
-    cells.push(cellLeft);
-  }
-
-  const cellNotInLastColumn = cell.column < cellLines[lineNum].length - 1;
-  if (cellNotInLastColumn) {
-    const cellRight = cellLines[lineNum][rightColumn];
-    cells.push(cellRight);
-  }
-
-  if (cellNotInLastColumn && cellNotInLastLine) {
-    const cellBottomRight = cellLines[lineBelow][rightColumn];
-    cells.push(cellBottomRight);
-  }
-
-  if (cellNotInLastColumn && cellNotInFirstLine) {
-    const cellTopRight = cellLines[lineAbove][rightColumn];
-    cells.push(cellTopRight);
-  }
-  return cells;
+  return nonNullAdjacentCells;
 }
 
 function getMineCount(cells) {

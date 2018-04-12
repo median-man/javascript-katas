@@ -86,106 +86,150 @@ describe('makeFields', () => {
   });
 
   describe('when input string contains a single field', () => {
-    const padTestMsgOutput = (msg) => {
-      const leftPad = ' '.repeat(12);
-      let [firstLine, ...otherLines] = msg.split('\n'); // eslint-disable-line prefer-const
-      otherLines = otherLines.map(line => leftPad + line);
-      return [firstLine, ...otherLines].join('\n');
-    };
+    describe('when the field has one column', () => {
+      it('returns: Field #1:\\n0', () => {
+        const input = formatFieldStr(`
+        1 1
+        .
+        0 0`);
+        const actual = makeFields(input);
+        expect(actual).to.equal('Field #1:\n0');
+      });
 
-    it('returns: Field #1:\\n0', () => {
-      const input = formatFieldStr(`
-      1 1
-      .
-      0 0`);
-      const actual = makeFields(input);
-      expect(actual).to.equal('Field #1:\n0');
+      it('returns: Field #1:\\n*', () => {
+        const input = formatFieldStr(`
+        1 1
+        *
+        0 0`);
+        const actual = makeFields(input);
+        expect(actual).to.equal('Field #1:\n*');
+      });
+
+      it('returns: Field #1:\\n0\\n0', () => {
+        const input = formatFieldStr(`
+        2 1
+        .
+        .
+        0 0`);
+        const actual = makeFields(input);
+        expect(actual).to.equal('Field #1:\n0\n0');
+      });
+
+      it('returns: Field #1:\\n*\\n1', () => {
+        const input = formatFieldStr(`
+        2 1
+        *
+        .
+        0 0`);
+        const actual = makeFields(input);
+        expect(actual).to.equal('Field #1:\n*\n1');
+      });
+
+      it('returns: Field #1:\\n1\\n*', () => {
+        const input = formatFieldStr(`
+        2 1
+        .
+        *
+        0 0`);
+        const actual = makeFields(input);
+        expect(actual).to.equal('Field #1:\n1\n*');
+      });
+
+      it('returns: Field #1:\\n0\\n1\\n*', () => {
+        const input = formatFieldStr(`
+        3 1
+        .
+        .
+        *
+        0 0`);
+        const actual = makeFields(input);
+        expect(actual).to.equal('Field #1:\n0\n1\n*');
+      });
     });
 
-    it('returns: Field #1:\\n*', () => {
-      const input = formatFieldStr(`
-      1 1
-      *
-      0 0`);
-      const actual = makeFields(input);
-      expect(actual).to.equal('Field #1:\n*');
+    describe('when the field has one row', () => {
+      it('returns: Field #1:\\n00', () => {
+        const input = formatFieldStr(`
+        1 2
+        ..
+        0 0`);
+        const actual = makeFields(input);
+        expect(actual).to.equal('Field #1:\n00');
+      });
+
+      it('returns: Field #1:\\n*1', () => {
+        const input = formatFieldStr(`
+        1 2
+        *.
+        0 0`);
+        const actual = makeFields(input);
+        expect(actual).to.equal('Field #1:\n*1');
+      });
+
+      it('returns: Field #1:\\n1*', () => {
+        const input = formatFieldStr(`
+        1 2
+        .*
+        0 0`);
+        const actual = makeFields(input);
+        expect(actual).to.equal('Field #1:\n1*');
+      });
     });
 
-    it('returns: Field #1:\\n0\\n0', () => {
-      const input = formatFieldStr(`
-      2 1
-      .
-      .
-      0 0`);
-      const actual = makeFields(input);
-      expect(actual).to.equal('Field #1:\n0\n0');
+    describe('when the field dimenstions are 2 x 2', () => {
+      it('returns: Field #1:\\n11\\n1*', () => {
+        const input = formatFieldStr(`
+        2 2
+        ..
+        .*
+        0 0`);
+        const actual = makeFields(input);
+        expect(actual).to.equal('Field #1:\n11\n1*');
+      });
+
+      it('returns: Field #1:\\n11\\n*1', () => {
+        const input = formatFieldStr(`
+        2 2
+        ..
+        *.
+        0 0`);
+        const actual = makeFields(input);
+        expect(actual).to.equal('Field #1:\n11\n*1');
+      });
+
+      it('returns: Field #1:\\n1*\n11', () => {
+        const input = formatFieldStr(`
+        2 2
+        .*
+        ..
+        0 0`);
+        const actual = makeFields(input);
+        expect(actual).to.equal('Field #1:\n1*\n11');
+      });
+
+      it('returns: Field #1:\\n*1\n11', () => {
+        const input = formatFieldStr(`
+        2 2
+        *.
+        ..
+        0 0`);
+        const actual = makeFields(input);
+        expect(actual).to.equal('Field #1:\n*1\n11');
+      });
     });
 
-    it('returns: Field #1:\\n*\\n1', () => {
-      const input = formatFieldStr(`
-      2 1
-      *
-      .
-      0 0`);
-      const actual = makeFields(input);
-      expect(actual).to.equal('Field #1:\n*\n1');
-    });
-
-    it('returns: Field #1:\\n1\\n*', () => {
-      const input = formatFieldStr(`
-      2 1
-      .
-      *
-      0 0`);
-      const actual = makeFields(input);
-      expect(actual).to.equal('Field #1:\n1\n*');
-    });
-
-    it('returns: Field #1:\\n0\\n1\\n*', () => {
-      const input = formatFieldStr(`
-      3 1
-      .
-      .
-      *
-      0 0`);
-      const actual = makeFields(input);
-      expect(actual).to.equal('Field #1:\n0\n1\n*');
-    });
-
-    it('returns: Field #1:\\n00', () => {
-      const input = formatFieldStr(`
-      1 2
-      ..
-      0 0`);
-      const actual = makeFields(input);
-      expect(actual).to.equal('Field #1:\n00');
-    });
-
-    it('returns: Field #1:\\n*1', () => {
-      const input = formatFieldStr(`
-      1 2
-      *.
-      0 0`);
-      const actual = makeFields(input);
-      expect(actual).to.equal('Field #1:\n*1');
-    });
-
-    it('returns: Field #1:\\n1*', () => {
-      const input = formatFieldStr(`
-      1 2
-      .*
-      0 0`);
-      const actual = makeFields(input);
-      expect(actual).to.equal('Field #1:\n1*');
-    });
-    it('returns: Field #1:\\n11\\n1*', () => {
-      const input = formatFieldStr(`
-      2 2
-      ..
-      .*
-      0 0`);
-      const actual = makeFields(input);
-      expect(actual).to.equal('Field #1:\n11\n1*');
+    describe('when the field dimenstions are 4 x 4', () => {
+      it('returns: Field #1:\\n11\\n1*', () => {
+        const input = formatFieldStr(`
+        4 4
+        *...
+        ....
+        .*..
+        ....
+        0 0`);
+        const actual = makeFields(input);
+        expect(actual).to.equal('Field #1:\n*100\n2210\n1*10\n1110');
+      });
     });
   });
 });
