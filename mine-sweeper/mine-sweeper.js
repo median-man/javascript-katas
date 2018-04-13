@@ -1,7 +1,7 @@
 function makeFields(fields) {
   const lines = fields.split(/\n/g);
 
-  throwIfInvalidFieldDimensions(lines[0]);
+  throwIfInvalidFieldDimensions(lines);
   throwIfNoEndOfInput(lines);
 
   const fieldLines = lines
@@ -11,16 +11,24 @@ function makeFields(fields) {
   return `Field #1:\n${field}`;
 }
 
-function throwIfInvalidFieldDimensions(str) {
-  const dimensions = str.match(/\d+/g);
+function throwIfInvalidFieldDimensions(fieldLines) {
+  const dimensions = fieldLines[0].match(/\d+/g);
+  const dimensionError = new Error('Missing field dimensions or dimensions not valid.');
+
   if (!dimensions) {
-    throw new Error('Missing field dimensions.');
+    throw dimensionError;
   }
+
   const [lines, columns] = dimensions.map(s => parseInt(s, 10));
   const isLinesInvalid = lines < 1 || lines > 100;
   const isColumnsInvalid = columns < 1 || columns > 100;
   if (isLinesInvalid || isColumnsInvalid) {
-    throw new Error('Lines and columns must be > 0 and <= 100');
+    throw dimensionError;
+  }
+
+  const hasTooManyLines = fieldLines.length - 2 > lines;
+  if (hasTooManyLines) {
+    throw dimensionError;
   }
 }
 

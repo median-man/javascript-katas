@@ -28,9 +28,22 @@ describe('makeFields', () => {
         *..
         ...
         0 0`);
-      const shouldThrow = () => makeFields(input);
-      const expectedMsg = 'Missing field dimensions.';
+      throwsDimensionsError(() => makeFields(input));
+    });
+
+    function throwsDimensionsError(shouldThrow) {
+      const expectedMsg = 'Missing field dimensions or dimensions not valid.';
       expect(shouldThrow).throws(expectedMsg);
+    }
+
+    it('throws when first row for a subsequent field does not contain two integers', () => {
+      const input = formatFieldStr(`
+        2 3
+        *..
+        ...
+        ***
+        0 0`);
+      throwsDimensionsError(() => makeFields(input));
     });
 
     it('throws when lines dimension is < 1', () => {
@@ -39,13 +52,8 @@ describe('makeFields', () => {
         *..
         ...
         0 0`);
-      throwsForInvalidLinesColumns(() => makeFields(input));
+      throwsDimensionsError(() => makeFields(input));
     });
-
-    function throwsForInvalidLinesColumns(shouldThrow) {
-      const expectedMsg = 'Lines and columns must be > 0 and <= 100';
-      expect(shouldThrow).throws(expectedMsg);
-    }
 
     it('throws when lines dimension is > 100', () => {
       const input = formatFieldStr(`
@@ -53,7 +61,7 @@ describe('makeFields', () => {
         *..
         ...
         0 0`);
-      throwsForInvalidLinesColumns(() => makeFields(input));
+      throwsDimensionsError(() => makeFields(input));
     });
 
     it('throws when columns dimension is < 1', () => {
@@ -62,7 +70,7 @@ describe('makeFields', () => {
         *..
         ...
         0 0`);
-      throwsForInvalidLinesColumns(() => makeFields(input));
+      throwsDimensionsError(() => makeFields(input));
     });
 
     it('throws when columns dimension is > 100', () => {
@@ -71,7 +79,7 @@ describe('makeFields', () => {
         *..
         ...
         0 0`);
-      throwsForInvalidLinesColumns(() => makeFields(input));
+      throwsDimensionsError(() => makeFields(input));
     });
 
     it('throws when missing end of input line "0 0"', () => {
@@ -234,7 +242,18 @@ describe('makeFields', () => {
   });
 
   describe('when input string contains more than one field', () => {
-    it('returns: Field #1:... and Field #2:...', () => {
+    it.skip('returns: Field #1:\\n000\\n\\nField #2:\\n*10', () => {
+      const input = formatFieldStr(`
+      3 1
+      ...
+      3 1
+      *..
+      0 0`);
+      const actual = makeFields(input);
+      const expected = 'Field #1:\n000\n\nField #2:\n*10';
+      expect(actual).to.equal(expected);
+    });
+    it.skip('acceptance test', () => {
       const input = formatFieldStr(`
       4 4
       *...
