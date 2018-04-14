@@ -22,7 +22,7 @@ describe('makeFields', () => {
     return str.replace(firstLine, '').replace(leftPaddingOfAllLines, '');
   }
 
-  describe('invalid input', () => {
+  describe('when passed invalid argument', () => {
     it('throws when first row does not contain two integers', () => {
       const input = formatFieldStr(`
         *..
@@ -36,7 +36,7 @@ describe('makeFields', () => {
       expect(shouldThrow).throws(expectedMsg);
     }
 
-    it('throws when first row for a subsequent field does not contain two integers', () => {
+    it('throws when field dimensions are inaccurate', () => {
       const input = formatFieldStr(`
         2 3
         *..
@@ -184,7 +184,7 @@ describe('makeFields', () => {
       });
     });
 
-    describe('when the field dimenstions are 2 x 2', () => {
+    describe('when the field dimensions are 2 x 2', () => {
       it('returns: Field #1:\\n11\\n1*', () => {
         const input = formatFieldStr(`
         2 2
@@ -226,7 +226,7 @@ describe('makeFields', () => {
       });
     });
 
-    describe('when the field dimenstions are 4 x 4', () => {
+    describe('when the field dimensions are 4 x 4', () => {
       it('returns: Field #1:\\n*100\\n2210\\n1*10\\n1110', () => {
         const input = formatFieldStr(`
         4 4
@@ -242,18 +242,18 @@ describe('makeFields', () => {
   });
 
   describe('when input string contains more than one field', () => {
-    it.skip('returns: Field #1:\\n000\\n\\nField #2:\\n*10', () => {
+    it('returns: Field #1:\\n000\\n\\nField #2:\\n*10', () => {
       const input = formatFieldStr(`
-      3 1
+      1 3
       ...
-      3 1
+      1 3
       *..
       0 0`);
       const actual = makeFields(input);
       const expected = 'Field #1:\n000\n\nField #2:\n*10';
       expect(actual).to.equal(expected);
     });
-    it.skip('acceptance test', () => {
+    it('acceptance test', () => {
       const input = formatFieldStr(`
       4 4
       *...

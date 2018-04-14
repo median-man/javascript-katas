@@ -39,6 +39,12 @@ Field #2:
 33200
 1*100
 ```
+
+## First Solution
+*Completed 4/14/18*  
+I didn't finish this in one sitting. This exercise lead me to spend a great deal of time improving my familiarity with the RegExp constructor for Javascript. If I were to start this kata again immediately, I would begin by solving for one 1x1 field, followed by multiple 1x1 fields. Then I would progress for a single 2x2 field with a single mine around the perimeter for each possible position of the mine. Then, develop a solution for all possible inputs.
+
+
 ### References
 MinesweeperKata. *Coding Dojo.* Retrieved April 09, 2018, from http://codingdojo.org/kata/Minesweeper/
 

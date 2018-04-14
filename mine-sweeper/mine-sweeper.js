@@ -1,48 +1,56 @@
-function makeFields(fields) {
-  const lines = fields.split(/\n/g);
+function makeFields(sourceStr) {
+  throwIfNoEndOfInput(sourceStr);
+  const fieldSrcArray = sourceStr.match(/\d+ \d+\n\D+/g) || ['missing dimensions'];
 
-  throwIfInvalidFieldDimensions(lines);
-  throwIfNoEndOfInput(lines);
+  const fields = fieldSrcArray.map((fieldSrc, i) => {
+    const [dimensions, ...fieldLines] = fieldSrc.split(/\n/g).filter(s => s);
+    throwIfInvalidFieldDimensions(dimensions, fieldLines);
+    const field = createField(fieldLines);
+    const fieldStr = `Field #${i + 1}:\n${field}`;
+    return fieldStr;
+  });
 
-  const fieldLines = lines
-    .filter(line => /^[.|*]+/.test(line))
-    .map(line => line.split(''));
-  const field = createField(fieldLines);
-  return `Field #1:\n${field}`;
+  return fields.join('\n\n');
 }
 
-function throwIfInvalidFieldDimensions(fieldLines) {
-  const dimensions = fieldLines[0].match(/\d+/g);
+function throwIfInvalidFieldDimensions(dim, field) {
   const dimensionError = new Error('Missing field dimensions or dimensions not valid.');
 
-  if (!dimensions) {
+  if (isMissingDimensions()) {
+    throw dimensionError;
+  }
+  const [lines, columns] = dim.match(/\d+/g).map(n => parseInt(n, 10));
+  if (dimensionsOutOfRange() || linesNotValid()) {
     throw dimensionError;
   }
 
-  const [lines, columns] = dimensions.map(s => parseInt(s, 10));
-  const isLinesInvalid = lines < 1 || lines > 100;
-  const isColumnsInvalid = columns < 1 || columns > 100;
-  if (isLinesInvalid || isColumnsInvalid) {
-    throw dimensionError;
+  function isMissingDimensions() {
+    return !/\d+ \d+/.test(dim);
   }
 
-  const hasTooManyLines = fieldLines.length - 2 > lines;
-  if (hasTooManyLines) {
-    throw dimensionError;
+  function dimensionsOutOfRange() {
+    const isLinesInvalid = lines < 1 || lines > 100;
+    const isColumnsInvalid = columns < 1 || columns > 100;
+    return isLinesInvalid || isColumnsInvalid;
+  }
+
+  function linesNotValid() {
+    return field.length !== lines;
   }
 }
 
-function throwIfNoEndOfInput(lines) {
-  const endOfInput = lines.some(line => /^0 0/m.test(line));
-  if (!endOfInput) {
+function throwIfNoEndOfInput(sourceStr) {
+  const noEndOfInput = !/\n0 0/.test(sourceStr);
+  if (noEndOfInput) {
     throw new Error('Missing end of input. ("0 0")');
   }
 }
 
-function createField(lines) {
+function createField(fieldLines) {
+  const fieldMatrix = fieldLines.map(line => line.split('')).filter(line => line);
   const createCells = (line, lineNum) =>
     line.map((value, column) => new Cell(value, lineNum, column));
-  const cellLines = lines.map((line, lineNum) => createCells(line, lineNum));
+  const cellLines = fieldMatrix.map((line, lineNum) => createCells(line, lineNum));
   return new CellGrid(cellLines).toString();
 }
 
