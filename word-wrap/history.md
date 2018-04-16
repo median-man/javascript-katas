@@ -1,15 +1,39 @@
 # Word Wrap Kata
-* [Last](#last-time)
+* [Fourth](#fourth-time)
+* [Third](#third-time)
 * [Second](#second-time)
 * [First](#first-time)
 
-## Last Time
+## Fourth Time
+This took me just under an hour to complete this time.
+
+### Code
+```javascript
+function wordWrap(text, columns) {
+  if (!text || !columns || columns < 0) return '';
+
+  const textFitsOnOneLine = text.length <= columns;
+  if (textFitsOnOneLine) return text;
+
+  let endLineAt = text.lastIndexOf(' ', columns);
+  let nextLineAt = columns;
+  const hasSpace = endLineAt > -1;
+  if (hasSpace) {
+    nextLineAt = endLineAt + 1;
+  } else {
+    endLineAt = columns;
+  }
+  return `${text.substr(0, endLineAt)}\n${wordWrap(text.substr(nextLineAt), columns)}`;
+}
+```
+
+## Third Time
 <!-- [Commit ...](https://github.com/median-man/javascript-katas/commit/) -->
 
 This kata went quickly. I did the third practice on the following day. It took less than an hour from start to finish. I did not look up any code. I nearly let a bug get by me. I didn't add a test case for `columns <= 0` until the end of the kata.
 
 ### Code
-```javasciprt
+```javascript
 function wordWrap(text, columns = 0) {
   if (!text || columns <= 0) return '';
   if (text.length <= columns) return text;
@@ -26,7 +50,7 @@ module.exports = wordWrap;
 ```
 
 ### Tests
-```javasciprt
+```javascript
 /* eslint prefer-arrow-callback: 0, func-names: 0 */
 const { assert } = require('chai');
 const wordWrap = require('./word-wrap.js');
