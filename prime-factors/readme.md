@@ -7,6 +7,28 @@ primeFactors(10) ==> [2, 5]
 primeFactors(9) ==> [3, 3]
 ```
 
+## Third Solution
+This solution took about 45 minutes. I could have completed it faster, but I was distracted for a bit by attempting to create a test function that would accept a string as input and parse that string into a test. This would make for an extremely readable test suite, but given the subject of the test, I arrived at the conclusion that the effort to create the test function was not warranted.
+
+```javascript
+function primeFactors(num) {
+  if (num < 2) return [];
+
+  const result = [];
+  let quotient = num;
+
+  for (let divisor = 2; divisor < num; divisor += 1) {
+    while (quotient > divisor && quotient % divisor === 0) {
+      result.push(divisor);
+      quotient /= divisor;
+    }
+  }
+  result.push(quotient);
+
+  return result;
+}
+```
+
 ## Second Solution
 This time I came up with a slightly different solution. Not sure which is better in terms of performance. This solutions reduces the number of outer loops in some cases at the expense of a square root calculation for each factor. I believe the first solution to be slightly more readable.
 
