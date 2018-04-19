@@ -11,6 +11,9 @@ fizzBuzz(10) // 'buzz'
 fizzBuzz(30) // 'fizzbuzz'
 ```
 
+## Second Solution
+This took me about 10 minutes to create the files, tests, and function. Solution and tests turned out the same as the first.
+
 ## First Solution
 ```javascript
 function fizzBuzz(n) {
