@@ -37,7 +37,12 @@ Create a mine sweeper game. The game shows a number in a square which indicates 
 
 Write a function which takes in a string containing an arbitrary number of mine fields. Output should be a string with the hint numbers solved for each mine field.
 
+## Data Munging
+This kata is taken from [CodeKata.com][ck]. The [Data Munging Kata][ck-data-munging] has 3 parts. Part 1 involves parsing weather data from file and analyzed the data. Part 2 requires another data file containing data from a soccer league which must but analyzed. Part 3 involves refactoring shared functionality from part 1 and 2.
+
 <!-- References -->
 [clean-coder-blog]: http://thecleancoder.blogspot.com/2010/10/craftsman-62-dark-path.html
 [game-of-life]: http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life 
 [minesweeper]: [http://codingdojo.org/kata/Minesweeper/]
+[ck]: http://codekata.com/
+[ck-data-munging]: http://codekata.com/kata/kata04-data-munging/
