@@ -15,7 +15,17 @@ output: 2
 ```
 
 ## Part 2
-Add description after completing Part 1.
+Using the data in `football.dat`, write a program to print the name of the team with the smallest difference in 'for' and 'against' goals. Goals 'for' and 'against' are in the columns labeled 'F' and 'A' respectively.
+
+### Example case:
+```
+football.dat:
+       Team            P     W    L   D    F      A     Pts
+    1. Arsenal         38    26   9   3    50  -  30    87
+    2. Liverpool       38    24   8   6    80  -  20    80
+
+output: 'Arsenal'
+```
 
 
 ## Part 3
