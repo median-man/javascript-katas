@@ -6,7 +6,6 @@ function readFile(fname, encoding) {
       if (err) return reject(err);
       return resolve(data);
     });
-    return resolve();
   });
 }
 module.exports = readFile;
