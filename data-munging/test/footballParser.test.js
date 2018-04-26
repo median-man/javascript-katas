@@ -1,5 +1,5 @@
 const { expect } = require('chai');
-const parser = require('../soccer/footballParser.js');
+const parser = require('../lib/footballParser.js');
 
 describe('footballParser', () => {
   describe('parseRow()', () => {

@@ -1,7 +1,7 @@
 const { expect } = require('chai');
 const { readFile } = require('fs');
 const path = require('path');
-const weatherParser = require('../weather/weatherParser.js');
+const weatherParser = require('../lib/weatherParser.js');
 
 describe('weatherParser', () => {
   it('should exist', () => expect(weatherParser).to.exist);

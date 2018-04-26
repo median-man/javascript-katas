@@ -1,6 +1,6 @@
 const { readFile } = require('fs');
-const weatherParser = require('./weather/weatherParser.js');
-const footballParser = require('./soccer/footballParser.js');
+const weatherParser = require('./lib/weatherParser.js');
+const footballParser = require('./lib/footballParser.js');
 
 function renderWeather() {
   return new Promise((resolve, reject) => {
@@ -26,7 +26,6 @@ function renderSoccer() {
     });
   });
 }
-
 
 renderWeather()
   .then(renderSoccer)
