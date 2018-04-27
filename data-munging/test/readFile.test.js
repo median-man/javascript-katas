@@ -9,7 +9,7 @@ describe('readFile()', () => {
   const restoreFsReadfile = () => { fs.readFile = readFileCopy; };
 
   beforeEach(stubFsReadfile);
-  after(restoreFsReadfile);
+  afterEach(restoreFsReadfile);
 
   it('it is a function', () => {
     expect(readFile).to.be.a('function');

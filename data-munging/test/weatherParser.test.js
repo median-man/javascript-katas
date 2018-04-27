@@ -1,5 +1,5 @@
 const { expect } = require('chai');
-const { readFile } = require('fs');
+const fs = require('fs');
 const path = require('path');
 const weatherParser = require('../lib/weatherParser.js');
 
@@ -57,17 +57,5 @@ describe('weatherParser', () => {
         expect(actual).to.equal(expected);
       },
     );
-  });
-
-  describe('Read data from file and find the day with the lowest temp spread', () => {
-    it('should return an integer for the day', (done) => {
-      const weatherDataPath = path.join(__dirname, '../data/weather.dat');
-      readFile(weatherDataPath, 'utf8', (err, data) => {
-        if (err) done(err);
-        const result = weatherParser.dayWithLowestTempSpread(data);
-        expect(result, `typeof result = ${typeof result}`).to.be.a('number');
-        done();
-      });
-    });
   });
 });
