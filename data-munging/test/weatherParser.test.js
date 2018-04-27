@@ -1,6 +1,4 @@
 const { expect } = require('chai');
-const fs = require('fs');
-const path = require('path');
 const weatherParser = require('../lib/weatherParser.js');
 
 describe('weatherParser', () => {
