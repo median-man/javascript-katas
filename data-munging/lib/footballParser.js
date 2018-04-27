@@ -1,21 +1,30 @@
 module.exports = {
-  parseRow: (row) => {
+  parseRow: row => row.trim().split(/\s+/g),
+  createTeam: (row) => {
     const index = {
-      team: 2,
-      for: 7,
-      against: 9,
+      team: 1,
+      for: 6,
+      against: 8,
     };
-    const values = row.split(/\s+/g);
+    const values = module.exports.parseRow(row);
     return {
       team: values[index.team],
       for: values[index.for],
       against: values[index.against],
     };
   },
+  removeNonDataRows: (rows) => {
+    const matchDivider = /-{3,}/;
+    const hasValues = row => !matchDivider.test(row);
+    const hasText = row => /\S/.test(row);
+    const hasData = row => hasText(row) && hasValues(row);
+    return rows.filter(hasData);
+  },
+  dressData: data => data.trimRight().split(/\n/g),
   parse: function parseFootballData(data) {
     let [, ...rows] = data.trim().split(/\n/g);
     const isNotDivider = row => !row.includes('---');
-    rows = rows.filter(isNotDivider).map(this.parseRow);
+    rows = rows.filter(isNotDivider).map(this.createTeam);
     return new TeamData(rows);
   },
 };
