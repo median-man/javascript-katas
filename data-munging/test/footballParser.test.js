@@ -52,7 +52,7 @@ describe('footballParser', () => {
       expect(actual).to.eql(expected);
     });
 
-    it.skip('should not include rows with white space or line breaks', () => {
+    it('should not include rows with white space or line breaks', () => {
       const input =
         '       Team            P     W    L   D    F      A     Pts\n' +
         '    1. Arsenal         38    26   9   3    79  -  36    87\n' +

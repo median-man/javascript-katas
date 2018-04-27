@@ -20,11 +20,12 @@ module.exports = {
     const hasData = row => hasText(row) && hasValues(row);
     return rows.filter(hasData);
   },
-  dressData: data => data.trimRight().split(/\n/g),
+  dressData: function dressData(data) {
+    const rows = data.split(/\n/g);
+    return this.removeNonDataRows(rows);
+  },
   parse: function parseFootballData(data) {
-    let [, ...rows] = data.trim().split(/\n/g);
-    const isNotDivider = row => !row.includes('---');
-    rows = rows.filter(isNotDivider).map(this.createTeam);
+    const [, ...rows] = this.dressData(data).map(this.createTeam);
     return new TeamData(rows);
   },
 };
