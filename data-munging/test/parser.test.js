@@ -65,9 +65,9 @@ describe('Parser', () => {
         '    1. Arsenal         38    26   9   3    79  -  36    87\n' +
         '    2. Liverpool       38    24   8   6    67  -  30    80\n';
       let expected = [
-        '       Team            P     W    L   D    F      A     Pts',
-        '    1. Arsenal         38    26   9   3    79  -  36    87',
-        '    2. Liverpool       38    24   8   6    67  -  30    80',
+        ['Team', 'P', 'W', 'L', 'D', 'F', 'A', 'Pts'],
+        ['1.', 'Arsenal', '38', '26', '9', '3', '79', '-', '36', '87'],
+        ['2.', 'Liverpool', '38', '24', '8', '6', '67', '-', '30', '80'],
       ];
       let actual = parser.parseRows(input);
       expect(actual).to.eql(expected);
@@ -77,9 +77,9 @@ describe('Parser', () => {
         '   1  88    59    74          53.8       0.00\n' +
         '   2  79    63    71          46.5       0.00\n';
       expected = [
-        '  Dy MxT   MnT   AvT   HDDay  AvDP 1HrP TPcpn',
-        '   1  88    59    74          53.8       0.00',
-        '   2  79    63    71          46.5       0.00',
+        ['Dy', 'MxT', 'MnT', 'AvT', 'HDDay', 'AvDP', '1HrP', 'TPcpn'],
+        ['1', '88', '59', '74', '53.8', '0.00'],
+        ['2', '79', '63', '71', '46.5', '0.00'],
       ];
       actual = parser.parseRows(input);
       expect(actual).to.eql(expected);
@@ -92,9 +92,9 @@ describe('Parser', () => {
         '   -------------------------------------------------------\n' +
         '    2. Liverpool       38    24   8   6    67  -  30    80\n';
       const expected = [
-        '       Team            P     W    L   D    F      A     Pts',
-        '    1. Arsenal         38    26   9   3    79  -  36    87',
-        '    2. Liverpool       38    24   8   6    67  -  30    80',
+        ['Team', 'P', 'W', 'L', 'D', 'F', 'A', 'Pts'],
+        ['1.', 'Arsenal', '38', '26', '9', '3', '79', '-', '36', '87'],
+        ['2.', 'Liverpool', '38', '24', '8', '6', '67', '-', '30', '80'],
       ];
       const actual = parser.parseRows(input);
       expect(actual).to.eql(expected);

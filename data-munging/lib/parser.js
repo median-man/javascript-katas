@@ -1,11 +1,7 @@
 module.exports = {
-  parseRows: function parseRows(data) {
+  parseRows(data) {
     const rows = data.split(/\n/g);
-    return this.removeNonDataRows(rows);
-  },
-
-  parseRow(row) {
-    return row.trim().split(/\s+/g);
+    return this.removeNonDataRows(rows).map(this.parseRow);
   },
 
   removeNonDataRows(rows) {
@@ -14,5 +10,9 @@ module.exports = {
     const hasText = row => /\S/.test(row);
     const hasData = row => hasText(row) && hasValues(row);
     return rows.filter(hasData);
+  },
+
+  parseRow(row) {
+    return row.trim().split(/\s+/g);
   },
 };
