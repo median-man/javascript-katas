@@ -1,12 +1,14 @@
+const parser = require('./parser.js');
+
 module.exports = {
-  parseRow: row => row.trim().split(/\s+/g),
-  createTeam: (row) => {
+  parser,
+  createTeam: function createTeam(row) {
     const index = {
       team: 1,
       for: 6,
       against: 8,
     };
-    const values = module.exports.parseRow(row);
+    const values = this.parser.parseRow(row);
     return {
       team: values[index.team],
       for: values[index.for],
@@ -25,7 +27,7 @@ module.exports = {
     return this.removeNonDataRows(rows);
   },
   parse: function parseFootballData(data) {
-    const [, ...rows] = this.dressData(data).map(this.createTeam);
+    const [, ...rows] = this.dressData(data).map(this.createTeam.bind(this));
     return new TeamData(rows);
   },
 };
