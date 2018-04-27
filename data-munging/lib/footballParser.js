@@ -2,32 +2,25 @@ const parser = require('./parser.js');
 
 module.exports = {
   parser,
-  createTeam: function createTeam(row) {
+
+  createTeam(row) {
+    const values = (typeof row === 'string' ? this.parser.parseRow(row) : row);
     const index = {
       team: 1,
       for: 6,
       against: 8,
     };
-    const values = this.parser.parseRow(row);
     return {
       team: values[index.team],
       for: values[index.for],
       against: values[index.against],
     };
   },
-  removeNonDataRows: (rows) => {
-    const matchDivider = /-{3,}/;
-    const hasValues = row => !matchDivider.test(row);
-    const hasText = row => /\S/.test(row);
-    const hasData = row => hasText(row) && hasValues(row);
-    return rows.filter(hasData);
-  },
-  dressData: function dressData(data) {
-    const rows = data.split(/\n/g);
-    return this.removeNonDataRows(rows);
-  },
-  parse: function parseFootballData(data) {
-    const [, ...rows] = this.dressData(data).map(this.createTeam.bind(this));
+
+  parse(data) {
+    const [, ...rows] = this.parser
+      .parseRows(data)
+      .map(this.createTeam.bind(this));
     return new TeamData(rows);
   },
 };
