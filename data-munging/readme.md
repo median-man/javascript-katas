@@ -27,9 +27,8 @@ football.dat:
 output: 'Arsenal'
 ```
 
-
 ## Part 3
-Add description after completing Part 2.
+Factor out common code from the two programs.
 
 <!-- links -->
 [ck]: http://codekata.com/
