@@ -11,7 +11,7 @@ describe('weatherParser', () => {
         expect(actual, `\ninput string:\n${input}\n`).to.eql(expected);
       };
 
-      let input = '   1  88    59    74          53.8       0.00 F       280  9.6 270  17  1.6  93 23 1004.5';
+      let input = ['1', '88', '59', '74', '53.8', '0.00'];
       let expected = {
         day: 1,
         maxTemp: 88,
@@ -19,26 +19,27 @@ describe('weatherParser', () => {
       };
       runTest(input, expected);
 
-      input = '   3  82    71    74          53.8       0.00 F       280  9.6 270  17  1.6  93 23 1004.5';
+      input = ['2', '79', '63', '71', '46.5', '0.00'];
       expected = {
-        day: 3,
-        maxTemp: 82,
-        minTemp: 71,
+        day: 2,
+        maxTemp: 79,
+        minTemp: 63,
       };
       runTest(input, expected);
     });
   });
 
-  describe('#parseData', () => {
+  describe('#parse', () => {
     it('should contain an array of weather observations', () => {
-      const input = 'Dy MxT   MnT   AvT   HDDay  AvDP 1HrP TPcpn WxType PDir AvSp Dir MxS SkyC MxR MnR AvSLP\n\n' +
+      const input =
+        'Dy MxT   MnT   AvT   HDDay  AvDP 1HrP TPcpn WxType PDir AvSp Dir MxS SkyC MxR MnR AvSLP\n\n' +
         '1  88    59    74          53.8       0.00 F       280  9.6 270  17  1.6  93 23 1004.5\n' +
         '2  79    63    71          46.5       0.00         330  8.7 340  23  3.3  70 28 1004.5\n';
       const expected = [
         { day: 1, maxTemp: 88, minTemp: 59 },
         { day: 2, maxTemp: 79, minTemp: 63 },
       ];
-      const actual = weatherParser.parseData(input);
+      const actual = weatherParser.parse(input);
       expect(actual).to.eql(expected);
     });
   });
