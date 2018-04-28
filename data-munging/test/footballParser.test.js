@@ -24,7 +24,7 @@ describe('footballParser', () => {
   });
 
   describe('parse()', () => {
-    it('should return teamData object with the rows property set', () => {
+    it('should return array of objects', () => {
       const input =
         '       Team            P     W    L   D    F      A     Pts\n' +
         '    1. Arsenal         38    26   9   3    79  -  36    87\n' +
@@ -34,7 +34,7 @@ describe('footballParser', () => {
         { team: 'Liverpool', for: '67', against: '30' },
       ];
       const actual = parser.parse(input);
-      expect(actual.rows).to.eql(expected);
+      expect(actual).to.eql(expected);
     });
 
     it('should handle input with a line break', () => {
@@ -48,55 +48,55 @@ describe('footballParser', () => {
         { team: 'Ipswich', for: '41', against: '64' },
       ];
       const actual = parser.parse(input);
-      expect(actual.rows).to.eql(expected);
+      expect(actual).to.eql(expected);
     });
   });
 
-  describe('teamData', () => {
-    describe('findLeastDifference()', () => {
-      describe('when there is only one team in the data', () => {
-        it('should return a team when there is only one team', () => {
-          const expected = { team: 'Sunderland', for: '29', against: '51' };
-          const input = '       Team            P     W    L   D    F      A     Pts\n' +
-          '   17. Sunderland      38    10  10  18    29  -  51    40\n';
-          const actual = parser.parse(input).findLeastDifference();
-          expect(actual).to.eql(expected);
-        });
+  describe('teamWithLeastForAgainstDiff', () => {
+    it('should be a function', () => expect(parser.teamWithLeastForAgainstDiff).to.be.a('function'));
+
+    describe('when there is only one team in the data', () => {
+      it('should return a team when there is only one team', () => {
+        const expected = 'Sunderland';
+        const input = '       Team            P     W    L   D    F      A     Pts\n' +
+        '   17. Sunderland      38    10  10  18    29  -  51    40\n';
+        const actual = parser.teamWithLeastForAgainstDiff(input);
+        expect(actual).to.eql(expected);
+      });
+    });
+
+    describe('when there is two teams in the data', () => {
+      it('should return "Liverpool"', () => {
+        const expected = 'Liverpool';
+        const input =
+        '       Team            P     W    L   D    F      A     Pts\n' +
+        '    1. Arsenal         38    26   9   3    80  -  30    87\n' +
+        '    2. Liverpool       38    24   8   6    67  -  30    80\n';
+        const actual = parser.teamWithLeastForAgainstDiff(input);
+        expect(actual).to.eql(expected);
       });
 
-      describe('when there is two teams in the data', () => {
-        it('should return the team where the difference of for and against is the smallest', () => {
-          const expected = { team: 'Liverpool', for: '67', against: '30' };
-          const input =
+      it('should return "', () => {
+        const expected = 'Gryffindor';
+        const input =
+        '       Team            P     W    L   D    F      A     Pts\n' +
+        '    1. Arsenal         38    26   9   3    20  -  80    87\n' +
+        '    2. Gryffindor      38    24   8   6    67  -  30    80\n';
+        const actual = parser.teamWithLeastForAgainstDiff(input);
+        expect(actual).to.eql(expected);
+      });
+    });
+
+    describe('when there are multiple teams in the data', () => {
+      it('should return "Sunderland"', () => {
+        const expected = 'Sunderland';
+        const input =
           '       Team            P     W    L   D    F      A     Pts\n' +
           '    1. Arsenal         38    26   9   3    80  -  30    87\n' +
-          '    2. Liverpool       38    24   8   6    67  -  30    80\n';
-          const actual = parser.parse(input).findLeastDifference();
-          expect(actual).to.eql(expected);
-        });
-
-        it('should return compare using absolute values for the difference', () => {
-          const expected = { team: 'Liverpool', for: '67', against: '30' };
-          const input =
-          '       Team            P     W    L   D    F      A     Pts\n' +
-          '    1. Arsenal         38    26   9   3    20  -  80    87\n' +
-          '    2. Liverpool       38    24   8   6    67  -  30    80\n';
-          const actual = parser.parse(input).findLeastDifference();
-          expect(actual).to.eql(expected);
-        });
-      });
-
-      describe('when there are multiple teams in the data', () => {
-        it('should return the team with the least absolute difference of for and against', () => {
-          const expected = { team: 'Sunderland', for: '29', against: '51' };
-          const input =
-            '       Team            P     W    L   D    F      A     Pts\n' +
-            '    1. Arsenal         38    26   9   3    80  -  30    87\n' +
-            '    2. Liverpool       38    24   8   6    67  -  30    80\n' +
-            '   17. Sunderland      38    10  10  18    29  -  51    40\n';
-          const actual = parser.parse(input).findLeastDifference();
-          expect(actual).to.eql(expected);
-        });
+          '    2. Liverpool       38    24   8   6    67  -  30    80\n' +
+          '   17. Sunderland      38    10  10  18    29  -  51    40\n';
+        const actual = parser.teamWithLeastForAgainstDiff(input);
+        expect(actual).to.eql(expected);
       });
     });
   });
@@ -112,10 +112,7 @@ describe('footballParser', () => {
             '   -------------------------------------------------------\n' +
             '    2. Liverpool       38    24   8   6    67  -  30    80\n' +
             '   17. Sunderland      38    10  10  18    29  -  51    40\n';
-        const actual = parser
-          .parse(input)
-          .findLeastDifference()
-          .team;
+        const actual = parser.teamWithLeastForAgainstDiff(input);
         expect(actual).to.eql(expected);
       },
     );

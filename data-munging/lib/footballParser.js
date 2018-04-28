@@ -1,4 +1,5 @@
 const parser = require('./parser.js');
+const { findLeast } = require('./utils.js');
 
 module.exports = {
   parser,
@@ -21,18 +22,13 @@ module.exports = {
     const [, ...rows] = this.parser
       .parseRows(data)
       .map(this.createTeam.bind(this));
-    return new TeamData(rows);
+    return rows;
+  },
+
+  teamWithLeastForAgainstDiff(data) {
+    const teams = this.parse(data);
+    const forAgainstDifference = team => Math.abs(team.for - team.against);
+    const index = findLeast(teams, forAgainstDifference);
+    return teams[index].team;
   },
 };
-
-class TeamData {
-  constructor(rows) {
-    this.rows = rows;
-  }
-  findLeastDifference() {
-    const diff = row => Math.abs(parseFloat(row.for) - parseFloat(row.against));
-    const hasLowerDiff = (a, b) => diff(a) < diff(b);
-    const compareRows = (a, b) => (hasLowerDiff(a, b) ? a : b);
-    return this.rows.reduce(compareRows, this.rows[0]);
-  }
-}

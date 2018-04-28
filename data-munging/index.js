@@ -12,7 +12,7 @@ function renderWeather() {
 
 function renderSoccer() {
   readFile('./data/football.dat', 'utf8')
-    .then(data => footballParser.parse(data).findLeastDifference().team)
+    .then(data => footballParser.teamWithLeastForAgainstDiff(data))
     .then(team => console.log(`${team} has the least difference of 'for' and 'against' goals.`));
 }
 
