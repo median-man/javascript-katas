@@ -4,8 +4,7 @@ const { findLeast } = require('./utils.js');
 module.exports = {
   parser,
 
-  createTeam(row) {
-    const values = (typeof row === 'string' ? this.parser.parseRow(row) : row);
+  createTeam(values) {
     const index = {
       team: 1,
       for: 6,
@@ -19,10 +18,10 @@ module.exports = {
   },
 
   parse(data) {
-    const [, ...rows] = this.parser
+    const [, ...teamVals] = this.parser
       .parseRows(data)
-      .map(this.createTeam.bind(this));
-    return rows;
+      .map(this.createTeam);
+    return teamVals;
   },
 
   teamWithLeastForAgainstDiff(data) {
