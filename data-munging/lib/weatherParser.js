@@ -2,23 +2,23 @@ const parser = require('./parser.js');
 const { findLeast } = require('./utils.js');
 
 module.exports = {
-  parser,
-
   createObservation: function createObservation(values) {
     const [day, maxTemp, minTemp] = values.map(value => parseFloat(value));
     return { day, maxTemp, minTemp };
   },
 
-  parse: function parseData(weatherData) {
-    const firstRowOfValues = 1;
-    return this.parser
-      .parseRows(weatherData)
-      .slice(firstRowOfValues)
-      .map(this.createObservation.bind(this));
+  observations(rows) {
+    return rows.map(this.createObservation);
   },
 
-  dayWithLowestTempSpread: function dayWithLowestTempSpread(weatherData) {
-    const observations = this.parse(weatherData);
+  removeHeadings(rows) {
+    const firstRowOfData = 1;
+    return rows.slice(firstRowOfData);
+  },
+
+  dayWithLowestTempSpread(rows) {
+    const dataRows = this.removeHeadings(rows);
+    const observations = this.observations(dataRows);
     const tempSpread = ({ maxTemp, minTemp }) => maxTemp - minTemp;
     const index = findLeast(observations, tempSpread);
     return observations[index].day;

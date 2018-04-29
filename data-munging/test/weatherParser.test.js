@@ -29,18 +29,48 @@ describe('weatherParser', () => {
     });
   });
 
-  describe('#parse', () => {
-    it('should contain an array of weather observations', () => {
-      const input =
-        'Dy MxT   MnT   AvT   HDDay  AvDP 1HrP TPcpn WxType PDir AvSp Dir MxS SkyC MxR MnR AvSLP\n\n' +
-        '1  88    59    74          53.8       0.00 F       280  9.6 270  17  1.6  93 23 1004.5\n' +
-        '2  79    63    71          46.5       0.00         330  8.7 340  23  3.3  70 28 1004.5\n';
+  describe('#observations()', () => {
+    const testObservations = (rows, expected) => {
+      const actual = weatherParser.observations(rows);
+      expect(actual).to.eql(expected);
+    };
+
+    it('should return an array containing 1 weather observation', () => {
+      const rows = [
+        ['1', '88', '59', '74', '53.8', '0.00'],
+      ];
       const expected = [
         { day: 1, maxTemp: 88, minTemp: 59 },
-        { day: 2, maxTemp: 79, minTemp: 63 },
       ];
-      const actual = weatherParser.parse(input);
-      expect(actual).to.eql(expected);
+      testObservations(rows, expected);
+    });
+
+    it('should return an array containing 2 weather observation', () => {
+      const rows = [
+        ['2', '79', '63', '71', '46.5', '0.00'],
+        ['1', '88', '59', '74', '53.8', '0.00'],
+      ];
+      const expected = [
+        { day: 2, maxTemp: 79, minTemp: 63 },
+        { day: 1, maxTemp: 88, minTemp: 59 },
+      ];
+      testObservations(rows, expected);
+    });
+  });
+
+  describe('#removeHeadings()', () => {
+    it('should remove headings row', () => {
+      const rows = [
+        ['Dy', 'MxT', 'MnT', 'AvT', 'HDDay', 'AvDP', '1HrP', 'TPcpn'],
+        ['1', '88', '59', '74', '53.8', '0.00'],
+        ['2', '79', '63', '71', '46.5', '0.00'],
+      ];
+      const expected = [
+        ['1', '88', '59', '74', '53.8', '0.00'],
+        ['2', '79', '63', '71', '46.5', '0.00'],
+      ];
+      const actual = weatherParser.removeHeadings(rows);
+      expect(actual).to.be.eql(expected);
     });
   });
 
@@ -48,9 +78,11 @@ describe('weatherParser', () => {
     it(
       'should return the number for the day with the smallest difference between maxTemp and minTemp',
       () => {
-        const input = 'Dy MxT   MnT   AvT   HDDay  AvDP 1HrP TPcpn WxType PDir AvSp Dir MxS SkyC MxR MnR AvSLP\n\n' +
-        '1  88    59    74          53.8       0.00 F       280  9.6 270  17  1.6  93 23 1004.5\n' +
-        '2  79    63    71          46.5       0.00         330  8.7 340  23  3.3  70 28 1004.5\n';
+        const input = [
+          ['Dy', 'MxT', 'MnT', 'AvT', 'HDDay', 'AvDP', '1HrP', 'TPcpn'],
+          ['1', '88', '59', '74', '53.8', '0.00'],
+          ['2', '79', '63', '71', '46.5', '0.00'],
+        ];
         const expected = 2;
         const actual = weatherParser.dayWithLowestTempSpread(input);
         expect(actual).to.equal(expected);
