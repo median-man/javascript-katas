@@ -7,6 +7,24 @@ primeFactors(10) ==> [2, 5]
 primeFactors(9) ==> [3, 3]
 ```
 
+## Fourth Solution
+This solution took about 20 minutes.
+```javascript
+const isFactor = (factor, num) => (num % factor === 0);
+
+module.exports = function primeFactors(num) {
+  const factors = [];
+  let multiple = num;
+  for (let factor = 2; factor <= num; factor += 1) {
+    while (isFactor(factor, multiple)) {
+      factors.push(factor);
+      multiple /= factor;
+    }
+  }
+  return factors;
+};
+```
+
 ## Third Solution
 This solution took about 45 minutes. I could have completed it faster, but I was distracted for a bit by attempting to create a test function that would accept a string as input and parse that string into a test. This would make for an extremely readable test suite, but given the subject of the test, I arrived at the conclusion that the effort to create the test function was not warranted.
 
