@@ -11,13 +11,20 @@ function main() {
     weatherParser.dayWithLowestTempSpread.bind(weatherParser),
     renderWeather,
   );
-  readData('weather.dat').then(weatherPipe);
 
   const soccerPipe = pipe(
+    parser.parseRows.bind(parser),
     footballParser.teamWithLeastForAgainstDiff.bind(footballParser),
     renderSoccer,
   );
-  readData('football.dat').then(soccerPipe);
+
+  const weatherData = readData('weather.dat');
+  const soccerData = readData('football.dat');
+
+  weatherData
+    .then(weatherPipe)
+    .then(() => soccerData)
+    .then(soccerPipe);
 
   function pipe(...fns) {
     return x => fns.reduce((y, fn) => fn(y), x);
