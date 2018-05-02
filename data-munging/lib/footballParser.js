@@ -1,9 +1,6 @@
-const parser = require('./parser.js');
 const { findLeast } = require('./utils.js');
 
 module.exports = {
-  parser,
-
   createTeam(values) {
     const index = {
       team: 1,
@@ -17,15 +14,13 @@ module.exports = {
     };
   },
 
-  parse(data) {
-    const [, ...teamVals] = this.parser
-      .parseRows(data)
-      .map(this.createTeam);
-    return teamVals;
+  teams(rows) {
+    const firstDataRow = 1;
+    return rows.slice(firstDataRow).map(this.createTeam);
   },
 
-  teamWithLeastForAgainstDiff(data) {
-    const teams = this.parse(data);
+  teamWithLeastForAgainstDiff(rows) {
+    const teams = this.teams(rows);
     const forAgainstDifference = team => Math.abs(team.for - team.against);
     const index = findLeast(teams, forAgainstDifference);
     return teams[index].team;
