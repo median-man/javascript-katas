@@ -37,7 +37,11 @@ Create a mine sweeper game. The game shows a number in a square which indicates 
 
 Write a function which takes in a string containing an arbitrary number of mine fields. Output should be a string with the hint numbers solved for each mine field.
 
+## Bowling Game
+This Kata is inspired by Bob Martin. ([TheBowlingGameKata][ccb-bowling]) Learn the phases involved in the design process to develop "Design Sense". Do not rush this Kata. Rather, take time to master each phase of the process.
+
 <!-- References -->
 [clean-coder-blog]: http://thecleancoder.blogspot.com/2010/10/craftsman-62-dark-path.html
+[ccb-bowling]: http://butunclebob.com/ArticleS.UncleBob.TheBowlingGameKata
 [game-of-life]: http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life 
 [minesweeper]: [http://codingdojo.org/kata/Minesweeper/]
