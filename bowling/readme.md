@@ -25,4 +25,4 @@ game.score(); // returns 17;
 <!-- links -->
 [bub]: http://butunclebob.com/
 [bub-bowling]: http://butunclebob.com/ArticleS.UncleBob.TheBowlingGameKata
-[bub-ppt]; http://butunclebob.com/files/downloads/Bowling%20Game%20Kata.ppt
+[bub-ppt]: http://butunclebob.com/files/downloads/Bowling%20Game%20Kata.ppt
