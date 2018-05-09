@@ -40,6 +40,9 @@ Write a function which takes in a string containing an arbitrary number of mine 
 ## Bowling Game
 This Kata is inspired by Bob Martin. ([TheBowlingGameKata][ccb-bowling]) Learn the phases involved in the design process to develop "Design Sense". Do not rush this Kata. Rather, take time to master each phase of the process.
 
+## Video Store (Refactoring)
+This Kata is a practice in refactoring code. This Kata is featured in *Refactoring* by Martin Fowler and discussed in ["Refactoring a Javascript Video Store"][mf-video-store] on [martinFowler.com][mf-home]. This Kata involves refactoring initial code for a video store bill to practice refactoring to functions in different ways to improve the code.
+
 ## Additional Katas to Consider
 I read an article on [DZone][dzone] by Leah Grantz reporting on her [interview with Uncle Bob Martin][dz-unclebob]. In the article, Grantz asks Martin about his favorite code katas. The following is a list of the katas mentioned (excludes katas already in this repo):
 * Video Store Kata (popularized by Martin Fowler)
@@ -53,3 +56,5 @@ I read an article on [DZone][dzone] by Leah Grantz reporting on her [interview w
 [minesweeper]: [http://codingdojo.org/kata/Minesweeper/]
 [dzone]: [https://dzone.com/articles/interview-with-uncle-bob]
 [dz-unclebob]: [https://dzone.com/articles/interview-with-uncle-bob]
+[mf-home]: https://martinfowler.com/
+[mf-video-store]: https://martinfowler.com/articles/refactoring-video-store-js/
