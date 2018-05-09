@@ -4,35 +4,11 @@ function statement(customer, movies) {
   let frequentRenterPoints = 0;
   let result = `Rental Record for ${customer.name}\n`;
   for (let r of customer.rentals) {
-    let movie = movies[r.movieID];
-    let thisAmount = 0;
-
-    // determine amount for each movie
-    switch (movie.code) {
-      case "regular":
-        thisAmount = 2;
-        if (r.days > 2) {
-          thisAmount += (r.days - 2) * 1.5;
-        }
-        break;
-      case "new":
-        thisAmount = r.days * 3;
-        break;
-      case "childrens":
-        thisAmount = 1.5;
-        if (r.days > 3) {
-          thisAmount += (r.days - 3) * 1.5;
-        }
-        break;
-    }
-
-    //add frequent renter points
-    frequentRenterPoints++;
-    // add bonus for a two day new release rental
-    if(movie.code === "new" && r.days > 2) frequentRenterPoints++;
+    const thisAmount = amountFor(r);
+    frequentRenterPoints += frequentRenterPointsFor(r);
 
     //print figures for this rental
-    result += `\t${movie.title}\t${thisAmount}\n` ;
+    result += `\t${movieFor(r).title}\t${thisAmount}\n` ;
     totalAmount += thisAmount;
   }
   // add footer lines
@@ -40,6 +16,37 @@ function statement(customer, movies) {
   result += `You earned ${frequentRenterPoints} frequent renter points\n`;
 
   return result;
+
+  function movieFor(rental) {
+    return movies[rental.movieID];
+  }
+
+  function amountFor(rental) {
+    const lateFee = 1.5;
+    const { code } = movieFor(rental);
+    if (code === 'new') {
+      return rental.days * 3;
+    }
+    if (code === 'childrens') {
+      return 1.5 + overdueAmount(rental.days, 3);
+    }
+    return 2 + overdueAmount(rental.days, 2);
+
+    function overdueAmount(days, maxDays) {
+      const isOverdue = days > maxDays;
+      if (isOverdue) {
+        return (days - maxDays) * lateFee;
+      }
+      return 0;
+    }
+  }
+
+  function frequentRenterPointsFor(r) {
+    const newReleaseBonusDays = 3;
+    const isNewMovie = movieFor(r).code === "new";
+    const qualifiesForNewReleaseBonus = isNewMovie && r.days >= newReleaseBonusDays;
+    return qualifiesForNewReleaseBonus ? 2 : 1;
+  }
 }
 
 module.exports = { statement };
