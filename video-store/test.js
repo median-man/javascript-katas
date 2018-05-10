@@ -1,8 +1,8 @@
 const { expect } = require('chai');
-const { statement } = require('./statement');
+const { statement, htmlStatement } = require('./statement');
 
 describe('statement()', () => {
-  function testTextStatement(customer, movies, expected) {
+  function testStatement(customer, movies, expected) {
     const actual = statement(customer, movies);
     expect(actual).to.equal(expected);
   }
@@ -58,7 +58,7 @@ describe('statement()', () => {
       'Amount owed is 5.5\n' +
       'You earned 2 frequent renter points\n';
       const { customer, movies } = testCases[0];
-      testTextStatement(customer, movies, expected);
+      testStatement(customer, movies, expected);
     });
   });
 
@@ -71,7 +71,7 @@ describe('statement()', () => {
         'Amount owed is 4.5\n' +
         'You earned 2 frequent renter points\n';
       const { customer, movies } = testCases[1];
-      testTextStatement(customer, movies, expected);
+      testStatement(customer, movies, expected);
     });
   });
 
@@ -83,7 +83,7 @@ describe('statement()', () => {
         'Amount owed is 3\n' +
         'You earned 1 frequent renter points\n';
       const { customer, movies } = testCases[2];
-      testTextStatement(customer, movies, expected);
+      testStatement(customer, movies, expected);
     });
   });
 
@@ -109,7 +109,7 @@ describe('statement()', () => {
         '<p>You earned <em>2</em> frequent renter points</p>\n';
       const { customer, movies } = testCases[0];
       const format = 'html';
-      expect(statement(customer, movies, format)).to.equal(expected);
+      expect(htmlStatement(customer, movies, format)).to.equal(expected);
     });
   });
 });
