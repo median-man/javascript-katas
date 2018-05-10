@@ -87,7 +87,7 @@ describe('statement()', () => {
     });
   });
 
-  describe('when format is not valid', () => {
+  describe.skip('when format is not valid', () => {
     it('should throw an error', () => {
       const { customer, movies } = testCases[0];
       const format = 'invalid';
@@ -97,7 +97,7 @@ describe('statement()', () => {
     });
   });
 
-  describe('when format is html', () => {
+  describe.skip('when format is html', () => {
     it('should return html rental statement for case 0', () => {
       const expected =
         '<h1>Rental Record for <em>john</em></h1>\n' +

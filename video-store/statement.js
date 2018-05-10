@@ -1,15 +1,5 @@
 /* eslint-disable */
-function statement(customer, movies, format = 'text') {
-  const dispatchTable = {
-    'text': textStatement,
-    'html': htmlStatement,
-  };
-  if (!dispatchTable[format]) {
-    throw new Error(`"${format}" is not a valid statement format.`);
-  }
-  return dispatchTable[format]();
-
-  function textStatement() {
+function statement(customer, movies) {
     let result = `Rental Record for ${customer.name}\n`;
     for (const r of customer.rentals) {
       result += `\t${movieFor(r).title}\t${amountFor(r)}\n`;
@@ -17,21 +7,6 @@ function statement(customer, movies, format = 'text') {
     result += `Amount owed is ${totalAmount()}\n`;
     result += `You earned ${totalFrequentRenterPoints()} frequent renter points\n`;
     return result;
-  }
-
-  function htmlStatement() {
-    let result = `<h1>Rental Record for <em>${customer.name}</em></h1>\n` +
-      '<table>\n';
-    for (const r of customer.rentals) {
-      result += `<tr><td>${movieFor(r).title}</td><td>${amountFor(r)}</td></tr>\n`;
-    }
-    result += '</table>\n' +
-      `<p>Amount owed is <em>${totalAmount()}</em></p>\n` +
-      `<p>You earned <em>${totalFrequentRenterPoints()}</em> frequent renter points</p>\n`;
-    return result;
-  }
-
-  
 
   function movieFor(rental) {
     return movies[rental.movieID];
