@@ -10,6 +10,20 @@ function statement(customerData, movies) {
   return result;
 }
 
+function htmlStatement(customerData, movies) {
+  const customer = createCustomer(customerData, movies);
+  let result = `<h1>Rental Record for <em>${customer.name()}</em></h1>\n`;
+  result += '<table>\n';
+    for (const r of customer.rentals()) {
+      result += `<tr><td>${r.movie().title}</td><td>${r.amount()}</td></tr>\n`;
+    }
+  result += '</table>\n';
+  result += `<p>Amount owed is <em>${customer.amount()}</em></p>\n`;
+  result += `<p>You earned <em>${customer.frequentRenterPoints()}</em> frequent renter points</p>\n`;
+    
+  return result;
+}
+
 function createCustomer(data, movies) {
   return {
     name: () => data.name,
@@ -74,4 +88,4 @@ function createRental(data, movies) {
   }
 }
 
-module.exports = { statement };
+module.exports = { statement, htmlStatement };

@@ -1,5 +1,5 @@
 const { expect } = require('chai');
-const { statement } = require('./statement');
+const { statement, htmlStatement } = require('./statement');
 
 describe('statement()', () => {
   function testTextStatement(customer, movies, expected) {
@@ -97,7 +97,7 @@ describe('statement()', () => {
     });
   });
 
-  describe.skip('when format is html', () => {
+  describe('when format is html', () => {
     it('should return html rental statement for case 0', () => {
       const expected =
         '<h1>Rental Record for <em>john</em></h1>\n' +
@@ -109,7 +109,7 @@ describe('statement()', () => {
         '<p>You earned <em>2</em> frequent renter points</p>\n';
       const { customer, movies } = testCases[0];
       const format = 'html';
-      expect(statement(customer, movies, format)).to.equal(expected);
+      expect(htmlStatement(customer, movies, format)).to.equal(expected);
     });
   });
 });
