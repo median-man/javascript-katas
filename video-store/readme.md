@@ -44,7 +44,10 @@ Update the code to render the statement in HTML.
 ## Steps
 Follow the steps presented by Fowler in the [article][mf-video-store] to practice and better understand Fowler's approach to refactoring the statement function into smaller functions that each have a single, well defined responsibility.
 0. Write test for initial code.
-1. Decompose statement function into several functions.
+1. Decompose statement function into smaller functions.
+2. Refactor using a parameter to determine the output.
+3. Refactor using top-level functions.
+4. Refactor using classes (es6 class syntax or factory methods)
 
 <!-- links -->
 [mf-home]: https://martinfowler.com/
