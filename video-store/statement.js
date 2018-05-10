@@ -1,24 +1,27 @@
 /* eslint-disable */
 function statement(customer, movies) {
-  let totalAmount = 0;
-  let frequentRenterPoints = 0;
   let result = `Rental Record for ${customer.name}\n`;
-  for (let r of customer.rentals) {
-    const thisAmount = amountFor(r);
-    frequentRenterPoints += frequentRenterPointsFor(r);
 
-    //print figures for this rental
-    result += `\t${movieFor(r).title}\t${thisAmount}\n` ;
-    totalAmount += thisAmount;
+  for (const r of customer.rentals) {
+    result += `\t${movieFor(r).title}\t${amountFor(r)}\n`;
   }
-  // add footer lines
-  result += `Amount owed is ${totalAmount}\n`;
-  result += `You earned ${frequentRenterPoints} frequent renter points\n`;
-
+  result += `Amount owed is ${totalAmount()}\n`;
+  result += `You earned ${totalFrequentRenterPoints()} frequent renter points\n`;
   return result;
 
   function movieFor(rental) {
     return movies[rental.movieID];
+  }
+
+  function totalAmount() {
+    return customer.rentals
+      .reduce((total, rental) => total + amountFor(rental), 0);
+  }
+
+  function totalFrequentRenterPoints() {
+    return customer.rentals
+      .map(rental => frequentRenterPointsFor(rental))
+      .reduce((total, points) => total + points, 0);
   }
 
   function amountFor(rental) {
@@ -43,7 +46,7 @@ function statement(customer, movies) {
 
   function frequentRenterPointsFor(r) {
     const newReleaseBonusDays = 3;
-    const isNewMovie = movieFor(r).code === "new";
+    const isNewMovie = movieFor(r).code === 'new';
     const qualifiesForNewReleaseBonus = isNewMovie && r.days >= newReleaseBonusDays;
     return qualifiesForNewReleaseBonus ? 2 : 1;
   }
