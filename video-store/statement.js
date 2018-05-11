@@ -1,12 +1,30 @@
-/* eslint-disable */
 function statement(customer, movies) {
-    let result = `Rental Record for ${customer.name}\n`;
-    for (const r of customer.rentals) {
-      result += `\t${movieFor(r).title}\t${amountFor(r)}\n`;
-    }
-    result += `Amount owed is ${totalAmount()}\n`;
-    result += `You earned ${totalFrequentRenterPoints()} frequent renter points\n`;
-    return result;
+  const data = createStatementData(customer, movies);
+  let result = `Rental Record for ${data.name}\n`;
+  result += createRentalLines();
+  result += `Amount owed is ${data.totalAmount}\n`;
+  result += `You earned ${data.totalFrequentRenterPoints} frequent renter points\n`;
+  return result;
+
+  function createRentalLines() {
+    return data.rentals.reduce((lines, rental) =>
+      `${lines}\t${rental.title}\t${rental.amount}\n`, '');
+  }
+}
+
+function createStatementData(customer, movies) {
+  const thisData = Object.assign({}, customer);
+  thisData.rentals = customer.rentals.map(rentalData => createRental(rentalData));
+  thisData.totalAmount = totalAmount();
+  thisData.totalFrequentRenterPoints = totalFrequentRenterPoints();
+  return thisData;
+
+  function createRental(rentalData) {
+    const thisRental = Object.assign({}, rentalData);
+    thisRental.title = movieFor(rentalData).title;
+    thisRental.amount = amountFor(thisRental);
+    return thisRental;
+  }
 
   function movieFor(rental) {
     return movies[rental.movieID];
