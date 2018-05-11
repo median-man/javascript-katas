@@ -48,6 +48,7 @@ Follow the steps presented by Fowler in the [article][mf-video-store] to practic
 2. Refactor using a parameter to determine the output.
 3. Refactor using top-level functions.
 4. Refactor using classes (es6 class syntax or factory methods)
+5. Refactor using data transformation.
 
 <!-- links -->
 [mf-home]: https://martinfowler.com/
