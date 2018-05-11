@@ -1,4 +1,4 @@
-function statement(customer, movies) {
+module.exports.statement = function statement(customer, movies) {
   const data = createStatementData(customer, movies);
   let result = `Rental Record for ${data.name}\n`;
   result += createRentalLines();
@@ -7,10 +7,28 @@ function statement(customer, movies) {
   return result;
 
   function createRentalLines() {
-    return data.rentals.reduce((lines, rental) =>
-      `${lines}\t${rental.title}\t${rental.amount}\n`, '');
+    return data.rentals
+      .map(rental => `\t${rental.title}\t${rental.amount}\n`)
+      .join('');
   }
-}
+};
+
+module.exports.htmlStatement = function htmlStatement(customer, movies) {
+  const data = createStatementData(customer, movies);
+  let result = `<h1>Rental Record for <em>${data.name}</em></h1>\n`;
+  result += '<table>\n';
+  result += createRentalLines();
+  result += '</table>\n';
+  result += `<p>Amount owed is <em>${data.totalAmount}</em></p>\n`;
+  result += `<p>You earned <em>${data.totalFrequentRenterPoints}</em> frequent renter points</p>\n`;
+  return result;
+
+  function createRentalLines() {
+    return data.rentals
+      .map(rental => `<tr><td>${rental.title}</td><td>${rental.amount}</td></tr>\n`)
+      .join('');
+  }
+};
 
 function createStatementData(customer, movies) {
   const thisData = Object.assign({}, customer);
@@ -68,5 +86,3 @@ function createStatementData(customer, movies) {
     return qualifiesForNewReleaseBonus ? 2 : 1;
   }
 }
-
-module.exports = { statement };

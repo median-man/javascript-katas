@@ -1,5 +1,5 @@
 const { expect } = require('chai');
-const { statement } = require('./statement');
+const { statement, htmlStatement } = require('./statement');
 
 const testCases = [
   {
@@ -99,7 +99,7 @@ describe('statement()', () => {
   });
 });
 
-describe.skip('htmlStatment()', () => {
+describe('htmlStatment()', () => {
   it('should return html rental statement for case 0', () => {
     const expected =
       '<h1>Rental Record for <em>john</em></h1>\n' +
