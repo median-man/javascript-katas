@@ -1,14 +1,16 @@
 module.exports = function primeFactors(n) {
   const primes = [];
   let remainder = n;
-  if (n > 1) {
-    while (remainder % 2 === 0) {
-      primes.push(2);
-      remainder /= 2;
+  let candidate = 2;
+  while (remainder > 1) {
+    while (remainder % candidate === 0) {
+      primes.push(candidate);
+      remainder /= candidate;
     }
-    if (remainder > 1) {
-      primes.push(remainder);
-    }
+    candidate += 1;
+  }
+  if (remainder > 1) {
+    primes.push(remainder);
   }
   return primes;
 };
