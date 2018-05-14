@@ -17,7 +17,7 @@ describe('primeFactors()', () => {
     testPrimeFactors(3, [3]);
   });
 
-  it('should return [4] when n = 4', () => {
+  it('should return [2, 2] when n = 4', () => {
     testPrimeFactors(4, [2, 2]);
   });
 });
