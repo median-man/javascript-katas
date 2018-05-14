@@ -20,4 +20,12 @@ describe('primeFactors()', () => {
   it('should return [2, 2] when n = 4', () => {
     testPrimeFactors(4, [2, 2]);
   });
+
+  it('should return [2, 3] when n = 6', () => {
+    testPrimeFactors(6, [2, 3]);
+  });
+
+  it('should return [2, 2, 2] when n = 8', () => {
+    testPrimeFactors(8, [2, 2, 2]);
+  });
 });
