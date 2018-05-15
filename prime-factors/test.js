@@ -12,4 +12,12 @@ describe('primeFactors()', () => {
   it('should return [2] when n = 2', () => {
     testPrimeFactors(2, [2]);
   });
+
+  it('should return [3] when n = 3', () => {
+    testPrimeFactors(3, [3]);
+  });
+
+  it('should return [2, 2] when n = 4', () => {
+    testPrimeFactors(4, [2, 2]);
+  });
 });
