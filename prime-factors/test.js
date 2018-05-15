@@ -28,4 +28,8 @@ describe('primeFactors()', () => {
   it('should return [2, 2, 2] when n = 8', () => {
     testPrimeFactors(8, [2, 2, 2]);
   });
+
+  it('should return [3, 3] when n = 9', () => {
+    testPrimeFactors(9, [3, 3]);
+  });
 });
