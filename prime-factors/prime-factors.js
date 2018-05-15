@@ -2,7 +2,7 @@ module.exports = function primeFactors(n) {
   const primes = [];
   let remainder = n;
   if (n > 1) {
-    if (remainder % 2 === 0) {
+    while (remainder % 2 === 0) {
       primes.push(2);
       remainder /= 2;
     }
