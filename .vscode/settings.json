@@ -1,0 +1,20 @@
+{
+  "mocha.files.glob": "**/*.test.js",
+  "mocha.coverage": {
+    "enable": false,
+    "decoration": true,
+    "runWithInterval": false,
+    "autoUpdateInterval": 20000,
+    "activeOnStart": true,
+    "runAfterTest": false,
+    "runCoverageAfterFileSave": false,
+    "reporters": []
+  },
+  "mocha.runTestsOnSave": "true",
+  "mocha.sideBarOptions": {
+    "lens": false,
+    "decoration": true,
+    "autoUpdateTime": 2000,
+    "showDebugTestStatus": true
+  }
+}
