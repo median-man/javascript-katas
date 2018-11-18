@@ -1,10 +1,8 @@
 {
-    "extends": "airbnb-base",
+    "extends": "standard",
     "env": {
-      "mocha": true,
-      "shared-node-browser": true
-    },
-    "rules": {
-      "no-use-before-define": "off"
+        "browser": false,
+        "mocha": true,
+        "node": true
     }
 }
