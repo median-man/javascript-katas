@@ -1,8 +1,8 @@
-function createGreeter (date, logger) {
+function createGreeter (date, log) {
   function greet (name) {
-    const msg = `${greeting()}, ${formatName(name)}`
-    if (logger) logger.log(msg)
-    return msg
+    const message = `${greeting()}, ${formatName(name)}`
+    if (log) log(message)
+    return message
   }
 
   function greeting () {

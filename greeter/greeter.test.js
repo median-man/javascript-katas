@@ -1,4 +1,5 @@
 const should = require('chai').should()
+
 const { createGreeter } = require('./greeter')
 
 describe('greeter', () => {
@@ -7,88 +8,63 @@ describe('greeter', () => {
   })
 
   describe('greet', () => {
-    let greet
+    let greeter
     let date
 
     beforeEach(() => {
       date = new Date()
       date.setHours(12)
-      greet = createGreeter(date).greet
+      greeter = createGreeter(date)
     })
 
     it('should exist', () => {
-      greet.should.be.a('function')
+      should.exist(greeter.greet)
     })
 
-    it('should return "Hello, Jack', () => {
-      greet('Jack').should.equal('Hello, Jack')
-    })
-
-    it('should return "Hello, Jill', () => {
-      greet('Jill').should.equal('Hello, Jill')
+    it('should return "Hello, <name>"', () => {
+      greeter.greet('Kate').should.equal('Hello, Kate')
+      greeter.greet('John').should.equal('Hello, John')
     })
 
     it('should trim name input', () => {
-      greet(' Jill ').should.equal('Hello, Jill')
+      greeter.greet(' Kate ').should.equal('Hello, Kate')
     })
 
-    it('should capitalize name', () => {
-      greet('jill').should.equal('Hello, Jill')
+    it('should capitalize the first letter of the name', () => {
+      greeter.greet('kate').should.equal('Hello, Kate')
     })
 
-    it('should return "Good morning, Jill when the time is 11:00 AM', () => {
-      date.setHours(11)
-      greet = createGreeter(date).greet
-      greet('Jill').should.equal('Good morning, Jill')
+    it('should say "Good morning" where the time is [6:00 AM, 12:00 PM)', () => {
+      date.setHours(6)
+      const greeter = createGreeter(date)
+      greeter.greet('Kate').should.equal('Good morning, Kate')
     })
 
-    it('should return "Good night Jill when the time is 5:00 AM', () => {
-      date.setHours(5)
-      greet = createGreeter(date).greet
-      greet('Jill').should.equal('Good night, Jill')
-    })
-
-    it('should return "Good evening Jill when the time is 6:00 PM', () => {
+    it('should say "Good evening" where the time is [6:00 PM, 10:00 PM)', () => {
       date.setHours(18)
-      greet = createGreeter(date).greet
-      greet('Jill').should.equal('Good evening, Jill')
+      const greeter = createGreeter(date)
+      greeter.greet('Kate').should.equal('Good evening, Kate')
     })
 
-    it('should return "Good night Jill when the time is 10:00 PM', () => {
+    it('should say "Good night" where the time is [10:00 PM, 6:00 AM)', () => {
       date.setHours(22)
-      greet = createGreeter(date).greet
-      greet('Jill').should.equal('Good night, Jill')
+      let greeter = createGreeter(date)
+      greeter.greet('Kate').should.equal('Good night, Kate')
+
+      date.setHours(5)
+      greeter = createGreeter(date)
+      greeter.greet('Kate').should.equal('Good night, Kate', '5:00 AM failed')
     })
 
-    it('should call logger.log with "Hello, Jill"', () => {
-      function createLogger () {
-        let logCalledWith = ''
-        let logWasCalled = false
-
-        const log = msg => {
-          logWasCalled = true
-          logCalledWith = msg
-        }
-
-        return {
-          log,
-          logCalledWith: () => logCalledWith,
-          logWasCalled: () => logWasCalled
-        }
+    it('should log the greeting', () => {
+      let isLogCalled = false
+      const log = msg => {
+        isLogCalled = true
+        msg.should.equal('Hello, Kate')
       }
-
-      const logger = createLogger()
-      greet = createGreeter(date, logger).greet
-      greet('Jill')
-
-      if (logger.logWasCalled()) {
-        should.exist(
-          logger.logCalledWith(),
-          'logger.log was called without a message'
-        )
-        return logger.logCalledWith().should.equal('Hello, Jill')
-      }
-      throw new Error('logger.log was not called')
+      const greeter = createGreeter(date, log)
+      greeter.greet('Kate')
+      isLogCalled.should.equal(true, 'log was not called')
     })
   })
 })
