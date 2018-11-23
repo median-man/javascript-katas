@@ -1,29 +1,40 @@
-function add (s) {
-  const maxNum = 1000
-  const nums = parseNumbers(s).filter(num => num <= maxNum)
-  if (nums.some(num => num < 0)) throw new Error('negatives not allowed')
-  return nums.reduce((sum, num) => sum + num, 0)
+function add (string) {
+  if (string.length === 0) return 0
+  return toCommaDelimited(string)
+    .split(',')
+    .map(toValidNumber)
+    .filter(num => num <= 1000)
+    .reduce((sum, num) => sum + num, 0)
 }
 
-function parseNumbers (s) {
-  let delimiters = /,|\s/g
-  let stringToParse = s
-  const hasCustomDelimiters = /^\/\//.test(s)
-  if (hasCustomDelimiters) {
-    [delimiters, stringToParse] = parseDelimiters(s)
-  }
-  return stringToParse.split(delimiters).map(num => parseFloat(num))
+function toCommaDelimited (string) {
+  if (hasCustomDelimiters(string)) return formatFromCustomDelimiters(string)
+  return string.replace(/\s/g, ',')
 }
 
-function parseDelimiters (s) {
-  let firstLine = s.split('\n')[0]
-  const stringToParse = s.replace(firstLine, '')
-  firstLine = firstLine.replace('//', '')
-  const customDelims = firstLine.match(/[^[\]]+/g).join('|')
-  return [
-    new RegExp(customDelims),
-    stringToParse
-  ]
+function hasCustomDelimiters (string) {
+  return string.slice(0, 2) === '//'
 }
 
-module.exports = add
+function formatFromCustomDelimiters (string) {
+  const withoutFirstLine = string.slice(string.indexOf('\n'))
+  const commaDelimited = customDelimiters(string).reduce(
+    (result, delimiter) => result.replace(delimiter, ','),
+    withoutFirstLine
+  )
+  return commaDelimited
+}
+
+function customDelimiters (string) {
+  return string
+    .match(/\[.+?\]/g)
+    .map(delimiter => delimiter.replace(/(\[|\])/g, ''))
+}
+
+function toValidNumber (s) {
+  const num = Number.parseFloat(s)
+  if (s < 0) throw new Error('Negative numbers not allowed.')
+  return num
+}
+
+module.exports = { add }

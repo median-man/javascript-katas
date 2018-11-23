@@ -1,36 +1,51 @@
-const { expect } = require('chai')
-const add = require('./string-calculator.js')
+const should = require('chai').should()
+const { add } = require('./string-calculator')
 
 describe('add', () => {
-  it('is a function', () => expect(add).to.be.a('function'))
-
-  describe('when custom delimeters are not used', () => {
-    expectInputToReturn('1,1', 2)
-    expectInputToReturn('1,2', 3)
-    expectInputToReturn('2 1', 3)
-    expectInputToReturn('1\n2', 3)
-    expectInputToReturn('1,1,1', 3)
+  it('should exist', () => {
+    should.exist(add)
   })
 
-  function expectInputToReturn (input, expected) {
-    const msg = `"${input.replace('\n', '\\n')}" returns ${expected}`
-    it(msg, () => expect(add(input)).to.equal(expected))
-  }
-
-  describe('when custom delimeters are used', () => {
-    expectInputToReturn('//[a]\n1a1a1', 3)
-    expectInputToReturn('//[aa]\n1aa1aa1', 3)
-    expectInputToReturn('//[--][a]\n1--1a1', 3)
-    expectInputToReturn('//[--][/]\n2--1/3', 6)
+  it('should return 0 when argument is an empty string', () => {
+    add('').should.equal(0)
   })
 
-  describe('when an argument is negative', () => {
-    it('throws "negatives not allowed" when first agrument is negative', () => {
-      expect(() => add('2, -1')).to.throw('negatives not allowed')
-    })
+  it('should return a number', () => {
+    add('1').should.equal(1)
   })
 
-  describe('ignores numbers > 1000', () => {
-    expectInputToReturn('1001,2', 2)
+  it('should add two numbers', () => {
+    add('1,1').should.equal(2)
+  })
+
+  it('should ignore numbers > 1000', () => {
+    add('1001,1').should.equal(1)
+  })
+
+  it('should throw with "Negative numbers not allowed."', () => {
+    should.throw(() => add('-1'), /negative numbers not allowed/i)
+  })
+
+  it('should treat new lines "\\n" as a delimiter', () => {
+    add('1\n1').should.equal(2)
+  })
+
+  it('should treat white space as a delimiter', () => {
+    add('1 1').should.equal(2, 'single space')
+    add('1  1').should.equal(2, 'double space')
+    add('1\t1').should.equal(2, 'tab')
+  })
+
+  it('should accept a custom delimiter', () => {
+    add('//[-]\n1-1').should.equal(2)
+    add('//[-]\n1-2').should.equal(3)
+  })
+
+  it('should accept delimiters with more than 1 character', () => {
+    add('//[--]\n1--2').should.equal(3)
+  })
+
+  it('should accept multiple custom delimiters', () => {
+    add('//[-][+]\n1+2').should.equal(3, 'delimiters: - and +')
   })
 })
