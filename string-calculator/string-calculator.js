@@ -1,40 +1,31 @@
-function add (string) {
-  if (string.length === 0) return 0
-  return toCommaDelimited(string)
-    .split(',')
-    .map(toValidNumber)
-    .filter(num => num <= 1000)
-    .reduce((sum, num) => sum + num, 0)
+function add (s) {
+  if (!s) return 0
+  return split(s)
+    .map(n => validate(Number.parseFloat(n)))
+    .reduce((sum, num) => num + sum, 0)
 }
 
-function toCommaDelimited (string) {
-  if (hasCustomDelimiters(string)) return formatFromCustomDelimiters(string)
-  return string.replace(/\s/g, ',')
+function split (s) {
+  let toCalculate = s
+  const hasCustomDelimiter = /^\/\//.test(s)
+  if (hasCustomDelimiter) {
+    toCalculate = toCommaSeparated(s)
+  }
+  return toCalculate.split(/[,\s]/g)
 }
 
-function hasCustomDelimiters (string) {
-  return string.slice(0, 2) === '//'
-}
-
-function formatFromCustomDelimiters (string) {
-  const withoutFirstLine = string.slice(string.indexOf('\n'))
-  const commaDelimited = customDelimiters(string).reduce(
+function toCommaSeparated (s) {
+  const delimiters = s.slice(2, s.indexOf('\n')).match(/[^[\]]+/g)
+  const toCalculate = s.slice(s.indexOf('\n') + 1)
+  return delimiters.reduce(
     (result, delimiter) => result.replace(delimiter, ','),
-    withoutFirstLine
+    toCalculate
   )
-  return commaDelimited
 }
 
-function customDelimiters (string) {
-  return string
-    .match(/\[.+?\]/g)
-    .map(delimiter => delimiter.replace(/(\[|\])/g, ''))
-}
-
-function toValidNumber (s) {
-  const num = Number.parseFloat(s)
-  if (s < 0) throw new Error('Negative numbers not allowed.')
-  return num
+function validate (number) {
+  if (number < 0) throw new Error(`Negative numbers not allowed: ${number}.`)
+  return number
 }
 
 module.exports = { add }
