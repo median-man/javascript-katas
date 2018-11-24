@@ -1,31 +1,47 @@
 function add (s) {
-  if (!s) return 0
+  const MAX_NUM = 1000
   return split(s)
-    .map(n => validate(Number.parseFloat(n)))
-    .reduce((sum, num) => num + sum, 0)
+    .map(toValidNumber)
+    .filter(n => n <= MAX_NUM)
+    .reduce(sum2, 0)
 }
 
 function split (s) {
-  let toCalculate = s
-  const hasCustomDelimiter = /^\/\//.test(s)
-  if (hasCustomDelimiter) {
-    toCalculate = toCommaSeparated(s)
-  }
-  return toCalculate.split(/[,\s]/g)
+  const hasCustomDelimiters = s.slice(0, 2) === '//'
+  if (hasCustomDelimiters) return toCSV(s).split(',')
+  return s.split(/[,\s]/g)
 }
 
-function toCommaSeparated (s) {
-  const delimiters = s.slice(2, s.indexOf('\n')).match(/[^[\]]+/g)
-  const toCalculate = s.slice(s.indexOf('\n') + 1)
+// Returns string with custom delimiters defined in the first row
+// replaced with commas in the body. The body is everything after
+// the first row. Example first row: "//[--][=]\n"
+// E.g. "//[-]\n1-1" returns "1,1"
+function toCSV (s) {
+  const endOfFirstLine = s.indexOf('\n')
+  const firstLine = s.slice(endOfFirstLine)
+  const body = s.slice(endOfFirstLine + 1)
+  const delimiters = firstLine
+    .slice(2, endOfFirstLine)
+    .split('[')
+    .map(removeLastCharacter)
   return delimiters.reduce(
-    (result, delimiter) => result.replace(delimiter, ','),
-    toCalculate
+    (input, delimiter) => input.replace(delimiter, ','),
+    body
   )
 }
 
-function validate (number) {
-  if (number < 0) throw new Error(`Negative numbers not allowed: ${number}.`)
-  return number
+function removeLastCharacter (s) {
+  return s.slice(0, s.length - 1)
+}
+
+function toValidNumber (s) {
+  const n = Number.parseFloat(s)
+  if (n < 0) throw new Error(`Negative numbers not allowed: ${n}.`)
+  return n || 0
+}
+
+function sum2 (x, y) {
+  return x + y
 }
 
 module.exports = { add }
