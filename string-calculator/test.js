@@ -3,7 +3,10 @@ const { add } = require('./string-calculator')
 
 describe('string-calculator: add', () => {
   const addShouldReturnGiven = (expected, input) => {
-    it(`should return ${expected} given "${input.replace('\n', '\\n')}"`, () => {
+    it(`should return ${expected} given "${input.replace(
+      '\n',
+      '\\n'
+    )}"`, () => {
       add(input).should.equal(expected)
     })
   }
@@ -26,8 +29,23 @@ describe('string-calculator: add', () => {
   })
 
   describe('negative numbers', () => {
-    it.skip('should throw with "Negatives not allowed: -1", given "-1"', () => {
-      should.throw(() => add('-1'), 'Negatives not allowed: -1')
-    })
+    function shouldThrowWith (input, message) {
+      it(`should throw with "${message}", given "${input}"`, () => {
+        should.throw(() => add(input), message)
+      })
+    }
+
+    shouldThrowWith('-1', 'Negatives not allowed: -1')
+    shouldThrowWith('-2', 'Negatives not allowed: -2')
+    shouldThrowWith('-1,-2', 'Negatives not allowed: -1, -2')
   })
+
+  describe('range: 0 to 1000 inclusive', () => {
+    addShouldReturnGiven(1, '1,1001')
+  })
+
+  // #TODO handles delimiter in brackets
+  // describe('extended custom delimiters', () => {
+  //   addShouldReturnGiven(4, )
+  // })
 })

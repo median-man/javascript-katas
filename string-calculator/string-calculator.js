@@ -20,10 +20,27 @@ function values (str) {
 }
 
 function sumCsv (csv) {
-  return csv
-    .split(/[,\n]/)
-    .map(Number.parseFloat)
-    .reduce((sum, num) => sum + num, 0)
+  return sum(throwNegatives(filterNumbersOver1000(parseNumbersFromCsv(csv))))
+}
+
+function parseNumbersFromCsv (csv) {
+  return csv.split(/[,\n]/).map(Number.parseFloat)
+}
+
+function filterNumbersOver1000 (numbers) {
+  return numbers.filter(num => num <= 1000)
+}
+
+function throwNegatives (numbers) {
+  const negatives = numbers.filter(num => num < 0)
+  if (negatives.length > 0) {
+    throw new Error(`Negatives not allowed: ${negatives.join(', ')}`)
+  }
+  return numbers
+}
+
+function sum (numbers) {
+  return numbers.reduce((acc, num) => acc + num, 0)
 }
 
 module.exports = { add }
