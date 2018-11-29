@@ -8,11 +8,27 @@ function add (str) {
   return sumCsv(toCsv(str))
 }
 
+// returns only csv. remove first line if it starts with "/".
 function toCsv (str) {
   const hasCustomDelim = str[0] === '/'
+
   if (!hasCustomDelim) return str
-  const delim = str[2]
-  return values(str).replace(new RegExp(RegExp.escape(delim), 'g'), ',')
+
+  let delims = []
+
+  const hasNoBrackets = str[2] !== '[' // e.g. str starts with "//-"
+  if (hasNoBrackets) {
+    delims.push(str[2])
+  } else {
+    const startOfDelim = 3 // starts after "//["
+    delims = str.slice(startOfDelim, str.lastIndexOf(']')).split('][')
+  }
+
+  // replace all delims with commas and return the resulting csv.
+  // returned value does not include first line containing delims.
+  return delims.reduce((csv, d) => {
+    return csv.replace(new RegExp(RegExp.escape(d), 'g'), ',')
+  }, values(str))
 }
 
 function values (str) {

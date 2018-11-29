@@ -44,8 +44,9 @@ describe('string-calculator: add', () => {
     addShouldReturnGiven(1, '1,1001')
   })
 
-  // #TODO handles delimiter in brackets
-  // describe('extended custom delimiters', () => {
-  //   addShouldReturnGiven(4, )
-  // })
+  describe('extended custom delimiters', () => {
+    addShouldReturnGiven(4, '//[-]\n1-2-1')
+    addShouldReturnGiven(4, '//[-#]\n1-#2-#1')
+    addShouldReturnGiven(4, '//[-][#]\n1#2-1')
+  })
 })
