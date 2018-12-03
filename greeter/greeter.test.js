@@ -41,7 +41,7 @@ describe('greeter', () => {
         greeter.greet('bob').should.equal('Good morning, Bob', '6 AM')
       })
 
-      it('should say good hello for hours 12 to 17', () => {
+      it('should say hello for hours 12 to 17', () => {
         const greeter = getGreeter(12)
         greeter.greet('bob').should.equal('Hello, Bob', '12 PM')
       })
@@ -49,6 +49,32 @@ describe('greeter', () => {
       it('should say good good evening for hours 18 to 21', () => {
         const greeter = getGreeter(18)
         greeter.greet('bob').should.equal('Good evening, Bob', '6 PM')
+      })
+
+      it('should say good night starting at hour 22 and greater', () => {
+        const greeter = getGreeter(22)
+        greeter.greet('bob').should.equal('Good night, Bob', '10 PM')
+      })
+
+      it('should say good night for hours 0 to 5', () => {
+        const greeter = getGreeter(5)
+        greeter.greet('bob').should.equal('Good night, Bob', '5 AM')
+      })
+    })
+
+    describe('logging', () => {
+      it('should log the greeting each time greet is called', () => {
+        let loggerCalled = false
+        const logger = {
+          log: greeting => {
+            loggerCalled = true
+            should.exist(greeting, 'expected logger.log to be called with one argument')
+            greeting.should.equal('Hello, Bob', 'logger.log called with')
+          }
+        }
+        const greeter = new Greeter(null, logger)
+        greeter.greet('Bob')
+        loggerCalled.should.equal(true, 'expected logger.log to be called')
       })
     })
   })
