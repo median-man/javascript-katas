@@ -1,7 +1,18 @@
 function createBowlingGame () {
   const rolls = []
 
-  const isSpare = frameIndex => rolls[frameIndex] + rolls[frameIndex + 1] === 10
+  const sumOfBallsInFrame = frameIndex =>
+    rolls[frameIndex] + rolls[frameIndex + 1]
+
+  const spareBonus = frameIndex => rolls[frameIndex + 2]
+
+  const strikeBonus = frameIndex =>
+    rolls[frameIndex + 1] + rolls[frameIndex + 2]
+
+  const isSpare = frameIndex => sumOfBallsInFrame(frameIndex) === 10
+
+  const isStrike = frameIndex => rolls[frameIndex] === 10
+
   return {
     roll: pins => {
       rolls.push(pins)
@@ -10,15 +21,14 @@ function createBowlingGame () {
       let score = 0
       let frameIndex = 0
       for (let frame = 0; frame < 10; frame += 1) {
-        if (rolls[frameIndex] === 10) { // strike
-          score += 10 + rolls[frameIndex + 1] + rolls[frameIndex + 2]
+        if (isStrike(frameIndex)) {
+          score += 10 + strikeBonus(frameIndex)
           frameIndex += 1
-        }
-        if (isSpare(frameIndex)) {
-          score += 10 + rolls[frameIndex + 2]
+        } else if (isSpare(frameIndex)) {
+          score += 10 + spareBonus(frameIndex)
           frameIndex += 2
         } else {
-          score += rolls[frameIndex] + rolls[frameIndex + 1]
+          score += sumOfBallsInFrame(frameIndex)
           frameIndex += 2
         }
       }

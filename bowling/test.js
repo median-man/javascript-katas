@@ -35,11 +35,17 @@ describe('bowling game', () => {
     game.score().should.equal(16)
   })
 
+  const rollStrike = () => game.roll(10)
   it('should score one strike', () => {
-    game.roll(10) // strike
+    rollStrike()
     game.roll(3)
     game.roll(4)
     rollMany(18, 0)
     game.score().should.equal(24)
+  })
+
+  it('should score a perfect game', () => {
+    rollMany(12, 10)
+    game.score().should.equal(300)
   })
 })
