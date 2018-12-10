@@ -1,7 +1,8 @@
 function createBowlingGame () {
+  let score = 0
   return {
-    roll: () => {},
-    score: () => 0
+    roll: pins => (score += pins),
+    score: () => score
   }
 }
 
