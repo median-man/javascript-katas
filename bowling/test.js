@@ -23,4 +23,12 @@ describe('bowling game', () => {
     rollMany(20, 1)
     game.score().should.equal(20)
   })
+
+  it.skip('should score one spare', () => {
+    game.roll(5)
+    game.roll(5) // spare
+    game.roll(3)
+    rollMany(17, 0)
+    game.score().should.equal(16)
+  })
 })
