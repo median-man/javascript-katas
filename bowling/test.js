@@ -35,14 +35,4 @@ describe('bowling game', () => {
     rollMany(17, 0)
     game.score().should.equal(16)
   })
-
-  const rollStrike = () => game.roll(10)
-
-  it('should score one strike', () => {
-    rollStrike()
-    game.roll(3)
-    game.roll(4)
-    rollMany(16, 0)
-    game.score().should.equal(24)
-  })
 })
