@@ -45,4 +45,9 @@ describe('bowling game', () => {
     rollMany(16, 0)
     game.score().should.equal(24)
   })
+
+  it('should score a perfect game', () => {
+    rollMany(12, 10)
+    game.score().should.equal(300)
+  })
 })
