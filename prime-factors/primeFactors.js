@@ -1,13 +1,10 @@
 function generate (n) {
   const primes = []
-  if (n > 1) {
-    while (n % 2 === 0) {
-      primes.push(2)
-      n /= 2
+
+  for (let candidate = 2; n > 1; candidate += 1) {
+    for (; n % candidate === 0; n /= candidate) {
+      primes.push(candidate)
     }
-  }
-  if (n > 1) {
-    primes.push(n)
   }
   return primes
 }

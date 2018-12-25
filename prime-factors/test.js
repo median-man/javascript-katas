@@ -28,7 +28,7 @@ describe('prime factors kata', () => {
       generate(8).should.eql([2, 2, 2])
     })
 
-    it.skip('should return prime factors for 9', () => {
+    it('should return prime factors for 9', () => {
       generate(9).should.eql([3, 3])
     })
   })
