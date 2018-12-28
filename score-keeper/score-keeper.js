@@ -6,21 +6,32 @@ const teamScoreToString = score => {
   return result
 }
 
-function createScoreKeeper () {
+function createScoreKeeper (config) {
   let teamAScore = 0
   let teamBScore = 0
 
-  return {
+  const increaseTeamAScore = points => {
+    teamAScore += points
+  }
+
+  const increaseTeamBScore = points => {
+    teamBScore += points
+  }
+
+  const scoreKeeper = {
     score: () => {
       return `${teamScoreToString(teamAScore)}:${teamScoreToString(teamBScore)}`
-    },
-    scoreOneForTeamA: () => {
-      teamAScore += 1
-    },
-    scoreOneForTeamB: () => {
-      teamBScore += 1
     }
   }
+
+  const addScoreMethodForTeams = (points) => {
+    scoreKeeper[`score${points}ForTeamA`] = () => increaseTeamAScore(points)
+    scoreKeeper[`score${points}ForTeamB`] = () => increaseTeamBScore(points)
+  }
+
+  config.forEach(addScoreMethodForTeams)
+
+  return scoreKeeper
 }
 
 module.exports = { createScoreKeeper }
