@@ -40,5 +40,11 @@ describe('score-keeper kata', () => {
       scoreKeeper.addTwoPointsForTeamB()
       scoreKeeper.printScore().should.equal('002:002')
     })
+
+    it('should increase score by 3 points', () => {
+      scoreKeeper.addThreePointsForTeamA()
+      scoreKeeper.addThreePointsForTeamB()
+      scoreKeeper.printScore().should.equal('003:003')
+    })
   })
 })

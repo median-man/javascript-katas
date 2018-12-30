@@ -1,46 +1,43 @@
+const teamScoreSize = () => 3
+
+const padChar = () => '0'
+
+const padSize = valueLength => teamScoreSize() - valueLength
+
+const padLeft = s => padChar().repeat(padSize(s.length)) + s
+
+const renderTeamScore = points => padLeft(points.toString())
+
+const renderScore = scores => scores.map(renderTeamScore).join(':')
+
+const addPoints = (score, points) => score + points
+
 function createScoreKeeper () {
   let teamAScore = 0
   let teamBScore = 0
 
-  const renderTeamScore = points => {
-    const scoreStringSize = 3
-    const pointsString = points.toString()
-    return '0'.repeat(scoreStringSize - pointsString.length) + pointsString
+  const printScore = () => renderScore([teamAScore, teamBScore])
+
+  const addPointsToTeamA = points => {
+    teamAScore = addPoints(teamAScore, points)
   }
 
-  const scoreKeeper = {
-    printScore: () => {
-      return `${renderTeamScore(teamAScore)}:${renderTeamScore(teamBScore)}`
-    }
+  const addPointsToTeamB = points => {
+    teamBScore = addPoints(teamBScore, points)
   }
 
-  const points = ['One', 'Two']
-  for (let i = 0; i < points.length; i += 1) {
-    scoreKeeper[`add${points[i]}PointsForTeamA`] = () => {
-      teamAScore += i + 1
-    }
-    scoreKeeper[`add${points[i]}PointsForTeamB`] = () => {
-      teamAScore += i + 1
-    }
-  }
+  const createScoreMethods = ([name, points]) => ({
+    [`${name}ForTeamA`]: () => addPointsToTeamA(points),
+    [`${name}ForTeamB`]: () => addPointsToTeamB(points)
+  })
 
-  return {
-    printScore: () => {
-      return `${renderTeamScore(teamAScore)}:${renderTeamScore(teamBScore)}`
-    },
-    addOnePointForTeamA: () => {
-      teamAScore += 1
-    },
-    addOnePointForTeamB: () => {
-      teamBScore += 1
-    },
-    addTwoPointsForTeamA: () => {
-      teamAScore += 2
-    },
-    addTwoPointsForTeamB: () => {
-      teamBScore += 2
-    }
-  }
+  const scoringMethods = [
+    ['addOnePoint', 1],
+    ['addTwoPoints', 2],
+    ['addThreePoints', 3]
+  ].map(createScoreMethods)
+
+  return Object.assign({ printScore }, ...scoringMethods)
 }
 
 module.exports = { createScoreKeeper }
