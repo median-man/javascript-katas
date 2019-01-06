@@ -3,131 +3,85 @@ require('chai').should()
 const { nextGrid } = require('./game-of-life')
 
 describe('game-of-life kata', () => {
-  const DEAD_CELL = '.'
-  const LIVE_CELL = '*'
-
   describe('nextGrid', () => {
-    const createGrid = (...rows) => rows.join('\n')
-
-    describe('3 x 3 grid', () => {
-      const deadRow = () => DEAD_CELL.repeat(3)
-      const liveRow = () => LIVE_CELL.repeat(3)
-
-      it('should return dead grid given all dead cells', () => {
-        const allDeadCells = createGrid(
-          deadRow(),
-          deadRow(),
-          deadRow()
-        )
-        nextGrid(allDeadCells).should.equal(allDeadCells)
-      })
-
-      const getCellAt = (grid, rowIndex, colIndex) => grid.split('\n')[rowIndex][colIndex]
-      const middleCell = grid => getCellAt(grid, 1, 1)
-
-      it('should return live cell when live cell has two live neighbors in its row', () => {
-        const startGrid = createGrid(
-          deadRow(),
-          liveRow(),
-          deadRow()
-        )
-        const result = nextGrid(startGrid)
-        middleCell(result).should.equal(LIVE_CELL)
-      })
-
-      it('should return dead cell when live cell has no live neighbors', () => {
-        const startGrid = createGrid(
-          deadRow(),
-          DEAD_CELL + LIVE_CELL + DEAD_CELL,
-          deadRow()
-        )
-        const result = nextGrid(startGrid)
-        middleCell(result).should.equal(DEAD_CELL)
-      })
-
-      it('should return dead cell when live cell has one live neighbor', () => {
-        const startGrid = createGrid(
-          deadRow(),
-          LIVE_CELL + LIVE_CELL + DEAD_CELL,
-          deadRow()
-        )
-        const result = nextGrid(startGrid)
-        middleCell(result).should.equal(DEAD_CELL)
-      })
-
-      it('should return dead cell when live cell has > 3 live neighbors', () => {
-        const startGrid = createGrid(
-          liveRow(),
-          liveRow(),
-          deadRow()
-        )
-        const result = nextGrid(startGrid)
-        middleCell(result).should.equal(DEAD_CELL)
-      })
-
-      it('should make dead cell alive if cell has 3 live neighbors', () => {
-        const startGrid = createGrid(
-          DEAD_CELL + LIVE_CELL + DEAD_CELL,
-          LIVE_CELL + DEAD_CELL + LIVE_CELL,
-          deadRow()
-        )
-        const result = nextGrid(startGrid)
-        middleCell(result).should.equal(LIVE_CELL)
-      })
-
-      it('should update cells on left edge of grid', () => {
-        const startGrid = createGrid(
-          DEAD_CELL + DEAD_CELL + LIVE_CELL,
-          LIVE_CELL + LIVE_CELL + LIVE_CELL,
-          DEAD_CELL + DEAD_CELL + LIVE_CELL
-        )
-        const result = nextGrid(startGrid)
-        const midLeftCell = getCellAt(result, 1, 0)
-        midLeftCell.should.equal(DEAD_CELL)
-      })
-
-      it('should update cells on right edge of grid', () => {
-        const startGrid = createGrid(
-          LIVE_CELL + DEAD_CELL + LIVE_CELL,
-          DEAD_CELL + LIVE_CELL + DEAD_CELL,
-          LIVE_CELL + DEAD_CELL + LIVE_CELL
-        )
-        const result = nextGrid(startGrid)
-        const midRightCell = getCellAt(result, 1, 2)
-        midRightCell.should.equal(LIVE_CELL)
-      })
-
-      it('should update all cells of grid', () => {
-        const startGrid = createGrid(
-          DEAD_CELL + DEAD_CELL + LIVE_CELL,
-          DEAD_CELL + LIVE_CELL + LIVE_CELL,
-          DEAD_CELL + DEAD_CELL + LIVE_CELL
-        )
-        const expectedGrid = createGrid(
-          DEAD_CELL + LIVE_CELL + LIVE_CELL,
-          DEAD_CELL + LIVE_CELL + LIVE_CELL,
-          DEAD_CELL + LIVE_CELL + LIVE_CELL
-        )
-        nextGrid(startGrid).should.equal(expectedGrid)
-      })
+    it('should return all dead cells', () => {
+      const startGrid = '...\n...\n...'
+      nextGrid(startGrid).should.equal(startGrid)
     })
 
-    describe('4 x 3 grid', () => {
-      it('should calculate the next grid correctly', () => {
-        const startGrid = createGrid(
-          DEAD_CELL.repeat(3),
-          DEAD_CELL + LIVE_CELL + LIVE_CELL,
-          DEAD_CELL.repeat(3),
-          LIVE_CELL.repeat(3)
-        )
-        const expectedGrid = createGrid(
-          DEAD_CELL.repeat(3),
-          DEAD_CELL.repeat(3),
-          LIVE_CELL + DEAD_CELL + DEAD_CELL,
-          DEAD_CELL + LIVE_CELL + DEAD_CELL
-        )
-        nextGrid(startGrid).should.equal(expectedGrid)
-      })
+    it('should change live cell to dead if cell has no live neighbors', () => {
+      const startGrid = '...\n.*.\n...'
+      const expectedGrid = '...\n...\n...'
+      nextGrid(startGrid).should.equal(expectedGrid)
+    })
+
+    const getCellAt = (gridStr, row, col) => gridStr.split('\n')[row][col]
+
+    it('should not change live cell if cell has live cells on left and right', () => {
+      const startGrid = '...\n***\n...'
+      const middleCell = getCellAt(nextGrid(startGrid), 1, 1)
+      middleCell.should.equal('*')
+    })
+
+    it('should not change live cell if cell has live cells on left and above', () => {
+      const startGrid = '.*.\n**.\n...'
+      const middleCell = getCellAt(nextGrid(startGrid), 1, 1)
+      middleCell.should.equal('*')
+    })
+
+    it('should change live cell to dead if cell has only one neighbor', () => {
+      const startGrid = '...\n**.\n...'
+      const middleCell = getCellAt(nextGrid(startGrid), 1, 1)
+      middleCell.should.equal('.')
+    })
+
+    it('should not change live cell if cell has live cells on left and below', () => {
+      const startGrid = '...\n**.\n.*.'
+      const middleCell = getCellAt(nextGrid(startGrid), 1, 1)
+      middleCell.should.equal('*')
+    })
+
+    it('should not change live cell if cell has live cells on left and above left', () => {
+      const startGrid = '*..\n**.\n...'
+      const middleCell = getCellAt(nextGrid(startGrid), 1, 1)
+      middleCell.should.equal('*')
+    })
+
+    it('should not change live cell if cell has live cells on left and above right', () => {
+      const startGrid = '..*\n**.\n...'
+      const middleCell = getCellAt(nextGrid(startGrid), 1, 1)
+      middleCell.should.equal('*')
+    })
+
+    it('should not change live cell if cell has live cells on left and below right', () => {
+      const startGrid = '...\n**.\n..*'
+      const middleCell = getCellAt(nextGrid(startGrid), 1, 1)
+      middleCell.should.equal('*')
+    })
+
+    it('should change live cell to dead if cell has more than 3 live neighbor cells', () => {
+      const startGrid = '...\n***\n.**'
+      const middleCell = getCellAt(nextGrid(startGrid), 1, 1)
+      middleCell.should.equal('.')
+    })
+
+    it('should not change dead cell to live if cell has 2 live neighbor cells', () => {
+      const startGrid = '...\n*.*\n...'
+      const middleCell = getCellAt(nextGrid(startGrid), 1, 1)
+      middleCell.should.equal('.')
+    })
+
+    it('should update all cells in row', () => {
+      const startGrid = '...\n*.*\n...'
+      const gridStr = nextGrid(startGrid)
+      const middleRow = gridStr.split('\n')[1]
+      middleRow.should.equal('...')
+    })
+
+    it('should update all cells', () => {
+      const startGrid = '.*.\n***\n.*.'
+      const expectedGrid = '***\n*.*\n***'
+      nextGrid(startGrid).should.equal(expectedGrid)
     })
   })
 })
