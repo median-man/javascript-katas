@@ -1,18 +1,45 @@
 const LIVE_CHAR = '*'
 const DEAD_CHAR = '.'
 
-function nextGeneration (prevGenStr) {
+function liveNeighborCellCount (rows, rowIndex, columnIndex) {
+  const row = rows[rowIndex]
   const liveCharMatcher = new RegExp('\\' + LIVE_CHAR, 'g')
-  const liveCells = prevGenStr.match(liveCharMatcher)
-  const liveCellCount = liveCells ? liveCells.length : 0
-  let nextGenStr = prevGenStr
-  if (liveCellCount < 3 || liveCellCount > 4) {
-    nextGenStr = prevGenStr.replace(liveCharMatcher, DEAD_CHAR)
+  const neighborCells =
+    rows[rowIndex - 1].substr(columnIndex - 1, 3) +
+    row[columnIndex - 1] +
+    row[columnIndex + 1] +
+    rows[rowIndex + 1].substr(columnIndex - 1, 3)
+  const liveCells = neighborCells.match(liveCharMatcher)
+  return liveCells ? liveCells.length : 0
+}
+
+function getNextCellChar (currentChar, liveNeighborCount) {
+  if (liveNeighborCount < 2 || liveNeighborCount > 3) {
+    return DEAD_CHAR
   }
-  if (liveCellCount === 3) {
-    nextGenStr = nextGenStr.substr(0, 5) + LIVE_CHAR + nextGenStr.substr(6)
+  if (liveNeighborCount === 3) {
+    return LIVE_CHAR
   }
-  return nextGenStr
+  return currentChar
+}
+
+function nextGeneration (prevGenStr) {
+  const prevGenRows = prevGenStr.split('\n')
+  const nextGenRows = prevGenStr.split('\n')
+  let columnIndex = 1
+  let rowIndex = 1
+  let liveCellCount = liveNeighborCellCount(prevGenRows, rowIndex, columnIndex)
+  let nextCellChar = getNextCellChar(
+    prevGenRows[rowIndex][columnIndex],
+    liveCellCount
+  )
+  nextGenRows[rowIndex] =
+    nextGenRows[rowIndex][0] + nextCellChar + nextGenRows[rowIndex][2]
+
+  // columnIndex = 0
+  // liveCellCount = liveNeighborCellCount(prevGenRows, rowIndex, columnIndex)
+
+  return nextGenRows.join('\n')
 }
 
 module.exports = { nextGeneration }
