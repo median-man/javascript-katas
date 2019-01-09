@@ -71,7 +71,7 @@ describe('game-of-life kata', () => {
       middleCellOfGridShouldEqual(grid, LIVE_CHAR)
     })
 
-    it.skip('should update all cells in row', () => {
+    it('should update all cells in row', () => {
       const deadRow = DEAD_CHAR.repeat(3)
       const gridString = createGridStr(
         DEAD_CHAR + LIVE_CHAR + DEAD_CHAR,

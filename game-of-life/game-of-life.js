@@ -2,14 +2,26 @@ const LIVE_CHAR = '*'
 const DEAD_CHAR = '.'
 
 function liveNeighborCellCount (rows, rowIndex, columnIndex) {
-  const row = rows[rowIndex]
   const liveCharMatcher = new RegExp('\\' + LIVE_CHAR, 'g')
-  const neighborCells =
-    rows[rowIndex - 1].substr(columnIndex - 1, 3) +
-    row[columnIndex - 1] +
-    row[columnIndex + 1] +
-    rows[rowIndex + 1].substr(columnIndex - 1, 3)
-  const liveCells = neighborCells.match(liveCharMatcher)
+
+  const leftCol = columnIndex - 1
+  let neighborChars = ''
+  if (leftCol > -1) {
+    neighborChars += rows[rowIndex - 1][leftCol]
+    neighborChars += rows[rowIndex][leftCol]
+    neighborChars += rows[rowIndex + 1][leftCol]
+  }
+
+  const rightCol = columnIndex + 1
+  if (rightCol < rows[rowIndex].length) {
+    neighborChars += rows[rowIndex - 1][rightCol]
+    neighborChars += rows[rowIndex][rightCol]
+    neighborChars += rows[rowIndex + 1][rightCol]
+  }
+  neighborChars +=
+    rows[rowIndex - 1][columnIndex] + rows[rowIndex + 1][columnIndex]
+
+  const liveCells = neighborChars.match(liveCharMatcher)
   return liveCells ? liveCells.length : 0
 }
 
@@ -36,8 +48,23 @@ function nextGeneration (prevGenStr) {
   nextGenRows[rowIndex] =
     nextGenRows[rowIndex][0] + nextCellChar + nextGenRows[rowIndex][2]
 
-  // columnIndex = 0
-  // liveCellCount = liveNeighborCellCount(prevGenRows, rowIndex, columnIndex)
+  columnIndex = 0
+  liveCellCount = liveNeighborCellCount(prevGenRows, rowIndex, columnIndex)
+  nextCellChar = getNextCellChar(
+    prevGenRows[rowIndex][columnIndex],
+    liveNeighborCellCount(prevGenRows, rowIndex, columnIndex)
+  )
+  nextGenRows[rowIndex] =
+    nextCellChar + nextGenRows[rowIndex][1] + nextGenRows[rowIndex][2]
+
+  columnIndex = 2
+  liveCellCount = liveNeighborCellCount(prevGenRows, rowIndex, columnIndex)
+  nextCellChar = getNextCellChar(
+    prevGenRows[rowIndex][columnIndex],
+    liveNeighborCellCount(prevGenRows, rowIndex, columnIndex)
+  )
+  nextGenRows[rowIndex] =
+    nextGenRows[rowIndex][0] + nextGenRows[rowIndex][1] + nextCellChar
 
   return nextGenRows.join('\n')
 }
