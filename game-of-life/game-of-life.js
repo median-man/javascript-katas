@@ -63,14 +63,14 @@ function nextGeneration (prevGenStr) {
       nextGenRows[rowIndex].substr(columnIndex + 1)
   }
 
-  let rowIndex = 1
-  for (let columnIndex = 0; columnIndex < 3; columnIndex += 1) {
-    updateCell(rowIndex, columnIndex)
+  const updateRow = rowIndex => {
+    for (let columnIndex = 0; columnIndex < 3; columnIndex += 1) {
+      updateCell(rowIndex, columnIndex)
+    }
   }
 
-  rowIndex = 0
-  for (let columnIndex = 0; columnIndex < 3; columnIndex += 1) {
-    updateCell(rowIndex, columnIndex)
+  for (let rowIndex = 0; rowIndex < prevGenRows.length; rowIndex += 1) {
+    updateRow(rowIndex)
   }
   return nextGenRows.join('\n')
 }

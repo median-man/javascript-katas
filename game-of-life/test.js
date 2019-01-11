@@ -87,16 +87,50 @@ describe('game-of-life kata', () => {
       nextGeneration(gridString).should.equal(expectedNextGridStr)
     })
 
-    it.skip('should update cells in top row', () => {
+    it('should update cells in top row', () => {
       const deadRow = DEAD_CHAR.repeat(3)
       const gridString = createGridStr(
-        DEAD_CHAR + LIVE_CHAR + DEAD_CHAR,
+        LIVE_CHAR + LIVE_CHAR + DEAD_CHAR,
         LIVE_CHAR + LIVE_CHAR + LIVE_CHAR,
         deadRow
       )
       const expectedTopRow = LIVE_CHAR + DEAD_CHAR + LIVE_CHAR
       const topRow = nextGeneration(gridString).substr(0, 3)
       topRow.should.equal(expectedTopRow)
+    })
+
+    it('should update cells in all rows of a 3x3 grid', () => {
+      const deadRow = DEAD_CHAR.repeat(3)
+      const gridString = createGridStr(
+        LIVE_CHAR + LIVE_CHAR + DEAD_CHAR,
+        LIVE_CHAR + LIVE_CHAR + LIVE_CHAR,
+        deadRow
+      )
+      const expectedRows = [
+        LIVE_CHAR + DEAD_CHAR + LIVE_CHAR,
+        LIVE_CHAR + DEAD_CHAR + LIVE_CHAR,
+        DEAD_CHAR + LIVE_CHAR + DEAD_CHAR
+      ]
+      const rows = nextGeneration(gridString).split('\n')
+      rows.should.eql(expectedRows)
+    })
+
+    it.skip('should update cells in a 3 x 4 grid', () => {
+      const deadRow = DEAD_CHAR.repeat(4)
+      // const gridString = createGridStr(
+      //   LIVE_CHAR + LIVE_CHAR + DEAD_CHAR,
+      //   LIVE_CHAR + LIVE_CHAR + LIVE_CHAR,
+      //   deadRow,
+      //   LIVE_CHAR + DEAD_CHAR + DEAD_CHAR
+      // )
+      // const expectedRows = [
+      //   LIVE_CHAR + DEAD_CHAR + LIVE_CHAR,
+      //   LIVE_CHAR + DEAD_CHAR + LIVE_CHAR,
+      //   LIVE_CHAR + DEAD_CHAR + DEAD_CHAR,
+      //   DEAD_CHAR + DEAD_CHAR + DEAD_CHAR
+      // ]
+      // const rows = nextGeneration(gridString).split('\n')
+      // rows.should.eql(expectedRows)
     })
   })
 })
