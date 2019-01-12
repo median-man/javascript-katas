@@ -115,22 +115,35 @@ describe('game-of-life kata', () => {
       rows.should.eql(expectedRows)
     })
 
-    it.skip('should update cells in a 3 x 4 grid', () => {
+    it('should update cells in a 3 x 4 grid', () => {
       const deadRow = DEAD_CHAR.repeat(4)
-      // const gridString = createGridStr(
-      //   LIVE_CHAR + LIVE_CHAR + DEAD_CHAR,
-      //   LIVE_CHAR + LIVE_CHAR + LIVE_CHAR,
-      //   deadRow,
-      //   LIVE_CHAR + DEAD_CHAR + DEAD_CHAR
-      // )
-      // const expectedRows = [
-      //   LIVE_CHAR + DEAD_CHAR + LIVE_CHAR,
-      //   LIVE_CHAR + DEAD_CHAR + LIVE_CHAR,
-      //   LIVE_CHAR + DEAD_CHAR + DEAD_CHAR,
-      //   DEAD_CHAR + DEAD_CHAR + DEAD_CHAR
-      // ]
-      // const rows = nextGeneration(gridString).split('\n')
-      // rows.should.eql(expectedRows)
+      const gridString = createGridStr(
+        LIVE_CHAR + LIVE_CHAR + LIVE_CHAR + DEAD_CHAR,
+        DEAD_CHAR + LIVE_CHAR + DEAD_CHAR + LIVE_CHAR,
+        deadRow
+      )
+      const expectedRows = [
+        LIVE_CHAR + LIVE_CHAR + LIVE_CHAR + DEAD_CHAR,
+        LIVE_CHAR + LIVE_CHAR + DEAD_CHAR + DEAD_CHAR,
+        deadRow
+      ]
+      const rows = nextGeneration(gridString).split('\n')
+      rows.should.eql(expectedRows)
+    })
+
+    it('should update cells in a ragged grid', () => {
+      const gridString = createGridStr(
+        LIVE_CHAR + LIVE_CHAR,
+        DEAD_CHAR + DEAD_CHAR + DEAD_CHAR + LIVE_CHAR,
+        DEAD_CHAR + DEAD_CHAR + LIVE_CHAR
+      )
+      const expectedRows = [
+        DEAD_CHAR + DEAD_CHAR,
+        DEAD_CHAR + LIVE_CHAR + LIVE_CHAR + DEAD_CHAR,
+        DEAD_CHAR + DEAD_CHAR + DEAD_CHAR
+      ]
+      const rows = nextGeneration(gridString).split('\n')
+      rows.should.eql(expectedRows)
     })
   })
 })

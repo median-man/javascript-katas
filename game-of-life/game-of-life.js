@@ -29,6 +29,7 @@ function liveNeighborCellCount (rows, rowIndex, columnIndex) {
   neighborChars +=
     getCell(rowIndex - 1, columnIndex) + getCell(rowIndex + 1, columnIndex)
 
+  // console.log({ rowIndex, columnIndex, neighborChars })
   const liveCells = neighborChars.match(liveCharMatcher)
   return liveCells ? liveCells.length : 0
 }
@@ -64,7 +65,7 @@ function nextGeneration (prevGenStr) {
   }
 
   const updateRow = rowIndex => {
-    for (let columnIndex = 0; columnIndex < 3; columnIndex += 1) {
+    for (let columnIndex = 0; columnIndex < prevGenRows[rowIndex].length; columnIndex += 1) {
       updateCell(rowIndex, columnIndex)
     }
   }
