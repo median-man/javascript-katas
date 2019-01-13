@@ -12,14 +12,17 @@ function nextGeneration (prev) {
 function nextRow (prevRows, rowIndex) {
   let result = ''
   for (let colIndex = 0; colIndex < prevRows[rowIndex].length; colIndex += 1) {
-    if (
-      (isLive(prevRows[rowIndex][colIndex]) &&
-        liveNeighborCount(prevRows, rowIndex, colIndex) === 2) ||
-      liveNeighborCount(prevRows, rowIndex, colIndex) === 3
-    ) {
-      result += '*'
-    } else {
+    const liveNeighborCellCount = liveNeighborCount(
+      prevRows,
+      rowIndex,
+      colIndex
+    )
+    if (liveNeighborCellCount < 2) {
       result += '.'
+    } else if (liveNeighborCellCount < 3) {
+      result += prevRows[rowIndex][colIndex]
+    } else {
+      result += '*'
     }
   }
   return result
