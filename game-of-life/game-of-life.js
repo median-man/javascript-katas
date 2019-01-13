@@ -13,8 +13,14 @@ function countLive (str) {
 function nextRow (prevRows, rowIndex) {
   let nextRow = ''
   for (let colIndex = 0; colIndex < prevRows[rowIndex].length; colIndex += 1) {
-    const neighbors =
+    let neighbors =
       prevRows[rowIndex][colIndex - 1] + prevRows[rowIndex][colIndex + 1]
+    if (prevRows[rowIndex - 1]) {
+      neighbors += prevRows[rowIndex - 1][colIndex]
+    }
+    if (prevRows[rowIndex + 1]) {
+      neighbors += prevRows[rowIndex + 1][colIndex]
+    }
     if (isLive(prevRows[rowIndex][colIndex]) && countLive(neighbors) === 2) {
       nextRow += '*'
     } else {
