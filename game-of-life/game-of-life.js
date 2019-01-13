@@ -11,16 +11,18 @@ function countLive (str) {
 }
 
 function nextGeneration (prev) {
-  let next = ''
-  for (let colIndex = 0; colIndex < prev.length; colIndex += 1) {
-    const neighbors = prev[colIndex - 1] + prev[colIndex + 1]
-    if (isLive(prev[colIndex]) && countLive(neighbors) === 2) {
-      next += '*'
+  const prevRows = prev.split('\n')
+  const nextRows = []
+  nextRows.push([])
+  for (let colIndex = 0; colIndex < prevRows[0].length; colIndex += 1) {
+    const neighbors = prevRows[0][colIndex - 1] + prevRows[0][colIndex + 1]
+    if (isLive(prevRows[0][colIndex]) && countLive(neighbors) === 2) {
+      nextRows[0] += '*'
     } else {
-      next += '.'
+      nextRows[0] += '.'
     }
   }
-  return next
+  return nextRows.join('\n')
 }
 
 module.exports = { nextGeneration }
