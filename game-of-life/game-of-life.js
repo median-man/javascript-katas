@@ -13,8 +13,9 @@ function nextRow (prevRows, rowIndex) {
   let result = ''
   for (let colIndex = 0; colIndex < prevRows[rowIndex].length; colIndex += 1) {
     if (
-      isLive(prevRows[rowIndex][colIndex]) &&
-      liveNeighborCount(prevRows, rowIndex, colIndex) === 2
+      (isLive(prevRows[rowIndex][colIndex]) &&
+        liveNeighborCount(prevRows, rowIndex, colIndex) === 2) ||
+      liveNeighborCount(prevRows, rowIndex, colIndex) === 3
     ) {
       result += '*'
     } else {
@@ -41,12 +42,6 @@ function countLive (str) {
 }
 
 function neighbors (prevRows, rowIndex, colIndex) {
-  let result =
-    prevRows[rowIndex][colIndex - 1] + prevRows[rowIndex][colIndex + 1]
-
-  result += getNeighborRow(prevRows[rowIndex - 1], colIndex)
-  result += getNeighborRow(prevRows[rowIndex + 1], colIndex)
-
   return [
     getNeighborRow(prevRows[rowIndex - 1], colIndex),
     prevRows[rowIndex][colIndex - 1] + prevRows[rowIndex][colIndex + 1],
@@ -55,7 +50,13 @@ function neighbors (prevRows, rowIndex, colIndex) {
 }
 
 function getNeighborRow (row, colIndex) {
-  return row ? row[colIndex] : ''
+  let result = ''
+  if (row) {
+    for (let i = -1; i < 2; i += 1) {
+      result += row[colIndex + i] || ''
+    }
+  }
+  return result
 }
 
 module.exports = { nextGeneration }
