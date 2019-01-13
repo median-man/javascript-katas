@@ -9,5 +9,31 @@ describe('game-of-life kata', () => {
         nextGeneration('.').should.equal('.')
       })
     })
+
+    describe('1x2 grid', () => {
+      it('should return ".." given "..', () => {
+        nextGeneration('..').should.equal('..')
+      })
+
+      it('should return ".." given "*.', () => {
+        nextGeneration('*.').should.equal('..')
+      })
+    })
+
+    describe('1x3 grid', () => {
+      it('should return ".*." given "***"', () => {
+        nextGeneration('***').should.equal('.*.')
+      })
+
+      it('should return "..." given "*.*"', () => {
+        nextGeneration('*.*').should.equal('...')
+      })
+    })
+
+    describe('2x1 grid', () => {
+      it.skip('should return ".\\n." given ".\\n."', () => {
+        nextGeneration('.\n.').should.equal('.\n.')
+      })
+    })
   })
 })
