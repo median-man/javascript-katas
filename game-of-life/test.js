@@ -47,5 +47,25 @@ describe('game-of-life kata', () => {
         nextGeneration('**\n*.').should.equal('**\n**')
       })
     })
+
+    describe('acceptance test', () => {
+      it('should return next generation for 5x7 grid', () => {
+        const startGrid = [
+          '.......',
+          '...*...',
+          '.......',
+          '..**...',
+          '..*....'
+        ].join('\n')
+        const expectedGrid = [
+          '.......',
+          '.......',
+          '..**...',
+          '..**...',
+          '..**...'
+        ].join('\n')
+        nextGeneration(startGrid).should.equal(expectedGrid)
+      })
+    })
   })
 })
