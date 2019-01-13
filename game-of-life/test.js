@@ -35,5 +35,11 @@ describe('game-of-life kata', () => {
         nextGeneration('.\n.').should.equal('.\n.')
       })
     })
+
+    describe('3x1 grid', () => {
+      it('should return ".\\n*\\n." given "*\\n*\\n*"', () => {
+        nextGeneration('*\n*\n*').should.equal('.\n*\n.')
+      })
+    })
   })
 })
