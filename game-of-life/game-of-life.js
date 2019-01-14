@@ -1,5 +1,5 @@
 function nextGeneration () {
-  return 0
+  return ''
 }
 
 module.exports = { nextGeneration }
