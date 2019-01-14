@@ -11,7 +11,7 @@ describe('game-of-life kata', () => {
     it('should return dead cell given "."', () => {})
 
     it('should return all dead cells given all dead cells', () => {
-      const allDead = ['*..', '...', '...'].join('\n')
+      const allDead = ['...', '...', '...'].join('\n')
       nextGeneration(allDead).should.equal(allDead)
     })
 
@@ -19,7 +19,7 @@ describe('game-of-life kata', () => {
       nextGeneration('*').should.equal('.')
     })
 
-    it.skip('should return dead cells for cells with no live neighbors', () => {
+    it('should return dead cells for cells with no live neighbors', () => {
       const previous = ['*..', '...', '...'].join('\n')
       const expected = ['...', '...', '...'].join('\n')
       nextGeneration(previous).should.equal(expected)
