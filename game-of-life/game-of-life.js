@@ -25,20 +25,27 @@ class Grid {
     return this.rows[row][column]
   }
 
+  neighborsOfCellAt (row, col) {
+    return [this.charAt(row, col + 1), this.charAt(row + 1, col)]
+  }
+
   toString () {
     return this.rows.map(row => row.join('')).join('\n')
   }
 }
 
 function getNextCell (previousGen, row, col) {
-  const rightCell = previousGen.charAt(0, 1)
-  const downCell = previousGen.charAt(1, 0)
-  const countLiveNeighbors = [rightCell, downCell].filter(char => char === '*')
-    .length
+  const countLiveNeighbors = countLive(
+    previousGen.neighborsOfCellAt(row, col)
+  )
   if (countLiveNeighbors > 1) {
     return '*'
   }
   return '.'
+}
+
+function countLive (cells) {
+  return cells.filter(char => char === '*').length
 }
 
 module.exports = { nextGeneration }
