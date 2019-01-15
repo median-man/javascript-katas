@@ -31,6 +31,13 @@ class Grid {
 }
 
 function getNextCell (previousGen, row, col) {
+  const rightCell = previousGen.charAt(0, 1)
+  const downCell = previousGen.charAt(1, 0)
+  const countLiveNeighbors = [rightCell, downCell].filter(char => char === '*')
+    .length
+  if (countLiveNeighbors > 1) {
+    return '*'
+  }
   return '.'
 }
 
