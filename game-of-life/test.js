@@ -26,7 +26,7 @@ describe('game-of-life kata', () => {
     })
 
     it('should return live cell when cell has three live neighbors', () => {
-      const previous = ['**.', '**.', '...'].join('\n')
+      const previous = ['.*.', '**.', '...'].join('\n')
       const expected = ['**.', '**.', '...'].join('\n')
       nextGeneration(previous).should.equal(expected)
     })

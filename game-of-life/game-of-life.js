@@ -31,6 +31,15 @@ class Grid {
 }
 
 function getNextCell (previousGen, row, col) {
+  const neighborCount = [
+    previousGen.charAt(row, col + 1),
+    previousGen.charAt(row + 1, col),
+    previousGen.charAt(row + 1, col + 1)
+  ].filter(char => char === '*').length
+
+  if (neighborCount === 3) {
+    return '*'
+  }
   return '.'
 }
 
