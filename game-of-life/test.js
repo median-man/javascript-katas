@@ -24,11 +24,5 @@ describe('game-of-life kata', () => {
       const expected = ['...', '...', '...'].join('\n')
       nextGeneration(previous).should.equal(expected)
     })
-
-    it('should return live cells for cells with two live neighbors', () => {
-      const previous = ['**.', '*..', '...'].join('\n')
-      const expected = ['**.', '*..', '...'].join('\n')
-      nextGeneration(previous).should.equal(expected)
-    })
   })
 })
