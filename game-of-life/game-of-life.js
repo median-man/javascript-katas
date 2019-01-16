@@ -1,9 +1,12 @@
+const LIVE_CHAR = '*'
+const DEAD_CHAR = '.'
+
 function nextGeneration (previousGen) {
   if (!previousGen) {
     return ''
   }
   if (previousGen.length === 1) {
-    return '.'
+    return DEAD_CHAR
   }
   const nextGrid = new Grid(previousGen)
   const previousGrid = new Grid(previousGen)
@@ -28,19 +31,21 @@ class Grid {
   toString () {
     return this.rows.map(row => row.join('')).join('\n')
   }
+
+  neighborCountForCellAt (row, col) {
+    return [
+      this.charAt(row, col + 1),
+      this.charAt(row + 1, col),
+      this.charAt(row + 1, col + 1)
+    ].filter(char => char === LIVE_CHAR).length
+  }
 }
 
 function getNextCell (previousGen, row, col) {
-  const neighborCount = [
-    previousGen.charAt(row, col + 1),
-    previousGen.charAt(row + 1, col),
-    previousGen.charAt(row + 1, col + 1)
-  ].filter(char => char === '*').length
-
-  if (neighborCount === 3) {
-    return '*'
+  if (previousGen.neighborCountForCellAt(row, col) === 3) {
+    return LIVE_CHAR
   }
-  return '.'
+  return DEAD_CHAR
 }
 
 module.exports = { nextGeneration }
