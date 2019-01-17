@@ -25,9 +25,15 @@ describe('game-of-life kata', () => {
       nextGeneration(previous).should.equal(expected)
     })
 
-    it('should return live cell when cell has three live neighbors', () => {
+    it.skip('should return live cell when cell has three live neighbors', () => {
       const previous = ['.*.', '**.', '...'].join('\n')
       const expected = ['**.', '**.', '...'].join('\n')
+      nextGeneration(previous).should.equal(expected)
+    })
+
+    it.skip('should update cells in all rows', () => {
+      const previous = ['.', '*', '*'].join('\n')
+      const expected = ['.', '.', '.'].join('\n')
       nextGeneration(previous).should.equal(expected)
     })
   })
