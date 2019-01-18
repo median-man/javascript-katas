@@ -10,7 +10,7 @@ function nextGeneration (previousGen) {
   }
   const nextGrid = new Grid(previousGen)
   const previousGrid = new Grid(previousGen)
-  for (let colIndex = 0; colIndex < previousGrid.rows[0].length; colIndex += 1) {
+  for (let colIndex = 0; previousGrid.hasCellAt(0, colIndex); colIndex += 1) {
     const nextCellChar = getNextCell(previousGrid, 0, colIndex)
     nextGrid.setCellAt(0, colIndex, nextCellChar)
   }
@@ -20,6 +20,11 @@ function nextGeneration (previousGen) {
 class Grid {
   constructor (str) {
     this.rows = str.split('\n').map(row => row.split(''))
+  }
+
+  hasCellAt (row, column) {
+    if (!this.rows[row]) return false
+    return !!this.rows[row][column]
   }
 
   setCellAt (row, col, char) {
