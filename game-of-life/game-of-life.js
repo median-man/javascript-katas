@@ -10,8 +10,10 @@ function nextGeneration (previousGen) {
   }
   const nextGrid = new Grid(previousGen)
   const previousGrid = new Grid(previousGen)
-  const nextCellChar = getNextCell(previousGrid, 0, 0)
-  nextGrid.setCellAt(0, 0, nextCellChar)
+  for (let colIndex = 0; colIndex < previousGrid.rows[0].length; colIndex += 1) {
+    const nextCellChar = getNextCell(previousGrid, 0, colIndex)
+    nextGrid.setCellAt(0, colIndex, nextCellChar)
+  }
   return nextGrid.toString()
 }
 
@@ -33,11 +35,14 @@ class Grid {
   }
 
   neighborCountForCellAt (row, col) {
-    return [
-      this.charAt(row, col + 1),
-      this.charAt(row + 1, col),
-      this.charAt(row + 1, col + 1)
-    ].filter(char => char === LIVE_CHAR).length
+    const adjacentCells = [this.charAt(row, col + 1)]
+
+    if (this.rows[row + 1]) {
+      adjacentCells.push(this.charAt(row + 1, col))
+      adjacentCells.push(this.charAt(row + 1, col + 1))
+    }
+
+    return adjacentCells.filter(char => char === LIVE_CHAR).length
   }
 }
 
