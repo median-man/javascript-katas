@@ -19,21 +19,23 @@ describe('game-of-life kata', () => {
       nextGeneration('*').should.equal('.')
     })
 
+    const createGridString = (...rows) => rows.join('\n')
+
     it('should return dead cells for cells with no live neighbors', () => {
-      const previous = ['*..', '...', '...'].join('\n')
-      const expected = ['...', '...', '...'].join('\n')
+      const previous = createGridString('*..', '...', '...')
+      const expected = createGridString('...', '...', '...')
       nextGeneration(previous).should.equal(expected)
     })
 
     it.skip('should return live cell when cell has three live neighbors', () => {
-      const previous = ['.*.', '**.', '...'].join('\n')
-      const expected = ['**.', '**.', '...'].join('\n')
+      const previous = createGridString('.*.', '**.', '...')
+      const expected = createGridString('**.', '**.', '...')
       nextGeneration(previous).should.equal(expected)
     })
 
     it.skip('should update cells in all rows', () => {
-      const previous = ['.', '*', '*'].join('\n')
-      const expected = ['.', '.', '.'].join('\n')
+      const previous = createGridString('.', '*', '*')
+      const expected = createGridString('.', '.', '.')
       nextGeneration(previous).should.equal(expected)
     })
   })
