@@ -10,20 +10,30 @@ function nextGeneration (previousGen) {
   }
   const nextGrid = new Grid(previousGen)
   const previousGrid = new Grid(previousGen)
-  for (let colIndex = 0; previousGrid.hasCellAt(0, colIndex); colIndex += 1) {
-    const nextCellChar = getNextCell(previousGrid, 0, colIndex)
-    nextGrid.setCellAt(0, colIndex, nextCellChar)
-  }
-  for (let colIndex = 0; previousGrid.hasCellAt(1, colIndex); colIndex += 1) {
-    const nextCellChar = getNextCell(previousGrid, 1, colIndex)
-    nextGrid.setCellAt(1, colIndex, nextCellChar)
+  for (let rowIndex = 0; rowIndex < previousGrid.rowCount(); rowIndex += 1) {
+    updateRow(rowIndex, previousGrid, nextGrid)
   }
   return nextGrid.toString()
+}
+
+function updateRow (rowIndex, previousGrid, nextGrid) {
+  for (
+    let colIndex = 0;
+    previousGrid.hasCellAt(rowIndex, colIndex);
+    colIndex += 1
+  ) {
+    const nextCellChar = getNextCell(previousGrid, rowIndex, colIndex)
+    nextGrid.setCellAt(rowIndex, colIndex, nextCellChar)
+  }
 }
 
 class Grid {
   constructor (str) {
     this.rows = str.split('\n').map(row => row.split(''))
+  }
+
+  rowCount () {
+    return this.rows.length
   }
 
   hasCellAt (row, column) {
