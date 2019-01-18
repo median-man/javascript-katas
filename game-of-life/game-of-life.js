@@ -14,6 +14,10 @@ function nextGeneration (previousGen) {
     const nextCellChar = getNextCell(previousGrid, 0, colIndex)
     nextGrid.setCellAt(0, colIndex, nextCellChar)
   }
+  for (let colIndex = 0; previousGrid.hasCellAt(1, colIndex); colIndex += 1) {
+    const nextCellChar = getNextCell(previousGrid, 1, colIndex)
+    nextGrid.setCellAt(1, colIndex, nextCellChar)
+  }
   return nextGrid.toString()
 }
 
