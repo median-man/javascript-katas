@@ -19,6 +19,10 @@ describe('game-of-life kata', () => {
       nextGeneration('*').should.equal('.')
     })
 
+    it('should update all cells in row', () => {
+      nextGeneration('.*').should.equal('..')
+    })
+
     const createGridString = (...rows) => rows.join('\n')
 
     it('should return dead cells for cells with no live neighbors', () => {
