@@ -47,10 +47,10 @@ describe('game-of-life kata', () => {
       middleCell.should.equal('*')
     })
 
-    it.skip('should return dead cell when cell has four neighbors', () => {
+    it('should return dead cell when cell has four neighbors', () => {
       const previous = createGridString('*.*', '.*.', '*.*')
-      const expected = createGridString('...', '...', '...')
-      nextGeneration(previous).should.equal(expected)
+      const middleCell = nextGeneration(previous)[5]
+      middleCell.should.equal('.')
     })
 
     it.skip('should update cells in all rows', () => {
