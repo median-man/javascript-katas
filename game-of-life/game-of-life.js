@@ -54,8 +54,7 @@ class Grid {
   }
 
   neighborCountForCellAt (row, col) {
-    const adjacentCells = [this.charAt(row, col + 1)]
-
+    const adjacentCells = [this.charAt(row, col - 1), this.charAt(row, col + 1)]
     if (this.rows[row + 1]) {
       adjacentCells.push(this.charAt(row + 1, col))
       adjacentCells.push(this.charAt(row + 1, col + 1))
@@ -68,6 +67,9 @@ class Grid {
 function getNextCell (previousGen, row, col) {
   if (previousGen.neighborCountForCellAt(row, col) === 3) {
     return LIVE_CHAR
+  }
+  if (previousGen.neighborCountForCellAt(row, col) > 1) {
+    return previousGen.charAt(row, col)
   }
   return DEAD_CHAR
 }
