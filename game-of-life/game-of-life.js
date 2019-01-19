@@ -56,8 +56,15 @@ class Grid {
   neighborCountForCellAt (row, col) {
     const adjacentCells = [this.charAt(row, col - 1), this.charAt(row, col + 1)]
     if (this.rows[row + 1]) {
+      adjacentCells.push(this.charAt(row + 1, col - 1))
       adjacentCells.push(this.charAt(row + 1, col))
       adjacentCells.push(this.charAt(row + 1, col + 1))
+    }
+
+    if (this.rows[row - 1]) {
+      adjacentCells.push(this.charAt(row - 1, col - 1))
+      adjacentCells.push(this.charAt(row - 1, col))
+      adjacentCells.push(this.charAt(row - 1, col + 1))
     }
 
     return adjacentCells.filter(char => char === LIVE_CHAR).length
@@ -66,12 +73,11 @@ class Grid {
 
 function getNextCell (previousGen, row, col) {
   const countOfNeighbors = previousGen.neighborCountForCellAt(row, col)
-
   if (countOfNeighbors === 3) {
     return LIVE_CHAR
   }
 
-  if (countOfNeighbors < 2) {
+  if (countOfNeighbors < 2 /* || countOfNeighbors > 4 */) {
     return DEAD_CHAR
   }
 
