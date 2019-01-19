@@ -65,13 +65,17 @@ class Grid {
 }
 
 function getNextCell (previousGen, row, col) {
-  if (previousGen.neighborCountForCellAt(row, col) === 3) {
-    return LIVE_CHAR
+  const countOfNeighbors = previousGen.neighborCountForCellAt(row, col)
+
+  // if (countOfNeighbors === 3) {
+  //   return LIVE_CHAR
+  // }
+
+  if (countOfNeighbors < 2) {
+    return DEAD_CHAR
   }
-  if (previousGen.neighborCountForCellAt(row, col) > 1) {
-    return previousGen.charAt(row, col)
-  }
-  return DEAD_CHAR
+
+  return previousGen.charAt(row, col)
 }
 
 module.exports = { nextGeneration }
