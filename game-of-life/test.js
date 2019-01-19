@@ -43,9 +43,9 @@ describe('game-of-life kata', () => {
       nextGeneration(previous).should.equal(expected)
     })
 
-    it.skip('should return live cell when cell has three live neighbors', () => {
-      const previous = createGridString('.*.', '**.', '...')
-      const expected = createGridString('**.', '**.', '...')
+    it('should return live cell when cell has three live neighbors', () => {
+      const previous = createGridString('...', '*.*', '..*')
+      const expected = createGridString('...', '.*.', '...')
       nextGeneration(previous).should.equal(expected)
     })
 
