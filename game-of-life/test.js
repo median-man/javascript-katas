@@ -53,9 +53,21 @@ describe('game-of-life kata', () => {
       middleCell.should.equal('.')
     })
 
-    it.skip('should update cells in all rows', () => {
-      const previous = createGridString('.', '*', '*')
-      const expected = createGridString('.', '.', '.')
+    it('should return 5 x 7 grid', () => {
+      const previous = createGridString(
+        '.......',
+        '...*...',
+        '.......',
+        '..**...',
+        '..*....'
+      )
+      const expected = createGridString(
+        '.......',
+        '.......',
+        '..**...',
+        '..**...',
+        '..**...'
+      )
       nextGeneration(previous).should.equal(expected)
     })
   })
