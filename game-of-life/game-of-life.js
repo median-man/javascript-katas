@@ -77,7 +77,7 @@ function getNextCell (previousGen, row, col) {
     return LIVE_CHAR
   }
 
-  if (countOfNeighbors < 2 /* || countOfNeighbors > 4 */) {
+  if (countOfNeighbors < 2 || countOfNeighbors > 3) {
     return DEAD_CHAR
   }
 
