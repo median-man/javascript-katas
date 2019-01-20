@@ -11,5 +11,9 @@ describe('Stock Prices Kata', () => {
     it('should return [1, 2] given [1, 2]', () => {
       buySellPrices([1, 2]).should.eql([1, 2])
     })
+
+    it('should return [] given [1]', () => {
+      buySellPrices([1]).should.eql([])
+    })
   })
 })
