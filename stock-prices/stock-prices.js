@@ -1,5 +1,5 @@
 function findOptimalBuySellPrices () {
-  return 0
+  return []
 }
 
 module.exports = { findOptimalBuySellPrices }
