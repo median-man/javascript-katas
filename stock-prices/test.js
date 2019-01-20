@@ -9,5 +9,9 @@ describe('Stock Prices Kata', () => {
     it('should return [] given an empty array', () => {
       findOptimalBuySellPrices([]).should.eql([])
     })
+
+    it('should return [1, 2] given [1, 2]', () => {
+      findOptimalBuySellPrices([1, 2]).should.eql([1, 2])
+    })
   })
 })
