@@ -1,5 +1,5 @@
-function buySellPrices () {
-  return []
+function buySellPrices (prices) {
+  return prices
 }
 
 module.exports = { buySellPrices }
