@@ -1,3 +1,5 @@
+require('chai').should()
+
 const { findOptimalBuySellPrices } = require('./stock-prices')
 
 describe('Stock Prices Kata', () => {
