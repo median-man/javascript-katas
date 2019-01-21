@@ -17,7 +17,13 @@ describe('Stock Prices Kata', () => {
     )
   })
 
-  it('should return [] when called with []', () => {
-    buySellPriceForPrices([]).should.eql([])
+  it('should throw when array contains non-numeric value', () => {
+    const test = () => buySellPriceForPrices(['hi'])
+    should.throw(test)
+  })
+
+  it('should throw when array contains a value <= 0', () => {
+    const test = () => buySellPriceForPrices([0])
+    should.throw(test, 'All prices must be numbers greater than 0')
   })
 })
