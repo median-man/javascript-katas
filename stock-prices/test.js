@@ -16,4 +16,8 @@ describe('Stock Prices Kata', () => {
       expectedErrorMessage('hello')
     )
   })
+
+  it('should return [] when called with []', () => {
+    buySellPriceForPrices([]).should.eql([])
+  })
 })
