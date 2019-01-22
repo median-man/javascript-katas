@@ -12,7 +12,7 @@ function getBuySellPrices (numbers) {
       min = numbers[i]
     }
   }
-  return [min, max]
+  return [max - maxPositiveDiff, max]
 }
 
 module.exports = { getBuySellPrices }
