@@ -9,7 +9,9 @@ greatest margin. Short selling is not permitted.
 ## Example
 
 Given the following array if prices:
-`55.39 109.23 48.29 81.59 105.53 94.45 12.24`. The greatest possible margin would be made buying at the third price (`48.29`) and selling at the fifth price (`105.53`). Options buying is not permitted.
+`55.39 109.23 48.29 81.59 105.53 94.45 12.24`. The greatest possible margin
+would be made buying at the third price (`48.29`) and selling at the fifth price
+(`105.53`). Options buying is not permitted.
 
 [so]:
   https://stackoverflow.com/questions/1663545/find-buy-sell-prices-in-array-of-stock-values-to-maximize-positive-difference
