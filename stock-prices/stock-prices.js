@@ -1,5 +1,5 @@
-function getBuySellPrices () {
-  return [1, 2]
+function getBuySellPrices (numbers) {
+  return numbers
 }
 
 module.exports = { getBuySellPrices }
