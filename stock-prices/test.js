@@ -4,12 +4,14 @@ const { getBuySellPrices } = require('./stock-prices')
 
 describe('Stock Prices Kata', () => {
   describe('getBuySellPrices', () => {
-    it('should return [1, 2] given prices = 1, 2', () => {
-      getBuySellPrices([1, 2]).should.eql([1, 2])
-    })
+    const createTest = (givenPrcies, expected) =>
+      it(`should return ${JSON.stringify(
+        expected
+      )} given prices = ${JSON.stringify(givenPrcies)}`, () => {
+        getBuySellPrices(givenPrcies).should.eql(expected)
+      })
 
-    it('should return [1, 3] given prices = 1, 3', () => {
-      getBuySellPrices([1, 3]).should.eql([1, 3])
-    })
+    createTest([1, 2], [1, 2])
+    createTest([1, 3], [1, 3])
   })
 })
