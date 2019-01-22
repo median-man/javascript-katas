@@ -15,5 +15,6 @@ describe('Stock Prices Kata', () => {
     createTest([1, 3], [1, 3])
     createTest([1, 2, 3], [1, 3])
     createTest([2, 1, 3], [1, 3])
+    createTest([4, 3, 1, 2], [1, 2])
   })
 })
