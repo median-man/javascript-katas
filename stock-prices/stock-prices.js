@@ -3,9 +3,10 @@ function getBuySellPrices (numbers) {
   let min = numbers[0]
   let maxPositiveDiff = 0
   for (let i = 1; i < numbers.length; i += 1) {
-    if (numbers[i] - min > maxPositiveDiff) {
+    const diff = numbers[i] - min
+    if (diff > maxPositiveDiff) {
       max = numbers[i]
-      maxPositiveDiff = numbers[i] - min
+      maxPositiveDiff = diff
     }
     if (numbers[i] < min) {
       min = numbers[i]
