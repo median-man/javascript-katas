@@ -5,6 +5,9 @@ function getBuySellPrices (numbers) {
     if (numbers[i] > max) {
       max = numbers[i]
     }
+    if (numbers[i] < min) {
+      min = numbers[i]
+    }
   }
   return [min, max]
 }
