@@ -7,22 +7,33 @@ class Price {
   }
 }
 
-function greaterPrice (priceA, priceB) {
-  return priceA.value() > priceB.value() ? priceA : priceB
-}
-
-function lesserPrice (priceA, priceB) {
-  return priceA.value() < priceB.value() ? priceA : priceB
-}
-
 function buySellPrices (prices) {
-  let sellPrice = prices[1]
-  let buyPrice = prices[0]
-  for (let i = 1; i < prices.length; i += 1) {
-    sellPrice = greaterPrice(sellPrice, prices[i])
-    buyPrice = lesserPrice(buyPrice, prices[i])
+  if (!Array.isArray(prices)) {
+    throw new Error(`Expected an array but got: ${prices}`)
   }
-  return [buyPrice, sellPrice]
+
+  if (prices.length < 2) {
+    throw new Error('`prices` must have at least two elements.')
+  }
+
+  let sellValue = prices[1].value()
+  let buyValue = prices[0].value()
+  let margin = sellValue - buyValue
+
+  for (let i = 1; i < prices.length; i += 1) {
+    const currentValue = prices[i].value()
+    const isGreaterMargin = currentValue - buyValue > margin
+
+    if (isGreaterMargin) {
+      sellValue = currentValue
+      margin = sellValue - buyValue
+    }
+    if (currentValue < buyValue) {
+      buyValue = currentValue
+    }
+  }
+
+  return [new Price(sellValue - margin), new Price(sellValue)]
 }
 
 module.exports = { buySellPrices, Price }
