@@ -1,7 +1,11 @@
 # Video Store Kata
-This Kata is a practice in refactoring based on ["Refactoring a JavaScript Video Store"][mf-video-store] by [Martin Fowler][mf-home].
 
-Refactor the initial code found in starterCode.js. The code works on two json structures--a customer record, and a movie.
+This Kata is a practice in refactoring based on ["Refactoring a JavaScript Video
+Store"][mf-video-store] by [Martin Fowler][mf-home].
+
+Refactor the initial code found in starterCode.js. The code works on two json
+structures--a customer record, and a movie.
+
 ```json
 Customer Record:
 {
@@ -14,13 +18,14 @@ Customer Record:
 
 Movie:
 {
-  "F001": {"title": "Ran",                     "code": "regular"},
+  "F001": {"title": "Ran", "code": "regular"},
   "F002": {"title": "Trois Couleurs: Bleu",     "code": "regular"},
   // etc
 }
 ```
 
 The statement method prints a text output for a rental statement:
+
 ```
 Rental Record for john
   Ran 3.5
@@ -30,7 +35,9 @@ You earned 2 frequent renter points
 ```
 
 ## Motivation to Refactor
+
 Update the code to render the statement in HTML.
+
 ```HTML
 <h1>Rental Record for <em>john</em></h1>
 <table>
@@ -42,14 +49,20 @@ Update the code to render the statement in HTML.
 ```
 
 ## Steps
-Follow the steps presented by Fowler in the [article][mf-video-store] to practice and better understand Fowler's approach to refactoring the statement function into smaller functions that each have a single, well defined responsibility.
+
+Follow the steps presented by Fowler in the [article][mf-video-store] to
+practice and better understand Fowler's approach to refactoring the statement
+function into smaller functions that each have a single, well defined
+responsibility.
+
 0. Write test for initial code.
 1. Decompose statement function into smaller functions.
-2. Refactor using a parameter to determine the output.
-3. Refactor using top-level functions.
-4. Refactor using classes (es6 class syntax or factory methods)
-5. Refactor using data transformation.
+1. Refactor using a parameter to determine the output.
+1. Refactor using top-level functions.
+1. Refactor using classes (es6 class syntax or factory methods)
+1. Refactor using data transformation.
 
 <!-- links -->
+
 [mf-home]: https://martinfowler.com/
 [mf-video-store]: https://martinfowler.com/articles/refactoring-video-store-js/
