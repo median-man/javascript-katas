@@ -1,23 +1,26 @@
 /* eslint-disable */
 function statement(customer, movies) {
-  let totalAmount = 0
-  let frequentRenterPoints = 0
   let result = `Rental Record for ${customer.name}\n`
-
   for (let rental of customer.rentals) {
-    const thisAmount = amountFor(rental)
-
-    frequentRenterPoints += frequentRenterPointsFor(rental)
-
-    //print figures for this rental
-    result += `\t${movieFor(rental).title}\t${thisAmount}\n`
-    totalAmount += thisAmount
+    result += `\t${movieFor(rental).title}\t${amountFor(rental)}\n`
   }
   // add footer lines
-  result += `Amount owed is ${totalAmount}\n`
-  result += `You earned ${frequentRenterPoints} frequent renter points\n`
+  result += `Amount owed is ${totalAmount()}\n`
+  result += `You earned ${frequentRenterPoints()} frequent renter points\n`
 
   return result
+
+  function totalAmount() {
+    return customer.rentals
+      .map(rental => amountFor(rental))
+      .reduce((a, b) => a + b, 0)
+  }
+
+  function frequentRenterPoints() {
+    return customer.rentals
+      .map(rental => frequentRenterPointsFor(rental))
+      .reduce((a, b) => a + b, 0)
+  }
 
   function movieFor(rental) {
     return movies[rental.movieID]
