@@ -1,5 +1,9 @@
 /* eslint-disable */
-function statement(customer, movies) {
+function statement(customer, movies, format = 'text') {
+  if (format !== 'text') {
+    throw new Error(`Unknown statement format "${format}"`)
+  }
+
   let result = `Rental Record for ${customer.name}\n`
   for (let rental of customer.rentals) {
     result += `\t${movieFor(rental).title}\t${amountFor(rental)}\n`
