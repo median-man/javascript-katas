@@ -46,5 +46,27 @@ describe('video store kata', () => {
         expectedErrorMessage
       )
     })
+
+    it('should return an html statement when format is "html"', () => {
+      const rentals = [
+        { movieID: 'F003', days: 3 },
+        { movieID: 'F005', days: 4 }
+      ]
+      const customer = {
+        name: 'john',
+        rentals
+      }
+      const expectedStatement = [
+        '<h1>Rental Record for <em>john</em></h1>',
+        '<table>',
+        '<tr><td>Child movie</td><td>1.5</td></tr>',
+        '<tr><td>Regular Movie 5</td><td>5</td></tr>',
+        '</table>',
+        '<p>Amount owed is <em>6.5</em></p>',
+        '<p>You earned <em>2</em> frequent renter points</p>\n'
+      ].join('\n')
+
+      statement(customer, movies, 'html').should.equal(expectedStatement)
+    })
   })
 })
