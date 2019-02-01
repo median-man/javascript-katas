@@ -12,34 +12,37 @@ function statement (customer, movies, format = 'text') {
 }
 
 function textStatement (customer, movies) {
+  const amount = () => totalAmount(customer, movies)
+  const frequentRenterPoints = () => totalFrequentRenterPoints(customer, movies)
+  const movie = aRental => movieFor(aRental, movies)
+  const rentalAmount = aRental => amountFor(aRental, movies)
+
   let result = `Rental Record for ${customer.name}\n`
   for (let rental of customer.rentals) {
-    result += `\t${movieFor(rental, movies).title}\t${amountFor(
-      rental,
-      movies
-    )}\n`
+    result += `\t${movie(rental).title}\t${rentalAmount(rental)}\n`
   }
   // add footer lines
-  result += `Amount owed is ${totalAmount(customer, movies)}\n`
-  result += `You earned ${frequentRenterPoints(customer, movies)} frequent renter points\n`
+  result += `Amount owed is ${amount()}\n`
+  result += `You earned ${frequentRenterPoints()} frequent renter points\n`
   return result
 }
 
 function htmlStatement (customer, movies) {
+  const amount = () => totalAmount(customer, movies)
+  const frequentRenterPoints = () => totalFrequentRenterPoints(customer, movies)
+  const movie = aRental => movieFor(aRental, movies)
+  const rentalAmount = aRental => amountFor(aRental, movies)
   let result = `<h1>Rental Record for <em>${customer.name}</em></h1>\n`
   result += '<table>\n'
   for (let rental of customer.rentals) {
     result += `<tr>`
-    result += `<td>${movieFor(rental, movies).title}</td>`
-    result += `<td>${amountFor(rental, movies)}</td>`
+    result += `<td>${movie(rental).title}</td>`
+    result += `<td>${rentalAmount(rental)}</td>`
     result += `</tr>\n`
   }
   result += '</table>\n'
-  result += `<p>Amount owed is <em>${totalAmount(
-    customer,
-    movies
-  )}</em></p>\n`
-  result += `<p>You earned <em>${frequentRenterPoints(customer, movies)}</em> frequent renter points</p>\n`
+  result += `<p>Amount owed is <em>${amount()}</em></p>\n`
+  result += `<p>You earned <em>${frequentRenterPoints()}</em> frequent renter points</p>\n`
   return result
 }
 
@@ -68,7 +71,7 @@ function totalAmount (customer, movies) {
     .reduce((a, b) => a + b, 0)
 }
 
-function frequentRenterPoints (customer, movies) {
+function totalFrequentRenterPoints (customer, movies) {
   return customer.rentals
     .map(rental => frequentRenterPointsFor(rental, movies))
     .reduce((a, b) => a + b, 0)
