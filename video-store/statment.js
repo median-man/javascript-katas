@@ -1,8 +1,6 @@
 function statement (customer, movies) {
   let result = `Rental Record for ${customer.name}\n`
 
-  let frequentRenterPoints = janeAusten()
-
   for (let r of customer.rentals) {
     // print figures for this rental
     result += `\t${movieFor(r).title}\t${amountFor(r)}\n`
@@ -10,7 +8,7 @@ function statement (customer, movies) {
 
   // add footer lines
   result += `Amount owed is ${totalAmount()}\n`
-  result += `You earned ${frequentRenterPoints} frequent renter points\n`
+  result += `You earned ${frequentRenterPoints()} frequent renter points\n`
 
   return result
 
@@ -22,7 +20,7 @@ function statement (customer, movies) {
     return result
   }
 
-  function janeAusten () {
+  function frequentRenterPoints () {
     let result = 0
     for (let r of customer.rentals) {
       result += frequentRenterPointsFor(r)
