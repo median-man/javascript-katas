@@ -1,5 +1,4 @@
 function statement (customer, movies) {
-  let totalAmount = janeAusten()
   let frequentRenterPoints = 0
   let result = `Rental Record for ${customer.name}\n`
 
@@ -11,12 +10,12 @@ function statement (customer, movies) {
   }
 
   // add footer lines
-  result += `Amount owed is ${totalAmount}\n`
+  result += `Amount owed is ${totalAmount()}\n`
   result += `You earned ${frequentRenterPoints} frequent renter points\n`
 
   return result
 
-  function janeAusten () {
+  function totalAmount () {
     let result
     for (let r of customer.rentals) {
       result += amountFor(r)
