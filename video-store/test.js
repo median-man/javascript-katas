@@ -59,14 +59,11 @@ describe('video store kata', () => {
     it('should print statement where days exceeds minimum for code', () => {
       const movies = {
         F001: { title: 'A New Hope', code: 'regular' },
-        F002: { title: 'The Empire Strikes Back', code: 'childrens' },
+        F002: { title: 'The Empire Strikes Back', code: 'childrens' }
       }
       const customer = {
         name: 'john',
-        rentals: [
-          { movieID: 'F001', days: 3 },
-          { movieID: 'F002', days: 4 }
-        ]
+        rentals: [{ movieID: 'F001', days: 3 }, { movieID: 'F002', days: 4 }]
       }
       const expectedStatement = [
         'Rental Record for john',
@@ -85,9 +82,7 @@ describe('video store kata', () => {
       }
       const customer = {
         name: 'john',
-        rentals: [
-          { movieID: 'F003', days: 3 }
-        ]
+        rentals: [{ movieID: 'F003', days: 3 }]
       }
       const expectedStatement = [
         'Rental Record for john',
