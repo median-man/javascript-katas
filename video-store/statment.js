@@ -1,7 +1,7 @@
 function statement (customer, movies) {
-  let frequentRenterPoints = 0
   let result = `Rental Record for ${customer.name}\n`
 
+  let frequentRenterPoints = 0
   for (let r of customer.rentals) {
     frequentRenterPoints += frequentRenterPointsFor(r)
   }
