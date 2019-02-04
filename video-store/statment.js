@@ -23,8 +23,6 @@ function statement (customer, movies) {
 
   function amountFor (rental) {
     let result = 0
-
-    // determine amount for each movie
     switch (movieFor(rental).code) {
       case 'regular':
         result = 2
@@ -41,8 +39,9 @@ function statement (customer, movies) {
           result += (rental.days - 3) * 1.5
         }
         return result
+      default:
+        throw new Error(`Invalid movie code: ${movieFor(rental).code}`)
     }
-    return result
   }
 
   function frequentRenterPointsFor (rental) {
