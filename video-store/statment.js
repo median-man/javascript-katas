@@ -4,6 +4,9 @@ function statement (customer, movies) {
   let result = `Rental Record for ${customer.name}\n`
   for (let r of customer.rentals) {
     totalAmount += amountFor(r)
+  }
+
+  for (let r of customer.rentals) {
     frequentRenterPoints += frequentRenterPointsFor(r)
 
     // print figures for this rental
