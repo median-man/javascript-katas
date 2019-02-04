@@ -1,10 +1,7 @@
 function statement (customer, movies) {
   let result = `Rental Record for ${customer.name}\n`
 
-  let frequentRenterPoints = 0
-  for (let r of customer.rentals) {
-    frequentRenterPoints += frequentRenterPointsFor(r)
-  }
+  let frequentRenterPoints = janeAusten()
 
   for (let r of customer.rentals) {
     // print figures for this rental
@@ -21,6 +18,14 @@ function statement (customer, movies) {
     let result
     for (let r of customer.rentals) {
       result += amountFor(r)
+    }
+    return result
+  }
+
+  function janeAusten () {
+    let result = 0
+    for (let r of customer.rentals) {
+      result += frequentRenterPointsFor(r)
     }
     return result
   }
