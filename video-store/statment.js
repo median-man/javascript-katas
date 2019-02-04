@@ -13,11 +13,7 @@ function statement (customer, movies) {
   return result
 
   function totalAmount () {
-    let result
-    for (let r of customer.rentals) {
-      result += amountFor(r)
-    }
-    return result
+    return customer.rentals.map(amountFor).reduce((a, b) => a + b, 0)
   }
 
   function frequentRenterPoints () {
