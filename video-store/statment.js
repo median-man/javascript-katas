@@ -17,11 +17,12 @@ function statement (customer, movies) {
   }
 
   function frequentRenterPoints () {
-    let result = 0
     for (let r of customer.rentals) {
       result += frequentRenterPointsFor(r)
     }
-    return result
+    return customer.rentals
+      .map(frequentRenterPointsFor)
+      .reduce((a, b) => a + b, 0)
   }
 
   function movieFor (rental) {
