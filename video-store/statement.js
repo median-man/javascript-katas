@@ -3,7 +3,7 @@ function statement (customer, movies) {
   let frequentRenterPoints = 0
   let result = `Rental Record for ${customer.name}\n`
   for (let r of customer.rentals) {
-    let movie = movies[r.movieID]
+    let movie = movieFor(r)
     let thisAmount = 0
 
     // determine amount for each movie
@@ -39,6 +39,10 @@ function statement (customer, movies) {
   result += `You earned ${frequentRenterPoints} frequent renter points\n`
 
   return result
+
+  function movieFor(r) {
+    return movies[r.movieID];
+  }
 }
 
 module.exports = { statement }
