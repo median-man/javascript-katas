@@ -3,14 +3,14 @@ function statement (customer, movies) {
   let frequentRenterPoints = 0
   let result = `Rental Record for ${customer.name}\n`
   for (let r of customer.rentals) {
-    let thisAmount = amountFor(r)
-
+    
     // add frequent renter points
     frequentRenterPoints++
     // add bonus for a two day new release rental
     if (movieFor(r).code === 'new' && r.days > 2) frequentRenterPoints++
-
+    
     // print figures for this rental
+    let thisAmount = amountFor(r)
     result += `\t${movieFor(r).title}\t${thisAmount}\n`
     totalAmount += thisAmount
   }
