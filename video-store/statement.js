@@ -40,8 +40,8 @@ function statement (customer, movies) {
 
   return result
 
-  function movieFor(r) {
-    return movies[r.movieID];
+  function movieFor (rental) {
+    return movies[rental.movieID]
   }
 }
 
