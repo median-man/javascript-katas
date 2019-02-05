@@ -20,26 +20,26 @@ function statement (customer, movies) {
 
   return result
 
-  function amountFor (r) {
-    let thisAmount = 0
-    switch (movieFor(r).code) {
+  function amountFor (rental) {
+    let result = 0
+    switch (movieFor(rental).code) {
       case 'regular':
-        thisAmount = 2
-        if (r.days > 2) {
-          thisAmount += (r.days - 2) * 1.5
+        result = 2
+        if (rental.days > 2) {
+          result += (rental.days - 2) * 1.5
         }
         break
       case 'new':
-        thisAmount = r.days * 3
+        result = rental.days * 3
         break
       case 'childrens':
-        thisAmount = 1.5
-        if (r.days > 3) {
-          thisAmount += (r.days - 3) * 1.5
+        result = 1.5
+        if (rental.days > 3) {
+          result += (rental.days - 3) * 1.5
         }
         break
     }
-    return thisAmount
+    return result
   }
 
   function movieFor (rental) {
