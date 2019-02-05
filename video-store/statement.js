@@ -28,16 +28,16 @@ function statement (customer, movies) {
         if (rental.days > 2) {
           result += (rental.days - 2) * 1.5
         }
-        break
+        return result
       case 'new':
         result = rental.days * 3
-        break
+        return result
       case 'childrens':
         result = 1.5
         if (rental.days > 3) {
           result += (rental.days - 3) * 1.5
         }
-        break
+        return result
     }
     return result
   }
