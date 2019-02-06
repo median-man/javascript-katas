@@ -15,8 +15,12 @@ function renderHtml (customer, movies) {
   let result = `<h1>Rental Record for <em>${customer.name}</em></h1>\n`
   result += '<table>\n'
   result += '  <tr><th>Title</th><th>Days</th><th>Amount</th></tr>\n'
+  let rentalLines = ''
   for (let r of data.rentals) {
     result += `  <tr><td>${r.title}</td><td>${r.days}</td><td>${
+      r.amount
+    }</td></tr>\n`
+    rentalLines += `  <tr><td>${r.title}</td><td>${r.days}</td><td>${
       r.amount
     }</td></tr>\n`
   }
