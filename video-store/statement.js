@@ -25,13 +25,12 @@ function renderHtml (customer, movies) {
   return result
 
   function rentalLines () {
-    let result = ''
-    for (let r of data.rentals) {
-      result += `  <tr><td>${r.title}</td><td>${r.days}</td><td>${
-        r.amount
-      }</td></tr>\n`
-    }
-    return result
+    return data.rentals.reduce(
+      (lines, rental) =>
+        `${lines}  <tr><td>${rental.title}</td><td>${rental.days}</td><td>${
+          rental.amount
+        }</td></tr>\n`, ''
+    )
   }
 }
 
