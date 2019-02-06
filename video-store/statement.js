@@ -15,7 +15,7 @@ function renderHtml (customer, movies) {
   let result = `<h1>Rental Record for <em>${customer.name}</em></h1>\n`
   result += '<table>\n'
   result += '  <tr><th>Title</th><th>Days</th><th>Amount</th></tr>\n'
-  result += rentalLines()
+  result += data.rentals.reduce(rentalLine, '')
   result += `</table>\n`
   result += `<p>Amount owed is <em>${data.totalAmount}</em></p>\n`
   result += `<p>You earned <em>${
@@ -24,13 +24,10 @@ function renderHtml (customer, movies) {
 
   return result
 
-  function rentalLines () {
-    return data.rentals.reduce(
-      (lines, rental) =>
-        `${lines}  <tr><td>${rental.title}</td><td>${rental.days}</td><td>${
-          rental.amount
-        }</td></tr>\n`, ''
-    )
+  function rentalLine (lines, rental) {
+    return `${lines}  <tr><td>${rental.title}</td><td>${rental.days}</td><td>${
+      rental.amount
+    }</td></tr>\n`
   }
 }
 
