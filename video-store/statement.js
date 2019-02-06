@@ -1,4 +1,4 @@
-function statement (customer, movies) {
+function renderPlainText (customer, movies) {
   let result = `Rental Record for ${customer.name}\n`
   for (let r of customer.rentals) {
     result += `\t${movieFor(r).title}\t${amountFor(r)}\n`
@@ -50,4 +50,4 @@ function statement (customer, movies) {
   }
 }
 
-module.exports = { statement: { renderPlainText: statement } }
+module.exports = { statement: { renderPlainText } }
