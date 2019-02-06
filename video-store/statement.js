@@ -1,9 +1,12 @@
 function renderPlainText (customer, movies) {
+  const statementData = {
+    totalAmount: totalAmount()
+  }
   let result = `Rental Record for ${customer.name}\n`
   for (let r of customer.rentals) {
     result += `\t${movieFor(r).title}\t${amountFor(r)}\n`
   }
-  result += `Amount owed is ${totalAmount()}\n`
+  result += `Amount owed is ${statementData.totalAmount}\n`
   result += `You earned ${frequentRenterPoints()} frequent renter points\n`
 
   return result
