@@ -5,6 +5,8 @@ function statement (customer, movies) {
   for (let r of customer.rentals) {
     frequentRenterPoints += frequentRenterPointsFor(r)
     result += `\t${movieFor(r).title}\t${amountFor(r)}\n`
+  }
+  for (let r of customer.rentals) {
     totalAmount += amountFor(r)
   }
   // add footer lines
