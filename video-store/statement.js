@@ -1,5 +1,5 @@
 function renderPlainText (customer, movies) {
-  const data = newFunction()
+  const data = statementData()
   let result = `Rental Record for ${customer.name}\n`
   for (let r of data.rentals) {
     result += `\t${r.title}\t${r.amount}\n`
@@ -11,7 +11,7 @@ function renderPlainText (customer, movies) {
 
   return result
 
-  function newFunction () {
+  function statementData () {
     return {
       totalAmount: totalAmount(),
       frequentRenterPoints: frequentRenterPoints(),
