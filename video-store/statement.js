@@ -1,13 +1,18 @@
 function renderPlainText (customer, movies) {
   const statementData = {
-    totalAmount: totalAmount()
+    totalAmount: totalAmount(),
+    frequentRenterPoints: frequentRenterPoints(),
+    rentals: customer.rentals.map(r => ({
+      title: movieFor(r).title,
+      amount: amountFor(r)
+    }))
   }
   let result = `Rental Record for ${customer.name}\n`
-  for (let r of customer.rentals) {
-    result += `\t${movieFor(r).title}\t${amountFor(r)}\n`
+  for (let r of statementData.rentals) {
+    result += `\t${r.title}\t${r.amount}\n`
   }
   result += `Amount owed is ${statementData.totalAmount}\n`
-  result += `You earned ${frequentRenterPoints()} frequent renter points\n`
+  result += `You earned ${statementData.frequentRenterPoints} frequent renter points\n`
 
   return result
 
