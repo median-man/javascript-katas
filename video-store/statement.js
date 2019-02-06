@@ -3,14 +3,12 @@ function statement (customer, movies) {
   for (let r of customer.rentals) {
     result += `\t${movieFor(r).title}\t${amountFor(r)}\n`
   }
-  let frequentRenterPoints = newFunction()
-  // add footer lines
   result += `Amount owed is ${totalAmount()}\n`
-  result += `You earned ${frequentRenterPoints} frequent renter points\n`
+  result += `You earned ${frequentRenterPoints()} frequent renter points\n`
 
   return result
 
-  function newFunction () {
+  function frequentRenterPoints () {
     let frequentRenterPoints = 0
     for (let r of customer.rentals) {
       frequentRenterPoints += frequentRenterPointsFor(r)
