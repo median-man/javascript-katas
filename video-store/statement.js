@@ -15,18 +15,25 @@ function renderHtml (customer, movies) {
   let result = `<h1>Rental Record for <em>${customer.name}</em></h1>\n`
   result += '<table>\n'
   result += '  <tr><th>Title</th><th>Days</th><th>Amount</th></tr>\n'
-  let rentalLines = ''
-  for (let r of data.rentals) {
-    rentalLines += `  <tr><td>${r.title}</td><td>${r.days}</td><td>${
-      r.amount
-    }</td></tr>\n`
-  }
+  let rentalLines = newFunction()
   result += rentalLines
   result += `</table>\n`
   result += `<p>Amount owed is <em>${data.totalAmount}</em></p>\n`
-  result += `<p>You earned <em>${data.frequentRenterPoints}</em> frequent renter points</p>\n`
+  result += `<p>You earned <em>${
+    data.frequentRenterPoints
+  }</em> frequent renter points</p>\n`
 
   return result
+
+  function newFunction () {
+    let rentalLines = ''
+    for (let r of data.rentals) {
+      rentalLines += `  <tr><td>${r.title}</td><td>${r.days}</td><td>${
+        r.amount
+      }</td></tr>\n`
+    }
+    return rentalLines
+  }
 }
 
 function statementData (customer, movies) {
