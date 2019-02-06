@@ -50,4 +50,4 @@ function statement (customer, movies) {
   }
 }
 
-module.exports = { statement }
+module.exports = { statement: { renderPlainText: statement } }

@@ -13,7 +13,7 @@ describe('video store kata', () => {
       expectedStatement += '\tReturn of the Jedi\t3\n'
       expectedStatement += 'Amount owed is 14\n'
       expectedStatement += 'You earned 4 frequent renter points\n'
-      statement(customer, movies).should.eql(expectedStatement)
+      statement.renderPlainText(customer, movies).should.eql(expectedStatement)
     })
   })
 })
