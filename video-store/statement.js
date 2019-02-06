@@ -3,14 +3,9 @@ function statement (customer, movies) {
   let frequentRenterPoints = 0
   let result = `Rental Record for ${customer.name}\n`
   for (let r of customer.rentals) {
-    // add frequent renter points
-    let thisFrequentRenterPoints = frequentRenterPointsFor(r)
-
-    frequentRenterPoints += thisFrequentRenterPoints
-    // print figures for this rental
-    let thisAmount = amountFor(r)
-    result += `\t${movieFor(r).title}\t${thisAmount}\n`
-    totalAmount += thisAmount
+    frequentRenterPoints += frequentRenterPointsFor(r)
+    result += `\t${movieFor(r).title}\t${amountFor(r)}\n`
+    totalAmount += amountFor(r)
   }
   // add footer lines
   result += `Amount owed is ${totalAmount}\n`
