@@ -10,13 +10,31 @@ function renderPlainText (customer, movies) {
   return result
 }
 
+function renderHtml (customer, movies) {
+  const data = statementData(customer, movies)
+  let result = `<h1>Rental Record for <em>${customer.name}</em></h1>\n`
+  result += '<table>\n'
+  result += '  <tr><th>Title</th><th>Days</th><th>Amount</th></tr>\n'
+  for (let r of data.rentals) {
+    result += `  <tr><td>${r.title}</td><td>${r.days}</td><td>${
+      r.amount
+    }</td></tr>\n`
+  }
+  result += `</table>\n`
+  result += `<p>Amount owed is <em>${data.totalAmount}</em></p>\n`
+  result += `<p>You earned <em>${data.frequentRenterPoints}</em> frequent renter points</p>\n`
+
+  return result
+}
+
 function statementData (customer, movies) {
   return {
     totalAmount: totalAmount(),
     frequentRenterPoints: frequentRenterPoints(),
     rentals: customer.rentals.map(r => ({
       title: movieFor(r).title,
-      amount: amountFor(r)
+      amount: amountFor(r),
+      days: r.days
     }))
   }
 
@@ -62,4 +80,4 @@ function statementData (customer, movies) {
   }
 }
 
-module.exports = { statement: { renderPlainText } }
+module.exports = { statement: { renderPlainText, renderHtml } }
