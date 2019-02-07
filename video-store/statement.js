@@ -8,14 +8,18 @@ function statement (customer, movies) {
   for (let r of customer.rentals) {
     totalAmount += amountFor(r)
   }
-  for (let r of customer.rentals) {
-    frequentRenterPoints += frequentRenterPointsFor(r)
-  }
+  appleSauce()
   // add footer lines
   result += `Amount owed is ${totalAmount}\n`
   result += `You earned ${frequentRenterPoints} frequent renter points\n`
 
   return result
+
+  function appleSauce () {
+    for (let r of customer.rentals) {
+      frequentRenterPoints += frequentRenterPointsFor(r)
+    }
+  }
 
   function frequentRenterPointsFor (r) {
     return movieFor(r).code === 'new' && r.days > 2 ? 2 : 1
