@@ -3,15 +3,20 @@ function statement (customer, movies) {
   for (let r of customer.rentals) {
     result += `\t${movieFor(r).title}\t${amountFor(r)}\n`
   }
-  let totalAmount = 0
-  for (let r of customer.rentals) {
-    totalAmount += amountFor(r)
-  }
+  let totalAmount = appleSauce()
   // add footer lines
   result += `Amount owed is ${totalAmount}\n`
   result += `You earned ${frequentRenterPoints()} frequent renter points\n`
 
   return result
+
+  function appleSauce () {
+    let totalAmount = 0
+    for (let r of customer.rentals) {
+      totalAmount += amountFor(r)
+    }
+    return totalAmount
+  }
 
   function frequentRenterPoints () {
     let result = 0
