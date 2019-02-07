@@ -6,7 +6,7 @@ function statement (customer, movies) {
     let thisAmount = amountFor(r)
 
     // add frequent renter points
-    frequentRenterPointsFor(r)
+    frequentRenterPoints += frequentRenterPointsFor(r)
 
     // print figures for this rental
     result += `\t${movieFor(r).title}\t${thisAmount}\n`
@@ -19,9 +19,7 @@ function statement (customer, movies) {
   return result
 
   function frequentRenterPointsFor (r) {
-    frequentRenterPoints++
-    // add bonus for a two day new release rental
-    if (movieFor(r).code === 'new' && r.days > 2) frequentRenterPoints++
+    return movieFor(r).code === 'new' && r.days > 2 ? 2 : 1
   }
 
   function amountFor (r) {
