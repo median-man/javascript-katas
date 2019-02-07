@@ -38,8 +38,9 @@ function statement (customer, movies) {
           result += (r.days - 3) * 1.5
         }
         return result
+      default:
+        return result
     }
-    return result
   }
 
   function movieFor (r) {
