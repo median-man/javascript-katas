@@ -40,3 +40,5 @@ function statement(customer, movies) {
 
   return result;
 }
+
+module.exports = { statement }
