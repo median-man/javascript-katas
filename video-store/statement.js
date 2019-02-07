@@ -1,9 +1,9 @@
 function statement (customer, movies) {
-  let totalAmount = 0
   let result = `Rental Record for ${customer.name}\n`
   for (let r of customer.rentals) {
     result += `\t${movieFor(r).title}\t${amountFor(r)}\n`
   }
+  let totalAmount = 0
   for (let r of customer.rentals) {
     totalAmount += amountFor(r)
   }
