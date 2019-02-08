@@ -1,12 +1,15 @@
 function statement (customer, movies) {
-  let result = `Rental Record for ${customer.name}\n`
-  for (let r of customer.rentals) {
-    result += `\t${movieFor(r).title}\t${amountFor(r)}\n`
-  }
-  result += `Amount owed is ${totalAmount()}\n`
-  result += `You earned ${frequentRenterPoints()} frequent renter points\n`
+  return renderPlainText(customer, movies)
 
-  return result
+  function renderPlainText (customer, movies) {
+    let result = `Rental Record for ${customer.name}\n`
+    for (let r of customer.rentals) {
+      result += `\t${movieFor(r).title}\t${amountFor(r)}\n`
+    }
+    result += `Amount owed is ${totalAmount()}\n`
+    result += `You earned ${frequentRenterPoints()} frequent renter points\n`
+    return result
+  }
 
   function totalAmount () {
     return customer.rentals.reduce(
