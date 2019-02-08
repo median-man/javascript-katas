@@ -1,7 +1,7 @@
 function statement (customer, movies) {
   const statementData = {
     name: customer.name,
-    rentals: customer.rentals
+    rentals: enrichRentals(customer.rentals)
   }
   return renderPlainText(statementData)
 
@@ -13,6 +13,14 @@ function statement (customer, movies) {
     result += `Amount owed is ${totalAmount()}\n`
     result += `You earned ${frequentRenterPoints()} frequent renter points\n`
     return result
+  }
+
+  function enrichRentals (rentals) {
+    return rentals.map(rental => {
+      return {
+        ...rental
+      }
+    })
   }
 
   function totalAmount () {
