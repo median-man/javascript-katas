@@ -15,14 +15,15 @@ describe('video store kata', () => {
       expectedString += 'You earned 4 frequent renter points\n'
       statement.renderPlainText(customer, movies).should.equal(expectedString)
     })
-    it.skip('should render html statement', () => {
+
+    it('should render html statement', () => {
       let expectedString = 'Rental Record for john\n'
       expectedString += '\tA New Hope\t2\n'
       expectedString += '\tThe Empire Strikes Back\t9\n'
       expectedString += '\tReturn of the Jedi\t3\n'
       expectedString += 'Amount owed is 14\n'
       expectedString += 'You earned 4 frequent renter points\n'
-      statement(customer, movies).should.equal(expectedString)
+      statement.renderHtml(customer, movies).should.equal(expectedString)
     })
   })
 })
