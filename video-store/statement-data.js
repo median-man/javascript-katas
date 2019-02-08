@@ -1,7 +1,7 @@
 function createStatementData (customer, movies) {
   return {
     name: customer.name,
-    rentals: enrichRentals(customer.rentals),
+    rentals: customer.rentals.map(enrichRental),
     totalAmount: totalAmount(),
     frequentRenterPoints: frequentRenterPoints()
   }
