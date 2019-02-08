@@ -1,7 +1,8 @@
 function statement (customer, movies) {
   const statementData = {
     name: customer.name,
-    rentals: enrichRentals(customer.rentals)
+    rentals: enrichRentals(customer.rentals),
+    totalAmount: totalAmount()
   }
   return renderPlainText(statementData)
 
@@ -10,7 +11,7 @@ function statement (customer, movies) {
     for (let r of data.rentals) {
       result += `\t${r.title}\t${r.amount}\n`
     }
-    result += `Amount owed is ${totalAmount()}\n`
+    result += `Amount owed is ${data.totalAmount}\n`
     result += `You earned ${frequentRenterPoints()} frequent renter points\n`
     return result
   }
