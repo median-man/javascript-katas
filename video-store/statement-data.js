@@ -5,15 +5,6 @@ function createStatementData (customer, movies) {
     totalAmount: totalAmount(),
     frequentRenterPoints: frequentRenterPoints()
   }
-  function enrichRentals (rentals) {
-    return rentals.map(rental => {
-      return {
-        title: movieFor(rental).title,
-        amount: amountFor(rental),
-        ...rental
-      }
-    })
-  }
 
   function enrichRental (rental) {
     return {
