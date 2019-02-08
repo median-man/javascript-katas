@@ -13,7 +13,7 @@ function renderPlainText (customer, movies) {
 
 function renderHtml (customer, movies) {
   const data = createStatementData(customer, movies)
-  let result = `Rental Record for ${data.name}\n`
+  let result = `<h1>Rental Record for <em>${data.name}</em></h1>\n`
   for (let r of data.rentals) {
     result += `\t${r.title}\t${r.amount}\n`
   }

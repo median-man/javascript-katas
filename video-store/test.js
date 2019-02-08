@@ -16,8 +16,8 @@ describe('video store kata', () => {
       statement.renderPlainText(customer, movies).should.equal(expectedString)
     })
 
-    it('should render html statement', () => {
-      let expectedString = 'Rental Record for john\n'
+    it.skip('should render html statement', () => {
+      let expectedString = '<h1>Rental Record for <em>john</em></h1>\n'
       expectedString += '\tA New Hope\t2\n'
       expectedString += '\tThe Empire Strikes Back\t9\n'
       expectedString += '\tReturn of the Jedi\t3\n'
