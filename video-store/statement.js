@@ -1,8 +1,10 @@
 function statement (customer, movies) {
-  const statementData = {}
-  return renderPlainText(statementData, customer, movies)
+  const statementData = {
+    customer
+  }
+  return renderPlainText(statementData, customer)
 
-  function renderPlainText (data, customer, movies) {
+  function renderPlainText (data, customer) {
     let result = `Rental Record for ${customer.name}\n`
     for (let r of customer.rentals) {
       result += `\t${movieFor(r).title}\t${amountFor(r)}\n`
