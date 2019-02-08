@@ -1,11 +1,7 @@
 const { createStatementData } = require('./statement-data')
 
-function statement (customer, movies) {
-  const statementData = createStatementData(customer, movies)
-  return renderPlainText(statementData)
-}
-
-function renderPlainText (data) {
+function renderPlainText (customer, movies) {
+  const data = createStatementData(customer, movies)
   let result = `Rental Record for ${data.name}\n`
   for (let r of data.rentals) {
     result += `\t${r.title}\t${r.amount}\n`
@@ -14,4 +10,4 @@ function renderPlainText (data) {
   result += `You earned ${data.frequentRenterPoints} frequent renter points\n`
   return result
 }
-module.exports = { statement }
+module.exports = { renderPlainText }
