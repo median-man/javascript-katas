@@ -8,7 +8,7 @@ function statement (customer, movies) {
   function renderPlainText (data) {
     let result = `Rental Record for ${data.name}\n`
     for (let r of data.rentals) {
-      result += `\t${movieFor(r).title}\t${amountFor(r)}\n`
+      result += `\t${r.title}\t${amountFor(r)}\n`
     }
     result += `Amount owed is ${totalAmount()}\n`
     result += `You earned ${frequentRenterPoints()} frequent renter points\n`
@@ -18,6 +18,7 @@ function statement (customer, movies) {
   function enrichRentals (rentals) {
     return rentals.map(rental => {
       return {
+        title: movieFor(rental).title,
         ...rental
       }
     })
