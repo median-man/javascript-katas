@@ -14,6 +14,15 @@ function createStatementData (customer, movies) {
       }
     })
   }
+
+  function enrichRental (rental) {
+    return {
+      title: movieFor(rental).title,
+      amount: amountFor(rental),
+      ...rental
+    }
+  }
+
   function totalAmount () {
     return customer.rentals.reduce(
       (result, rental) => result + amountFor(rental),
