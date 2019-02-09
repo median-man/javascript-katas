@@ -14,11 +14,14 @@ function renderPlainText (customer, movies) {
 function renderHtml (customer, movies) {
   const data = createStatementData(customer, movies)
   let result = `<h1>Rental Record for <em>${data.name}</em></h1>\n`
+  result += '<table>\n'
+  result += '<tr><td>Title</td><td>Days</td><td>Amount</td></tr>\n'
   for (let r of data.rentals) {
-    result += `\t${r.title}\t${r.amount}\n`
+    result += `<tr><td>${r.title}</td><td>${r.days}</td><td>${r.amount}</td></tr>\n`
   }
-  result += `Amount owed is ${data.totalAmount}\n`
-  result += `You earned ${data.frequentRenterPoints} frequent renter points\n`
+  result += '</table>\n'
+  result += `<p>Amount owed is <em>${data.totalAmount}</em></p>\n`
+  result += `<p>You earned <em>${data.frequentRenterPoints}</em> frequent renter points</p>\n`
   return result
 }
 
