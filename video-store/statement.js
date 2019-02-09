@@ -17,12 +17,21 @@ function renderHtml (customer, movies) {
   result += '<table>\n'
   result += '<tr><td>Title</td><td>Days</td><td>Amount</td></tr>\n'
   for (let r of data.rentals) {
-    result += `<tr><td>${r.title}</td><td>${r.days}</td><td>${r.amount}</td></tr>\n`
+    result += `<tr>${createElement('td', r.title)}${createElement(
+      'td',
+      r.days
+    )}${createElement('td', r.amount)}</tr>\n`
   }
   result += '</table>\n'
   result += `<p>Amount owed is <em>${data.totalAmount}</em></p>\n`
-  result += `<p>You earned <em>${data.frequentRenterPoints}</em> frequent renter points</p>\n`
+  result += `<p>You earned <em>${
+    data.frequentRenterPoints
+  }</em> frequent renter points</p>\n`
   return result
+
+  function createElement (tag, content) {
+    return `<${tag}>${content}</${tag}>`
+  }
 }
 
 module.exports = { renderPlainText, renderHtml }
