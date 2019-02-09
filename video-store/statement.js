@@ -13,7 +13,7 @@ function renderPlainText (customer, movies) {
 
 function renderHtml (customer, movies) {
   const data = createStatementData(customer, movies)
-  let result = `<h1>Rental Record for <em>${data.name}</em></h1>\n`
+  let result = `${renderHeading()}\n`
   result += '<table>\n'
   result += `${renderRow(['Title', 'Days', 'Amount'])}\n`
   for (let r of data.rentals) {
@@ -25,6 +25,11 @@ function renderHtml (customer, movies) {
     data.frequentRenterPoints
   }</em> frequent renter points</p>\n`
   return result
+
+  function renderHeading () {
+    const content = `Rental Record for ${createElement('em', data.name)}`
+    return createElement('h1', content)
+  }
 
   function renderRow (values) {
     const cells = values.map(value => createElement('td', value)).join('')
