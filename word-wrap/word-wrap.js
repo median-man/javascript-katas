@@ -2,11 +2,20 @@ function wrap (s, columns) {
   if (s.length <= columns) {
     return s
   }
-  let result = s.substr(0, columns)
-  let rest = s.substr(columns)
+
+  let result = ''
+  let rest = s
   while (rest.length) {
-    result += '\n' + rest.substr(0, columns)
+    let breakAt = columns
+    if (s[columns - 1] === ' ') {
+      breakAt -= 1
+    }
+    const line = rest.substr(0, breakAt)
     rest = rest.substr(columns)
+    result += line
+    if (rest.length) {
+      result += '\n'
+    }
   }
   return result
 }

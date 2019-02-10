@@ -18,9 +18,15 @@ describe('word-wrap kata', () => {
     it('should split a single word in two', () => {
       wrap('galaxy', 5).should.equal('galax\ny')
     })
-    
+
     it('should split a single word in three', () => {
       wrap('galaxy', 2).should.equal('ga\nla\nxy')
+    })
+  })
+
+  describe('one space', () => {
+    it('should split when columns is at space', () => {
+      wrap('far far', 4).should.equal('far\nfar')
     })
   })
 })
