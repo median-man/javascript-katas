@@ -28,5 +28,9 @@ describe('word-wrap kata', () => {
     it('should split when columns is at space', () => {
       wrap('far far', 4).should.equal('far\nfar')
     })
+
+    it.skip('should split when columns is after space', () => {
+      wrap('far far', 5).should.equal('far\nfar')
+    })
   })
 })

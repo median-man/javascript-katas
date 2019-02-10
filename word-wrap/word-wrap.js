@@ -5,18 +5,16 @@ function wrap (s, columns) {
 
   let result = ''
   let rest = s
-  while (rest.length) {
+  while (rest.length > columns) {
     let breakAt = columns
     if (s[columns - 1] === ' ') {
       breakAt -= 1
     }
     const line = rest.substr(0, breakAt)
     rest = rest.substr(columns)
-    result += line
-    if (rest.length) {
-      result += '\n'
-    }
+    result += line + '\n'
   }
+  result += rest
   return result
 }
 
