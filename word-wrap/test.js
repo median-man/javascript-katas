@@ -21,13 +21,20 @@ describe('word-wrap kata', () => {
       })
     })
 
-    describe('one line break', () => {
+    describe('two words', () => {
+      const INPUT = 'long time'
+      const EXPECTED = 'long\ntime'
+
       it('should split when columns is equal to word length', () => {
-        wrap('long time', 4).should.equal('long\ntime')
+        wrap(INPUT, 4).should.equal(EXPECTED)
       })
 
       it('should split when columns is equal to index of a space boundary', () => {
-        wrap('long time', 5).should.equal('long\ntime')
+        wrap(INPUT, 5).should.equal(EXPECTED)
+      })
+
+      it.skip('should split when columns fall in second word', () => {
+        wrap(INPUT, 6).should.equal(EXPECTED)
       })
     })
   })

@@ -5,13 +5,20 @@ function wrap (s, columns) {
   if (s.length <= columns) {
     return s
   }
+  let breakAt = columns
+  while (isNotBoundaryAt(breakAt, s) && breakAt > 0) {
+    breakAt -= 1
+  }
+
+  const line = s.substr(0, breakAt)
+  const rest = s.substr(breakAt + 1)
+
   const LINE_BREAK = '\n'
-  if (s[columns] === ' ') {
-    return s.substr(0, columns) + LINE_BREAK + s.substr(columns + 1)
-  }
-  if (s[columns - 1] === ' ') {
-    return s.substr(0, columns - 1) + LINE_BREAK + s.substr(columns)
-  }
+  return line + LINE_BREAK + rest
+}
+
+function isNotBoundaryAt (index, str) {
+  return str[index] !== ' '
 }
 
 module.exports = { wrap }
