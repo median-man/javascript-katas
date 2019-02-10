@@ -2,6 +2,7 @@ function wrap (s, columns) {
   if (typeof s !== 'string') {
     throw new Error(`Expected a string but got: ${typeof s}`)
   }
+
   if (s.length <= columns) {
     return s
   }
@@ -9,13 +10,12 @@ function wrap (s, columns) {
   const LINE_BREAK = '\n'
   let { line, rest } = splitString(s, columns)
   let result = line
-  while (rest.length > columns) {
+  while (rest.length) {
     const splitResult = splitString(rest, columns)
     line = splitResult.line
     rest = splitResult.rest
     result += LINE_BREAK + line
   }
-  result += LINE_BREAK + rest
 
   return result
 }
@@ -28,6 +28,9 @@ function splitString (s, columns) {
   let breakAt = columns
   while (isNotBoundaryAt(breakAt, s) && breakAt > 0) {
     breakAt -= 1
+  }
+  if (breakAt === 0) {
+    return { line: s, rest: '' }
   }
   const line = s.substr(0, breakAt)
   const rest = s.substr(breakAt + 1)

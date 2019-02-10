@@ -19,6 +19,11 @@ describe('word-wrap kata', () => {
         const s = 'A long time ago in a galaxy far, far away....'
         wrap(s, 45).should.equal(s)
       })
+
+      it('should return a single line when given a single word with length > columns', () => {
+        const s = 'galaxy'
+        wrap(s, 3).should.equal(s)
+      })
     })
 
     describe('two words', () => {
