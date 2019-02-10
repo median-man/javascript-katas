@@ -6,12 +6,15 @@ function wrap (s, columns) {
   let result = ''
   let rest = s
   while (rest.length > columns) {
-    let breakAt = columns
-    if (s[columns - 1] === ' ') {
-      breakAt -= 1
+    let spaceAt = rest.lastIndexOf(' ')
+    let line = ''
+    if (spaceAt === -1) {
+      line = rest.substr(0, columns)
+      rest = rest.substr(columns)
+    } else {
+      line = rest.substr(0, spaceAt)
+      rest = rest.substr(spaceAt + 1)
     }
-    const line = rest.substr(0, breakAt)
-    rest = rest.substr(columns)
     result += line + '\n'
   }
   result += rest
