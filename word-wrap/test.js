@@ -33,7 +33,7 @@ describe('word-wrap kata', () => {
         wrap(INPUT, 5).should.equal(EXPECTED)
       })
 
-      it.skip('should split when columns fall in second word', () => {
+      it('should split when columns fall in second word', () => {
         wrap(INPUT, 6).should.equal(EXPECTED)
       })
     })
