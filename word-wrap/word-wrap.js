@@ -5,6 +5,26 @@ function wrap (s, columns) {
   if (s.length <= columns) {
     return s
   }
+
+  const LINE_BREAK = '\n'
+  let { line, rest } = splitString(s, columns)
+  let result = line
+  while (rest.length > columns) {
+    const splitResult = splitString(rest, columns)
+    line = splitResult.line
+    rest = splitResult.rest
+    result += LINE_BREAK + line
+  }
+  result += LINE_BREAK + rest
+
+  return result
+}
+
+function isNotBoundaryAt (index, str) {
+  return str[index] !== ' '
+}
+
+function splitString (s, columns) {
   let breakAt = columns
   while (isNotBoundaryAt(breakAt, s) && breakAt > 0) {
     breakAt -= 1
@@ -12,18 +32,6 @@ function wrap (s, columns) {
   const line = s.substr(0, breakAt)
   const rest = s.substr(breakAt + 1)
 
-  let result = ''
-  const LINE_BREAK = '\n'
-  result += line + LINE_BREAK + rest
-
-  if (rest.length <= columns) {
-    return result
-  }
-  return line + LINE_BREAK + wrap(rest, columns)
+  return { line, rest }
 }
-
-function isNotBoundaryAt (index, str) {
-  return str[index] !== ' '
-}
-
 module.exports = { wrap }
