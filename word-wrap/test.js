@@ -12,7 +12,7 @@ describe('word-wrap kata', () => {
       wrap('', 1).should.equal('')
     })
 
-    it.skip('should return a single line when line length <= columns', () => {
+    it('should return a single line when line length <= columns', () => {
       wrap('A long time ago in a galaxy far, far away....', 45).should.equal(
         'A long time ago in a galaxy far, far away....'
       )
