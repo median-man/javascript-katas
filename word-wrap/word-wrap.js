@@ -9,12 +9,13 @@ function wrap (s, columns) {
   while (isNotBoundaryAt(breakAt, s) && breakAt > 0) {
     breakAt -= 1
   }
-
   const line = s.substr(0, breakAt)
   const rest = s.substr(breakAt + 1)
 
+  let result = ''
   const LINE_BREAK = '\n'
-  return line + LINE_BREAK + rest
+  result += line + LINE_BREAK + rest
+  return result
 }
 
 function isNotBoundaryAt (index, str) {

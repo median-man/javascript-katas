@@ -37,5 +37,22 @@ describe('word-wrap kata', () => {
         wrap(INPUT, 6).should.equal(EXPECTED)
       })
     })
+
+    describe('three words', () => {
+      // const INPUT = 'long time'
+      // const EXPECTED = 'long\ntime'
+
+      it.skip('should split when columns is equal to length of first two words', () => {
+        wrap('long time ago', 4).should.equal('long\ntime\nago')
+      })
+
+      // it('should split when columns is equal to index of a space boundary', () => {
+      //   wrap(INPUT, 5).should.equal(EXPECTED)
+      // })
+
+      // it('should split when columns fall in second word', () => {
+      //   wrap(INPUT, 6).should.equal(EXPECTED)
+      // })
+    })
   })
 })
