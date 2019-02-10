@@ -15,7 +15,11 @@ function wrap (s, columns) {
   let result = ''
   const LINE_BREAK = '\n'
   result += line + LINE_BREAK + rest
-  return result
+
+  if (rest.length <= columns) {
+    return result
+  }
+  return line + LINE_BREAK + wrap(rest, columns)
 }
 
 function isNotBoundaryAt (index, str) {

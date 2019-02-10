@@ -42,7 +42,7 @@ describe('word-wrap kata', () => {
       // const INPUT = 'long time'
       // const EXPECTED = 'long\ntime'
 
-      it.skip('should split when columns is equal to length of first two words', () => {
+      it('should split when columns is equal to length of first two words', () => {
         wrap('long time ago', 4).should.equal('long\ntime\nago')
       })
 
