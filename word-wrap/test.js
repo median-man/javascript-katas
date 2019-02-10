@@ -16,5 +16,9 @@ describe('word-wrap kata', () => {
       const s = 'A long time ago in a galaxy far, far away....'
       wrap(s, 45).should.equal(s)
     })
+
+    it('should split two words', () => {
+      wrap('long time', 4).should.equal('long\ntime')
+    })
   })
 })
