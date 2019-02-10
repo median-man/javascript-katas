@@ -7,7 +7,6 @@ function wrap (s, columns) {
   let rest = s
   while (rest.length > columns) {
     const spaceAt = rest.lastIndexOf(' ', columns)
-    let line = ''
     if (spaceAt === -1) {
       result += rest.substr(0, columns)
       rest = rest.substr(columns)
