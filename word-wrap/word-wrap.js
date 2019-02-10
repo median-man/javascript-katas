@@ -5,7 +5,8 @@ function wrap (s, columns) {
   if (s.length <= columns) {
     return s
   }
-  return s.substr(0, columns) + '\n' + s.substr(columns + 1)
+  const LINE_BREAK = '\n'
+  return s.substr(0, columns) + LINE_BREAK + s.substr(columns + 1)
 }
 
 module.exports = { wrap }
