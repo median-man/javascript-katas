@@ -14,9 +14,13 @@ describe('word-wrap kata', () => {
     })
   })
 
-  describe('two lines', () => {
-    it('should wrap words longer than columns', () => {
+  describe('no spaces', () => {
+    it('should split a single word in two', () => {
       wrap('galaxy', 5).should.equal('galax\ny')
+    })
+    
+    it('should split a single word in three', () => {
+      wrap('galaxy', 2).should.equal('ga\nla\nxy')
     })
   })
 })
