@@ -18,8 +18,14 @@ describe('word-wrap kata', () => {
         wrap('galaxy', 3).should.equal('gal\naxy')
       })
 
-      it('should split a word into multipl lines', () => {
+      it('should split a word into multiple lines', () => {
         wrap('galaxy', 2).should.equal('ga\nla\nxy')
+      })
+    })
+
+    describe('wrap two words', () => {
+      it('should split when columns is at word boundary', () => {
+        wrap('far far', 4).should.equal('far\nfar')
       })
     })
   })
