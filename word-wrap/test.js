@@ -35,6 +35,10 @@ describe('word-wrap kata', () => {
       it('should split when columns splits first word', () => {
         wrap('far far', 2).should.equal('fa\nr\nfa\nr')
       })
+
+      it('should split when columns is at end of first word', () => {
+        wrap('far far', 3).should.equal('far\nfar')
+      })
     })
   })
 })
