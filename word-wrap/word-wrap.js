@@ -1,8 +1,11 @@
 function wrap (s, cols) {
-  if (s.length <= cols) {
-    return s
+  let result = ''
+  let rest = s
+  while (rest.length > cols) {
+    result += rest.substr(0, cols) + '\n'
+    rest = rest.substr(cols)
   }
-  return s.substr(0, cols) + '\n' + wrap(s.substr(cols), cols)
+  return result + rest
 }
 
 module.exports = { wrap }
