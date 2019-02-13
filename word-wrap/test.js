@@ -11,5 +11,11 @@ describe('word-wrap kata', () => {
         wrap('galaxy', 7).should.equal('galaxy')
       })
     })
+
+    describe('split word tests', () => {
+      it('should split a word with length greater than cols', () => {
+        wrap('galaxy', 5).should.equal('galax\ny')
+      })
+    })
   })
 })
