@@ -6,6 +6,10 @@ describe('word-wrap kata', () => {
       it('should return empty string given an empty string', () => {
         wrap('', 1).should.equal('')
       })
+
+      it('should not wrap given string with length < cols', () => {
+        wrap('galaxy', 7).should.equal('galaxy')
+      })
     })
   })
 })
