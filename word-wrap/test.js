@@ -36,6 +36,10 @@ describe('word-wrap kata', () => {
       it('should split when cols is before word boundary', () => {
         wrap('far, far', 4).should.equal('far,\nfar')
       })
+
+      it('should split words when cols is shorter than word', () => {
+        wrap('far, far', 2).should.equal('fa\nr,\nfa\nr')
+      })
     })
   })
 })
