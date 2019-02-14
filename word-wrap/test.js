@@ -14,8 +14,11 @@ describe('word-wrap kata', () => {
       })
     })
     describe('single word tests', () => {
-      it('should split a single word', () => {
+      it('should split a single word once', () => {
         wrap('galaxy', 5).should.equal('galax\ny')
+      })
+      it('should split a single word multiple times', () => {
+        wrap('galaxy', 2).should.equal('ga\nla\nxy')
       })
     })
   })
