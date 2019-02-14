@@ -13,12 +13,20 @@ describe('word-wrap kata', () => {
         wrap('galaxy far, far', 16).should.equal('galaxy far, far')
       })
     })
+
     describe('single word tests', () => {
       it('should split a single word once', () => {
         wrap('galaxy', 5).should.equal('galax\ny')
       })
+
       it('should split a single word multiple times', () => {
         wrap('galaxy', 2).should.equal('ga\nla\nxy')
+      })
+    })
+
+    describe('two word tests', () => {
+      it('should split when cols is at word boundary', () => {
+        wrap('far, far', 5).should.equal('far,\nfar')
       })
     })
   })
