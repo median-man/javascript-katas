@@ -13,5 +13,11 @@ describe('word-wrap kata', () => {
         wrap('galaxy', 6).should.equal('galaxy')
       })
     })
+
+    describe('single word tests', () => {
+      it('should split a word', () => {
+        wrap('galaxy', 3).should.equal('gal\naxy')
+      })
+    })
   })
 })
