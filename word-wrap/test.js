@@ -32,6 +32,14 @@ describe('word-wrap kata', () => {
       it('should split given cols is after word boundary', () => {
         wrap('galaxy far', 8).should.equal('galaxy\nfar')
       })
+
+      it('should split given cols is before word boundary', () => {
+        wrap('galaxy far', 6).should.equal('galaxy\nfar')
+      })
+
+      it('should split first word and at boundary', () => {
+        wrap('galaxy far', 4).should.equal('gala\nxy\nfar')
+      })
     })
   })
 })
