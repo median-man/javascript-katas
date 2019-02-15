@@ -18,6 +18,10 @@ describe('word-wrap kata', () => {
       it('should split a word', () => {
         wrap('galaxy', 3).should.equal('gal\naxy')
       })
+
+      it('should split a word multiple times', () => {
+        wrap('galaxy', 2).should.equal('ga\nla\nxy')
+      })
     })
   })
 })
