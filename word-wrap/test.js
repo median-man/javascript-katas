@@ -36,6 +36,10 @@ describe('word-wrap kata', () => {
       it('should split on multiple boundaries', () => {
         wrap('far, far away', 6).should.equal('far,\nfar\naway')
       })
+
+      it('should split when cols is before boundary', () => {
+        wrap('far, far away', 4).should.equal('far,\nfar\naway')
+      })
     })
   })
 })
