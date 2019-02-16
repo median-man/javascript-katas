@@ -14,7 +14,7 @@ describe('word-wrap kata', () => {
       })
     })
 
-    describe.skip('single word tests', () => {
+    describe('single word tests', () => {
       it('should split word once', () => {
         wrap('galaxy', 5).should.equal('galax\ny')
       })
