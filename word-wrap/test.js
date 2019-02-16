@@ -28,6 +28,14 @@ describe('word-wrap kata', () => {
       it('should split when cols is at a boundary', () => {
         wrap('galaxy far', 7).should.equal('galaxy\nfar')
       })
+
+      it('should split when cols is after a boundary', () => {
+        wrap('galaxy far', 8).should.equal('galaxy\nfar')
+      })
+
+      it('should split on multiple boundaries', () => {
+        wrap('far, far away', 6).should.equal('far,\nfar\naway')
+      })
     })
   })
 })
