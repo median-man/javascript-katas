@@ -4,12 +4,12 @@ function wrap (s, cols) {
   }
   const boundaryAt = s.lastIndexOf(' ', cols)
   let breakAt = boundaryAt
-  let gap = 1
+  let skipSpace = 1
   if (boundaryAt === -1) {
     breakAt = cols
-    gap = 0 // no space to skip
+    skipSpace = 0
   }
-  return s.substr(0, breakAt) + '\n' + wrap(s.substr(breakAt + gap), cols)
+  return s.substr(0, breakAt) + '\n' + wrap(s.substr(breakAt + skipSpace), cols)
 }
 
 module.exports = { wrap }
