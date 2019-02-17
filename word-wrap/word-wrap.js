@@ -1,5 +1,5 @@
-function wrap () {
-  return ''
+function wrap (s) {
+  return s
 }
 
 module.exports = { wrap }
