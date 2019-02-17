@@ -24,5 +24,6 @@ Result of `wrap(input, 10)`:
 
 ## Note
 
-Since the maximum allowable size of the input is unknown, do not use recursion
-for JavaScript solutions.
+Practice with and without recursion as some languages (JavaScript) offer no
+optimization for recursive calls and this function has potentially unbounded
+input.
