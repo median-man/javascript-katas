@@ -6,7 +6,10 @@ function wrap (s, cols) {
   if (s[cols] !== ' ') {
     gap = 0
   }
-  return s.substr(0, cols) + '\n' + wrap(s.substr(cols + gap), cols)
+  if (s.lastIndexOf(' ') === -1) {
+    return s.substr(0, cols) + '\n' + wrap(s.substr(cols + gap), cols)
+  }
+  return s.substr(0, s.lastIndexOf(' ')) + '\n' + wrap(s.substr(cols + gap), cols)
 }
 
 module.exports = { wrap }

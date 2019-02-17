@@ -28,6 +28,10 @@ describe('word-wrap kata', () => {
       it('should split when cols at boundary', () => {
         wrap('far, far', 4).should.equal('far,\nfar')
       })
+
+      it('should split when cols is after boundary', () => {
+        wrap('far, far', 5).should.equal('far,\nfar')
+      })
     })
   })
 })
