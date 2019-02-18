@@ -2,7 +2,7 @@ function wrap (s, cols) {
   if (s.length <= cols) {
     return s
   }
-  const boundaryAt = s.lastIndexOf(wordBoundary())
+  const boundaryAt = s.lastIndexOf(wordBoundary(), cols)
   if (boundaryAt > -1) {
     return (
       s.substr(0, boundaryAt) +
