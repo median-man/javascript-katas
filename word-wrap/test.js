@@ -23,5 +23,13 @@ describe('word-wrap kata', () => {
         wrap('galaxy', 2).should.equal('ga\nla\nxy')
       })
     })
+
+    describe('word boundary tests', () => {
+      it('should split when cols is on word boundary', () => {
+        wrap('galaxy far', 7).should.equal('galaxy\nfar')
+      })
+
+      // it('should ...', () => {})
+    })
   })
 })
