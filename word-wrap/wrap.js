@@ -1,9 +1,9 @@
 function wrap (s, cols) {
   let result = ''
   let rest = s
-  if (s.length > cols) {
-    result += s.substr(0, cols) + '\n'
-    rest = s.substr(cols)
+  while (rest.length > cols) {
+    result += rest.substr(0, cols) + '\n'
+    rest = rest.substr(cols)
   }
   result += rest
   return result
