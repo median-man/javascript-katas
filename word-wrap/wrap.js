@@ -1,4 +1,4 @@
-function wrap () {
-  return ''
+function wrap (s) {
+  return s
 }
 exports.wrap = wrap
