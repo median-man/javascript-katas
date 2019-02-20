@@ -19,7 +19,7 @@ describe('word-wrap kata', () => {
         wrap('galaxy', 5).should.equal('galax\ny')
       })
 
-      it.skip('should split word twice', () => {
+      it('should split word twice', () => {
         wrap('galaxy', 2).should.equal('ga\nla\nxy')
       })
     })
