@@ -19,7 +19,7 @@ describe('word-wrap kata', () => {
         wrap('galaxy', 5).should.equal('galax\ny')
       })
 
-      it('should ...', () => {})
+      it.skip('should ...', () => {})
     })
   })
 })
