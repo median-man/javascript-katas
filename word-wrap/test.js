@@ -8,6 +8,10 @@ describe('word-wrap kata', () => {
       it('should return empty string', () => {
         wrap('', 1).should.equal('')
       })
+
+      it('should one line', () => {
+        wrap('galaxy far, far away', 29).should.equal('galaxy far, far away')
+      })
     })
   })
 })
