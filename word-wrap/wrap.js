@@ -2,8 +2,8 @@ function wrap (s, cols) {
   let rest = s
   let result = ''
   while (rest.length > cols) {
-    if (rest[cols - 1] === ' ') {
-      wrapNextLineAt(cols - 1, 1)
+    if (rest.lastIndexOf(' ') > -1) {
+      wrapNextLineAt(rest.lastIndexOf(' '), 1)
     } else {
       wrapNextLineAt(cols, 0)
     }
