@@ -31,6 +31,10 @@ describe('word-wrap kata', () => {
       it('should split when cols is after space', () => {
         wrap('galaxy far', 8).should.equal('galaxy\nfar')
       })
+
+      it('should split when cols is before space', () => {
+        wrap('galaxy far', 6).should.equal('galaxy\nfar')
+      })
     })
   })
 })
