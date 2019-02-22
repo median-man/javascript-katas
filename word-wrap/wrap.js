@@ -5,8 +5,12 @@ function wrap (s, cols) {
   const boundaryAt = s.lastIndexOf(' ', cols)
   const isBoundaryFound = boundaryAt > -1
   if (isBoundaryFound) {
-    return s.substr(0, boundaryAt) + '\n' + wrap(s.substr(boundaryAt + 1), cols)
+    return wrapLineAt(boundaryAt, 1)
   }
-  return s.substr(0, cols) + '\n' + wrap(s.substr(cols), cols)
+  return wrapLineAt(cols, 0)
+
+  function wrapLineAt (breakAt, gap) {
+    return s.substr(0, breakAt) + '\n' + wrap(s.substr(breakAt + gap), cols)
+  }
 }
 exports.wrap = wrap
