@@ -3,18 +3,18 @@ function wrap (s, cols) {
   let result = ''
 
   while (rest.length > cols) {
-    if (rest[cols - 1] === ' ') {
-      lineBreak(cols - 1)
+    if (rest.lastIndexOf(' ') > -1) {
+      lineBreak(rest.lastIndexOf(' '), 1)
     } else {
-      lineBreak(cols)
+      lineBreak(cols, 0)
     }
   }
   result += rest
   return result
 
-  function lineBreak (breakAt) {
+  function lineBreak (breakAt, skip) {
     result += rest.substr(0, breakAt) + '\n'
-    rest = rest.substr(cols)
+    rest = rest.substr(breakAt + skip)
   }
 }
 exports.wrap = wrap
