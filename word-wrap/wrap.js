@@ -4,14 +4,17 @@ function wrap (s, cols) {
 
   while (rest.length > cols) {
     if (rest[cols - 1] === ' ') {
-      result += rest.substr(0, cols - 1) + '\n'
-      rest = rest.substr(cols)
+      lineBreak(cols - 1)
     } else {
-      result += rest.substr(0, cols) + '\n'
-      rest = rest.substr(cols)
+      lineBreak(cols)
     }
   }
   result += rest
   return result
+
+  function lineBreak (breakAt) {
+    result += rest.substr(0, breakAt) + '\n'
+    rest = rest.substr(cols)
+  }
 }
 exports.wrap = wrap
