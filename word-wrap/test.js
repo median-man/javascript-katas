@@ -13,5 +13,11 @@ describe('word-wrap kata', () => {
         wrap('galaxy far, far away', 20).should.equal('galaxy far, far away')
       })
     })
+
+    describe('single word tests', () => {
+      it('should wrap once', () => {
+        wrap('galaxy', 5).should.equal('galax\ny')
+      })
+    })
   })
 })
