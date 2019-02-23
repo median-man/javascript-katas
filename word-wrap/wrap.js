@@ -3,7 +3,7 @@ function wrap (s, cols) {
   let result = ''
 
   while (rest.length > cols) {
-    const spaceAt = rest.lastIndexOf(' ')
+    const spaceAt = rest.lastIndexOf(' ', cols)
     if (isSpaceFound(spaceAt)) {
       lineBreak(spaceAt, 1)
     } else {
