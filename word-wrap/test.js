@@ -18,6 +18,10 @@ describe('word-wrap kata', () => {
       it('should wrap once', () => {
         wrap('galaxy', 5).should.equal('galax\ny')
       })
+
+      it('should wrap twice', () => {
+        wrap('galaxy', 2).should.equal('ga\nla\nxy')
+      })
     })
   })
 })
