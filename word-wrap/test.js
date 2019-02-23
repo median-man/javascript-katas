@@ -28,6 +28,10 @@ describe('word-wrap kata', () => {
       it('should wrap when cols is on space', () => {
         wrap('galaxy far', 7).should.equal('galaxy\nfar')
       })
+
+      it('should wrap when cols is after space', () => {
+        wrap('galaxy far', 8).should.equal('galaxy\nfar')
+      })
     })
   })
 })
